@@ -1,0 +1,64 @@
+{
+  "name": "@singledog/theme",
+  "version": "0.1.41",
+  "description": "简约风的 Vitepress 博客主题",
+  "main": "src/index.ts",
+  "exports": {
+    "./node": {
+      "types": "./node.d.ts",
+      "default": "./node.js"
+    },
+    "./package.json": "./package.json",
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "types",
+    "node.js",
+    "node.d.ts"
+  ],
+  "keywords": [
+    "vitepress",
+    "theme"
+  ],
+  "author": "singleDogNo_1",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm run build:node && npm run dev:docs",
+    "dev:docs": "vitepress dev docs",
+    "dev:node": "npx tsup src/node.ts --dts --out-dir=./ --watch --external vitepress",
+    "build": "npm run build:node && npm run build:docs",
+    "build:docs": "vitepress build docs",
+    "build:node": "npx tsup src/node.ts --dts --out-dir=./ --external vitepress",
+    "serve": "vitepress serve docs"
+  },
+  "dependencies": {
+    "@mdit-vue/shared": "^0.12.0",
+    "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "@vue/shared": "^3.2.45",
+    "@vueuse/core": "^9.6.0",
+    "fast-glob": "^3.2.12",
+    "feed": "^4.2.2",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.7.0",
+    "mermaid": "^10.2.4",
+    "vitepress-plugin-mermaid": "^2.0.13",
+    "vue-command-palette": "^0.1.4"
+  },
+  "devDependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "element-plus": "^2.3.4",
+    "sass": "^1.56.1",
+    "tsup": " ^6.5.0",
+    "typescript": "^4.8.2",
+    "vitepress": "1.0.0-rc.4",
+    "vue": "^3.3.4"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search"
+      ]
+    }
+  }
+}

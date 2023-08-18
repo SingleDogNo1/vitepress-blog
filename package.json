@@ -1,0 +1,40 @@
+{
+  "name": "zcm-blog",
+  "version": "0.0.0",
+  "private": true,
+  "description": "个人博客&知识&文档站集",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.1",
+    "@types/node": "^16.18.4",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^7.20.0",
+    "prettier": "^2.8.1",
+    "typescript": "5.1.6",
+    "zx": "^5.1.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter 'blogpress' dev",
+    "dev:theme": "pnpm --filter '@singledog/theme' dev",
+    "build": "pnpm --filter 'blogpress' build",
+    "serve": "pnpm --filter 'blogpress' serve",
+    "lint": "eslint --ext .js,.ts,.vue --fix packages/**",
+    "build:theme": "pnpm --filter '@singledog/theme' build",
+    "build:theme-only": "pnpm --filter '@singledog/theme' build:node",
+    "release": "pnpm build:theme && pnpm release:only",
+    "release:only": "changeset publish",
+    "release:beta": "changeset publish --tag beta",
+    "pc": "pnpm changeset",
+    "pc:version": "pnpm changeset version",
+    "pcpe": "changeset pre enter beta",
+    "pcpe:exit": "changeset pre enter exit"
+  },
+  "keywords": [],
+  "author": "singleDogNo.1",
+  "license": "MIT"
+}
