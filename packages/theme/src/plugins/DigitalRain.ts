@@ -28,12 +28,12 @@ export class DigitalPaRain {
   private drops: number[]
 
   constructor(options: {
-    el: string
+    el: HTMLCanvasElement
     fontSize?: number
     str?: string
     color?: string
   }) {
-    this.canvas = document.querySelector(options.el) as HTMLCanvasElement
+    this.canvas = options.el
     this.fontSize = options.fontSize || 20
     this.str = options.str || this.getRandomStr(10, 20)
     this.color = options.color

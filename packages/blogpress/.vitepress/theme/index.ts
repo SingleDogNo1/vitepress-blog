@@ -2,7 +2,6 @@ import { EnhanceAppContext } from 'vitepress'
 import BlogTheme from '@singledog/theme'
 import './theme.css'
 // 全局组件
-import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 import redirectBtn from './src/components/redirectBtn.vue'
 import Solve from './src/components/solve.vue'
 
@@ -12,7 +11,6 @@ export default {
   ...BlogTheme,
   enhanceApp: (ctx: EnhanceAppContext) => {
     const { app } = ctx
-    enhanceAppWithTabs(app)
     app.component('redirectBtn', redirectBtn)
     app.component('solve', Solve)
 

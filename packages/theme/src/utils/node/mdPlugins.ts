@@ -1,16 +1,10 @@
 /* eslint-disable global-require */
-import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import type { UserConfig } from 'vitepress'
 import { aliasObjectToArray } from './index'
 import type { Theme } from '../../composables/config/index'
 
 export function getMarkdownPlugins(cfg?: Partial<Theme.BlogConfig>) {
   const markdownPlugin: any[] = []
-  // tabs支持
-  console.log('cfg :>> ', cfg)
-  if (cfg?.tabs) {
-    markdownPlugin.push(tabsMarkdownPlugin)
-  }
 
   // 添加mermaid markdown 插件
   if (cfg) {

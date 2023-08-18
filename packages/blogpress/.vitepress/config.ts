@@ -1,5 +1,4 @@
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
-import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 
 const blogTheme = getThemeConfig({
   author: 'singleDogNo_1',
@@ -12,7 +11,6 @@ const blogTheme = getThemeConfig({
     mapping: 'pathname',
     lang: 'zh-CN'
   },
-  tabs: true,
   recommend: {
     showSelf: true,
     nextText: '下一页',
@@ -70,10 +68,5 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lost-dream/vitepress-blog' }
     ]
-  },
-  markdown: {
-    config(md) {
-      md.use(tabsMarkdownPlugin)
-    }
   }
 })

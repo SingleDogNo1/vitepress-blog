@@ -1,6 +1,5 @@
 // override style
 import './styles/index.scss'
-import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 
 // element-ui
 import 'element-plus/dist/index.css'
@@ -21,7 +20,6 @@ export const BlogTheme: Theme = {
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp(ctx)
     // @ts-ignore
-    enhanceAppWithTabs(ctx.app)
     ctx.app.component('TimelinePage', TimelinePage)
     ctx.app.component('UserWorksPage', UserWorksPage)
   }

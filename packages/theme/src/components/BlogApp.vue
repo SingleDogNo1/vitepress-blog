@@ -1,5 +1,5 @@
 <script setup lang="ts" name="BlogApp">
-import { nextTick, watch } from 'vue'
+import { nextTick, watch, ref } from 'vue'
 import Theme from 'vitepress/theme'
 import { useRoute } from 'vitepress'
 import BlogHomeInfo from './BlogHomeInfo.vue'
@@ -13,6 +13,7 @@ import { useBlogThemeMode } from '../composables/config/blog'
 import { DigitalPaRain } from '../plugins/DigitalRain'
 
 const route = useRoute()
+const digitalRainRef = ref<HTMLCanvasElement>()
 
 const isBlogTheme = useBlogThemeMode()
 
@@ -21,7 +22,7 @@ watch(
   (val) => {
     if (val.data.frontmatter.layout === 'home') {
       nextTick(() => {
-        new DigitalPaRain({ el: '#digital-rain' })
+        digitalRainRef.value && new DigitalPaRain({ el: digitalRainRef.value })
       })
     }
   },
@@ -62,7 +63,7 @@ const { Layout } = Theme
     </template>
 
     <template #home-hero-after>
-      <canvas id="digital-rain"></canvas>
+      <canvas ref="digitalRainRef" id="digital-rain"></canvas>
     </template>
 
     <template #sidebar-nav-after v-if="isBlogTheme">

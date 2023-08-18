@@ -20,8 +20,6 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
   const pagesData = getArticles(cfg)
   const extraVPConfig: any = {}
 
-  console.log('123123123 :>> ', 123123123)
-
   // 获取要加载的vite插件
   const vitePlugins = getVitePlugins(cfg)
   // 注册Vite插件
@@ -53,6 +51,3 @@ export function defineConfig(config: UserConfig<Theme.Config>): any {
   supportRunExtendsPlugin(resultConfig)
   return resultConfig
 }
-
-// 重新导包 tabsMarkdownPlugin 导出CJS格式支持
-export { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
