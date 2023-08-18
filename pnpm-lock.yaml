@@ -75,9 +75,6 @@ importers:
       vite:
         specifier: ^4.4.6
         version: 4.4.6(@types/node@16.18.4)(sass@1.64.1)
-      vitepress-plugin-tabs:
-        specifier: ^0.2.0
-        version: 0.2.0(vitepress@1.0.0-rc.4)(vue@3.3.4)
 
   packages/theme:
     dependencies:
@@ -5143,16 +5140,6 @@ packages:
     optionalDependencies:
       '@mermaid-js/mermaid-mindmap': 9.3.0
     dev: false
-
-  /vitepress-plugin-tabs@0.2.0(vitepress@1.0.0-rc.4)(vue@3.3.4):
-    resolution: {integrity: sha512-jTdtz4Z5fHllzcDAJaJK/bxE/2PhJSqetFUFgiB7xzw23O4yI+ntJrN+D3oP8XH/0559QUbrYd0K3YLoRaHbAA==}
-    peerDependencies:
-      vitepress: ^1.0.0-alpha.29
-      vue: ^3.2.45
-    dependencies:
-      vitepress: 1.0.0-rc.4(@algolia/client-search@4.19.1)(@types/node@16.18.4)(axios@0.27.2)(sass@1.64.1)(search-insights@2.7.0)
-      vue: 3.3.4
-    dev: true
 
   /vitepress@1.0.0-rc.4(@algolia/client-search@4.19.1)(@types/node@16.18.4)(axios@0.27.2)(sass@1.64.1)(search-insights@2.7.0):
     resolution: {integrity: sha512-JCQ89Bm6ECUTnyzyas3JENo00UDJeK8q1SUQyJYou+4Yz5BKEc/F3O21cu++DnUT2zXc0kvQ2Aj4BZCc/nioXQ==}
