@@ -44,7 +44,7 @@ export default defineConfig({
     }
   },
   rewrites: {
-    '_posts/:pkg/(.*)': ':pkg/(.*)'
+    '_posts/:pkg/(.*).md': ':pkg/(.*).md'
   },
   lastUpdated: true,
   themeConfig: {
