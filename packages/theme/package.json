@@ -24,13 +24,8 @@
   "author": "singleDogNo_1",
   "license": "MIT",
   "scripts": {
-    "dev": "npm run build:node && npm run dev:docs",
-    "dev:docs": "vitepress dev docs",
-    "dev:node": "npx tsup src/node.ts --dts --out-dir=./ --watch --external vitepress",
     "build": "npm run build:node && npm run build:docs",
-    "build:docs": "vitepress build docs",
-    "build:node": "npx tsup src/node.ts --dts --out-dir=./ --external vitepress",
-    "serve": "vitepress serve docs"
+    "build:node": "npx tsup src/node.ts --dts --out-dir=./ --external vitepress"
   },
   "dependencies": {
     "@mdit-vue/shared": "^0.12.0",
