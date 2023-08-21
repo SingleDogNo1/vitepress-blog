@@ -43,20 +43,16 @@ export default defineConfig({
       host: '0.0.0.0'
     }
   },
-  rewrites: {
-    '_posts/:pkg/(.*).md': ':pkg/(.*).md'
-  },
   lastUpdated: true,
   themeConfig: {
     search: {
       provider: 'local'
     },
     lastUpdatedText: '上次更新于',
-
     logo: '/logo.svg',
     editLink: {
       pattern:
-        'https://github.com/lost-dream/vitepress-blog/tree/master/packages/blogpress/:path',
+        'https://github.com/SingleDogNo1/vitepress-blog/tree/master/packages/blogpress/:path',
       text: '去 GitHub 上编辑内容'
     },
     nav: [
@@ -66,7 +62,7 @@ export default defineConfig({
       }
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/lost-dream/vitepress-blog' }
+      { icon: 'github', link: 'https://github.com/SingleDogNo1/vitepress-blog' }
     ]
   }
 })
