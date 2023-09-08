@@ -330,7 +330,7 @@ watchEffect(() => {
           // 拼接Github链接
           let githubUrl = `https://github.com/${owner}/${repo}`
           if (path) {
-            githubUrl += `/tree/${branch || 'master'}/${path}`
+            githubUrl += `/tree/${branch || 'main'}/${path}`
           } else if (branch) {
             githubUrl += `/tree/${branch}`
           }

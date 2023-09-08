@@ -24,8 +24,8 @@
   "author": "singleDogNo_1",
   "license": "MIT",
   "scripts": {
-    "build": "npm run build:node && npm run build:docs",
-    "build:node": "npx tsup src/node.ts --dts --out-dir=./ --external vitepress"
+    "build": "npx tsup src/node.ts --dts --out-dir=./ --external vitepress",
+    "clean": "rimraf node_modules"
   },
   "dependencies": {
     "@mdit-vue/shared": "^0.12.0",
@@ -46,7 +46,7 @@
     "sass": "^1.56.1",
     "tsup": " ^6.5.0",
     "typescript": "^4.8.2",
-    "vitepress": "1.0.0-rc.4",
+    "vitepress": "^1.0.0-rc.10",
     "vue": "^3.3.4"
   },
   "pnpm": {
