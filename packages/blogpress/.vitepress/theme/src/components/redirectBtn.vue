@@ -1,10 +1,8 @@
 <template>
   <p class="action">
-    <a :href="href"
-      ><el-button type="success" round size="large"
-        >戳我 {{ text }}</el-button
-      ></a
-    >
+    <a :href="href">
+      <el-button type="success" round size="large">戳我 {{ text }}</el-button>
+    </a>
   </p>
 </template>
 

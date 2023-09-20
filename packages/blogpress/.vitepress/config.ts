@@ -12,14 +12,13 @@ const blogTheme = getThemeConfig({
     lang: 'zh-CN'
   },
   recommend: {
-    showSelf: true,
+    showSelf: false,
     nextText: '下一页',
     style: 'sidebar'
   },
   authorList: [
     {
       nickname: 'singleDogNo_1',
-      // TODO: 最后生成的地址
       url: 'https://zcm-blog.vercel.app/aboutme.html',
       // eslint-disable-next-line
       des: "singleDogNo_1, can't find object"
@@ -51,8 +50,7 @@ export default defineConfig({
     lastUpdatedText: '上次更新于',
     logo: '/logo.svg',
     editLink: {
-      pattern:
-        'https://github.com/SingleDogNo1/vitepress-blog/tree/main/packages/blogpress/:path',
+      pattern: 'https://github.com/SingleDogNo1/vitepress-blog/tree/main/packages/blogpress/:path',
       text: '去 GitHub 上编辑内容'
     },
     nav: [
@@ -61,8 +59,6 @@ export default defineConfig({
         link: '/aboutme'
       }
     ],
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/SingleDogNo1/vitepress-blog' }
-    ]
+    socialLinks: [{ icon: 'github', link: 'https://github.com/SingleDogNo1/vitepress-blog' }]
   }
 })

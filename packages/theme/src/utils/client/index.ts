@@ -14,10 +14,7 @@ export function formatDate(d: any, fmt = 'yyyy-MM-dd hh:mm:ss') {
     S: d.getMilliseconds() // 毫秒
   }
   if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(
-      RegExp.$1,
-      `${d.getFullYear()}`.substr(4 - RegExp.$1.length)
-    )
+    fmt = fmt.replace(RegExp.$1, `${d.getFullYear()}`.substr(4 - RegExp.$1.length))
   }
   // eslint-disable-next-line no-restricted-syntax
   for (const k in o) {
@@ -114,12 +111,7 @@ export function getGithubUpdateTime(url: string) {
 /**
  * 跨域获取某个Github仓库的指定目录最后更新时间
  */
-export function getGithubDirUpdateTime(
-  owner: string,
-  repo: string,
-  dir?: string,
-  branch?: string
-) {
+export function getGithubDirUpdateTime(owner: string, repo: string, dir?: string, branch?: string) {
   let baseUrl = `https://api.github.com/repos/${owner}/${repo}/commits`
   if (branch) {
     baseUrl += `/${branch}`
@@ -145,10 +137,7 @@ export function getGithubDirUpdateTime(
 //   return ''
 // }
 
-export function getImageUrl(
-  image: ThemeableImage,
-  isDarkMode: boolean
-): string {
+export function getImageUrl(image: ThemeableImage, isDarkMode: boolean): string {
   if (typeof image === 'string') {
     // 如果 ThemeableImage 类型为 string，则直接返回字符串
     return image

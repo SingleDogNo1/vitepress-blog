@@ -38,19 +38,13 @@ export function getArticles(cfg?: Partial<Theme.BlogConfig>) {
       if (route.startsWith('./')) {
         route = route.replace(
           new RegExp(
-            `^\\.\\/${path
-              .join(srcDir, '/')
-              .replace(new RegExp(`\\${path.sep}`, 'g'), '/')}`
+            `^\\.\\/${path.join(srcDir, '/').replace(new RegExp(`\\${path.sep}`, 'g'), '/')}`
           ),
           ''
         )
       } else {
         route = route.replace(
-          new RegExp(
-            `^${path
-              .join(srcDir, '/')
-              .replace(new RegExp(`\\${path.sep}`, 'g'), '/')}`
-          ),
+          new RegExp(`^${path.join(srcDir, '/').replace(new RegExp(`\\${path.sep}`, 'g'), '/')}`),
           ''
         )
       }
@@ -76,32 +70,22 @@ export function getArticles(cfg?: Partial<Theme.BlogConfig>) {
         meta.date = getFileBirthTime(v)
       } else {
         const timeZone = cfg?.timeZone ?? 8
-        meta.date = formatDate(
-          new Date(`${new Date(meta.date).toUTCString()}+${timeZone}`)
-        )
+        meta.date = formatDate(new Date(`${new Date(meta.date).toUTCString()}+${timeZone}`))
       }
 
       // 处理tags和categories,兼容历史文章
-      meta.categories =
-        typeof meta.categories === 'string'
-          ? [meta.categories]
-          : meta.categories
+      meta.categories = typeof meta.categories === 'string' ? [meta.categories] : meta.categories
       meta.tags = typeof meta.tags === 'string' ? [meta.tags] : meta.tags
       meta.tag = [meta.tag || []]
         .flat()
-        .concat([
-          ...new Set([...(meta.categories || []), ...(meta.tags || [])])
-        ])
+        .concat([...new Set([...(meta.categories || []), ...(meta.tags || [])])])
 
       // 获取摘要信息
       const wordCount = 100
-      meta.description =
-        meta.description || getTextSummary(fileContent, wordCount)
+      meta.description = meta.description || getTextSummary(fileContent, wordCount)
 
       // 获取封面图
-      meta.cover =
-        meta.cover ??
-        (fileContent.match(/[!]\[.*?\]\((https:\/\/.+)\)/)?.[1] || '')
+      meta.cover = meta.cover ?? (fileContent.match(/[!]\[.*?\]\((https:\/\/.+)\)/)?.[1] || '')
 
       // 是否发布 默认发布
       if (meta.publish === false) {
@@ -118,10 +102,7 @@ export function getArticles(cfg?: Partial<Theme.BlogConfig>) {
   return data as Theme.PageData[]
 }
 
-export function patchVPThemeConfig(
-  cfg?: Partial<Theme.BlogConfig>,
-  vpThemeConfig: any = {}
-) {
+export function patchVPThemeConfig(cfg?: Partial<Theme.BlogConfig>, vpThemeConfig: any = {}) {
   // 用于自定义sidebar卡片slot
   vpThemeConfig.sidebar = patchDefaultThemeSideBar(cfg)?.sidebar
 

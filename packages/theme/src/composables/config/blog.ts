@@ -98,9 +98,7 @@ export function useCurrentArticle() {
     const okPaths = [currentPath, decodeURIComponent(currentPath)]
     // 兼容 /(index.md)
     if (currentPath.endsWith('/')) {
-      okPaths.push(
-        ...[`${currentPath}index`, `${decodeURIComponent(currentPath)}index`]
-      )
+      okPaths.push(...[`${currentPath}index`, `${decodeURIComponent(currentPath)}index`])
     }
     return docs.value?.find((v) => okPaths.includes(withBase(v.route)))
   })

@@ -24,9 +24,7 @@
         <!-- 作品标题 -->
         <h3 class="title" :id="slugify(work.title)">
           <a class="pin" :href="'#' + slugify(work.title)"></a>
-          <a v-if="work.url" rel="noopener" target="_blank" :href="work.url">{{
-            work.title
-          }}</a>
+          <a v-if="work.url" rel="noopener" target="_blank" :href="work.url">{{ work.title }}</a>
           <span v-else>{{ work.title }}</span>
           <Badge v-if="work.status" :type="work.status?.type || 'tip'">{{
             work.status.text
@@ -93,12 +91,8 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <path
-                    d="M10 14a3.5 3.5 0 0 0 5 0l4-4a3.5 3.5 0 0 0-5-5l-.5.5"
-                  ></path>
-                  <path
-                    d="M14 10a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l.5-.5"
-                  ></path>
+                  <path d="M10 14a3.5 3.5 0 0 0 5 0l4-4a3.5 3.5 0 0 0-5-5l-.5.5"></path>
+                  <path d="M14 10a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l.5-.5"></path>
                 </g>
               </svg>
             </i>
@@ -117,22 +111,14 @@
           <!-- tags -->
           <div class="tags" v-if="work.tags?.length">
             <i class="icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1024 1024"
-                data-v-d328c40a=""
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" data-v-d328c40a="">
                 <path
                   fill="currentColor"
                   d="M256 128v698.88l196.032-156.864a96 96 0 0 1 119.936 0L768 826.816V128H256zm-32-64h576a32 32 0 0 1 32 32v797.44a32 32 0 0 1-51.968 24.96L531.968 720a32 32 0 0 0-39.936 0L243.968 918.4A32 32 0 0 1 192 893.44V96a32 32 0 0 1 32-32z"
                 ></path>
               </svg>
             </i>
-            <span
-              @click="handleChooseTag(tag)"
-              class="tag"
-              v-for="tag in work.tags"
-              :key="tag"
+            <span @click="handleChooseTag(tag)" class="tag" v-for="tag in work.tags" :key="tag"
               >{{ tag }}
             </span>
           </div>
@@ -194,16 +180,8 @@ import VPDocAsideOutline from 'vitepress/dist/client/theme-default/components/VP
 import { computed, reactive, ref, watch, watchEffect } from 'vue'
 import { slugify } from '@mdit-vue/shared'
 import { useWindowSize } from '@vueuse/core'
-import {
-  getGithubUpdateTime,
-  formatDate,
-  getGithubDirUpdateTime
-} from '../utils/client'
-import {
-  useUserWorks,
-  useActiveAnchor,
-  useAutoUpdateAnchor
-} from '../composables/config/blog'
+import { getGithubUpdateTime, formatDate, getGithubDirUpdateTime } from '../utils/client'
+import { useUserWorks, useActiveAnchor, useAutoUpdateAnchor } from '../composables/config/blog'
 import { Theme } from '../composables/config'
 
 const currentAnchor = useAutoUpdateAnchor()
@@ -503,8 +481,7 @@ const handleChooseTag = (tag: string) => {
 .aside-outline-container {
   position: sticky;
   top: calc(
-    var(--vp-nav-height) + var(--vp-layout-top-height, 0px) +
-      var(--vp-doc-top-height, 0px) + 32px
+    var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + var(--vp-doc-top-height, 0px) + 32px
   );
 }
 .lastupdate {

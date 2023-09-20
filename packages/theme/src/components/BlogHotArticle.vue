@@ -1,20 +1,11 @@
 <template>
-  <div
-    class="card recommend"
-    v-if="recommendList.length || empty"
-    data-pagefind-ignore="all"
-  >
+  <div class="card recommend" v-if="recommendList.length || empty" data-pagefind-ignore="all">
     <!-- 头部 -->
     <div class="card-header">
       <span class="title">{{ title }}</span>
-      <el-button
-        v-if="showChangeBtn"
-        size="small"
-        type="primary"
-        text
-        @click="changePage"
-        >{{ nextText }}</el-button
-      >
+      <el-button v-if="showChangeBtn" size="small" type="primary" text @click="changePage">
+        {{ nextText }}
+      </el-button>
     </div>
     <!-- 文章列表 -->
     <ol class="recommend-container" v-if="currentWikiData.length">
@@ -24,9 +15,7 @@
         <!-- 简介 -->
         <div class="des">
           <!-- title -->
-          <el-link type="info" class="title" :href="withBase(v.route)">{{
-            v.meta.title
-          }}</el-link>
+          <el-link type="info" class="title" :href="withBase(v.route)">{{ v.meta.title }}</el-link>
           <!-- 描述信息 -->
           <div class="suffix">
             <!-- 日期 -->
@@ -62,8 +51,7 @@ const recommendList = computed(() => {
 
 const currentPage = ref(1)
 const changePage = () => {
-  const newIdx =
-    currentPage.value % Math.ceil(recommendList.value.length / pageSize.value)
+  const newIdx = currentPage.value % Math.ceil(recommendList.value.length / pageSize.value)
   currentPage.value = newIdx + 1
 }
 

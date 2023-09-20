@@ -5,15 +5,9 @@ import BlogRecommendArticle from './BlogRecommendArticle.vue'
 
 const { recommend: _recommend } = useBlogConfig()
 
-const sidebarStyle = computed(() =>
-  _recommend && _recommend?.style ? _recommend.style : 'card'
-)
-const marginTop = computed(() =>
-  sidebarStyle.value === 'card' ? '40px' : '0px'
-)
-const marginTopMini = computed(() =>
-  sidebarStyle.value === 'card' ? '60px' : '0px'
-)
+const sidebarStyle = computed(() => (_recommend && _recommend?.style ? _recommend.style : 'card'))
+const marginTop = computed(() => (sidebarStyle.value === 'card' ? '40px' : '0px'))
+const marginTopMini = computed(() => (sidebarStyle.value === 'card' ? '60px' : '0px'))
 </script>
 
 <template>

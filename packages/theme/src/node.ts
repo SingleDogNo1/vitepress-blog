@@ -21,7 +21,7 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
   const extraVPConfig: any = {}
 
   // 获取要加载的vite插件
-  const vitePlugins = getVitePlugins(cfg)
+  const vitePlugins = getVitePlugins()
   // 注册Vite插件
   registerVitePlugins(extraVPConfig, vitePlugins)
 

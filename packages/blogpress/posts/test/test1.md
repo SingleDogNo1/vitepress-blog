@@ -4,6 +4,9 @@ cover: ./QRCode.jpg
 outline: [2,3]
 sticky: 99
 recommend: -50
+tags:
+  - sass
+  - sass2
 ---
 
 # test1

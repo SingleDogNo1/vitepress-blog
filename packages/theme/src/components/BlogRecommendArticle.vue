@@ -8,14 +8,9 @@
     <!-- 头部 -->
     <div class="card-header">
       <span class="title" v-if="title">{{ title }}</span>
-      <el-button
-        v-if="showChangeBtn"
-        size="small"
-        type="primary"
-        text
-        @click="changePage"
-        >{{ nextText }}</el-button
-      >
+      <el-button v-if="showChangeBtn" size="small" type="primary" text @click="changePage">{{
+        nextText
+      }}</el-button>
     </div>
     <!-- 文章列表 -->
     <ol class="recommend-container" v-if="currentWikiData.length">
@@ -32,8 +27,9 @@
               current: isCurrentDoc(v.route)
             }"
             :href="v.route"
-            >{{ v.meta.title }}</el-link
           >
+            {{ v.meta.title }}
+          </el-link>
           <!-- 描述信息 -->
           <div class="suffix">
             <!-- 日期 -->
@@ -50,6 +46,7 @@
 import { ref, computed } from 'vue'
 import { useRoute, withBase } from 'vitepress'
 import { ElButton, ElLink } from 'element-plus'
+import { intersection } from 'lodash-es'
 import { formatShowDate } from '../utils/client'
 import { useArticles, useBlogConfig } from '../composables/config/blog'
 
@@ -59,12 +56,8 @@ const sidebarStyle = computed(() =>
   _recommend && _recommend?.style ? _recommend.style : 'sidebar'
 )
 
-const recommendPadding = computed(() =>
-  sidebarStyle.value === 'card' ? '10px' : '0px'
-)
-const recommend = computed(() =>
-  _recommend === false ? undefined : _recommend
-)
+const recommendPadding = computed(() => (sidebarStyle.value === 'card' ? '10px' : '0px'))
+const recommend = computed(() => (_recommend === false ? undefined : _recommend))
 const title = computed(() => recommend.value?.title ?? '🔍 相关文章')
 const pageSize = computed(() => recommend.value?.pageSize || 9)
 const nextText = computed(() => recommend.value?.nextText || '换一组')
@@ -75,20 +68,9 @@ const docs = useArticles()
 const route = useRoute()
 
 const recommendList = computed(() => {
-  // 中文支持
-  const paths = decodeURIComponent(route.path).split('/')
-
   const origin = docs.value
     .map((v) => ({ ...v, route: withBase(v.route) }))
-    // 过滤出公共路由前缀
-    // 限制为同路由前缀
-    .filter(
-      (v) =>
-        v.route.split('/').length === paths.length &&
-        v.route.startsWith(paths.slice(0, paths.length - 1).join('/'))
-    )
-    // 过滤出带标题的
-    .filter((v) => !!v.meta.title)
+    .filter((v) => !!v.meta.title) // 过滤出带标题的
     // 过滤掉自己
     .filter(
       (v) =>
@@ -98,6 +80,13 @@ const recommendList = computed(() => {
     // 过滤掉不需要展示的
     .filter((v) => v.meta.recommend !== false)
     .filter((v) => recommend.value?.filter?.(v) ?? true)
+    // 过滤包含相同tag或者categories的
+    .filter((v) => {
+      return (
+        intersection(v.meta.tag, route.data.frontmatter.tags).length > 0 ||
+        intersection(v.meta.categories, route.data.frontmatter.categories).length > 0
+      )
+    })
 
   const topList = origin.filter((v) => v.meta?.recommend)
   topList.sort((a, b) => Number(a.meta.recommend) - Number(b.meta.recommend))
@@ -114,8 +103,7 @@ const isCurrentDoc = (value: string) => {
 
 const currentPage = ref(1)
 const changePage = () => {
-  const newIdx =
-    currentPage.value % Math.ceil(recommendList.value.length / pageSize.value)
+  const newIdx = currentPage.value % Math.ceil(recommendList.value.length / pageSize.value)
   currentPage.value = newIdx + 1
 }
 // 当前页开始的序号

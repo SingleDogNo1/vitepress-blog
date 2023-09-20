@@ -1,6 +1,8 @@
 ---
 sticky: 999
 recommend: -999
+categories:
+  - nodeJs
 ---
 
 # test2

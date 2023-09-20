@@ -17,19 +17,13 @@ import { useBlogConfig } from '../composables/config/blog'
 const { site, frontmatter } = useData()
 const { home } = useBlogConfig()
 
-const name = computed(
-  () => (frontmatter.value.blog?.name ?? site.value.title) || home?.name || ''
-)
+const name = computed(() => (frontmatter.value.blog?.name ?? site.value.title) || home?.name || '')
 const motto = computed(() => frontmatter.value.blog?.motto || home?.motto || '')
 
 const inspiring = ref('')
 const inspiringList = computed<string[]>(() => {
   return [
-    ...new Set(
-      [frontmatter.value.blog?.inspiring, home?.inspiring]
-        .flat()
-        .filter((v) => !!v)
-    )
+    ...new Set([frontmatter.value.blog?.inspiring, home?.inspiring].flat().filter((v) => !!v))
   ]
 })
 const inspiringIndex = ref<number>(-1)

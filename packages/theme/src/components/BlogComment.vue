@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="comment"
-    v-if="show"
-    id="giscus-comment"
-    data-pagefind-ignore="all"
-    ref="commentEl"
-  >
+  <div class="comment" v-if="show" id="giscus-comment" data-pagefind-ignore="all" ref="commentEl">
     <el-affix
       :class="{ hidden: commentIsVisible }"
       class="comment-btn"
@@ -13,11 +7,7 @@
       position="bottom"
       :offset="40"
     >
-      <el-button
-        @click="handleScrollToComment"
-        plain
-        :icon="Comment"
-        type="primary"
+      <el-button @click="handleScrollToComment" plain :icon="Comment" type="primary"
         >评论</el-button
       >
     </el-affix>
@@ -78,10 +68,7 @@ const show = computed(() => {
     return giscusConfig
   }
   return (
-    giscusConfig.repo &&
-    giscusConfig.repoId &&
-    giscusConfig.category &&
-    giscusConfig.categoryId
+    giscusConfig.repo && giscusConfig.repoId && giscusConfig.category && giscusConfig.categoryId
   )
 })
 

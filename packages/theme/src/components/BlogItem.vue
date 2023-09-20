@@ -23,11 +23,7 @@
         </div>
       </div>
       <!-- 右侧封面图 -->
-      <div
-        v-if="cover"
-        class="cover-img"
-        :style="`background-image: url(${cover});`"
-      ></div>
+      <div v-if="cover" class="cover-img" :style="`background-image: url(${cover});`"></div>
     </div>
     <!-- 底部补充描述 -->
     <div class="badge-list" v-if="inMobile">
@@ -95,11 +91,7 @@ const showTime = computed(() => {
   position: absolute;
   width: 120%;
   height: 30px;
-  background-image: linear-gradient(
-    45deg,
-    var(--blog-theme-color),
-    var(--blog-theme-color)
-  );
+  background-image: linear-gradient(45deg, var(--blog-theme-color), var(--blog-theme-color));
   transform: rotate(-45deg) translateY(-20px);
   display: flex;
   align-items: center;
@@ -173,15 +165,14 @@ const showTime = computed(() => {
   height: 80px;
   margin-left: 24px;
   border-radius: 2px;
-  background-repeat: no-repeat;
-  background-size: 120px 80px;
+  background: center / contain no-repeat;
 }
 
 @media screen and (max-width: 500px) {
   .cover-img {
     width: 100px;
     height: 60px;
-    background-size: 100px 60px;
+    background: center / contain no-repeat;
   }
 }
 </style>

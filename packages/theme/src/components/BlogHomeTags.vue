@@ -33,11 +33,7 @@ import { computed, watch } from 'vue'
 import { ElTag } from 'element-plus'
 import { useBrowserLocation, useDark } from '@vueuse/core'
 import { useRouter } from 'vitepress'
-import {
-  useActiveTag,
-  useArticles,
-  useCurrentPageNum
-} from '../composables/config/blog'
+import { useActiveTag, useArticles, useCurrentPageNum } from '../composables/config/blog'
 
 const docs = useArticles()
 
@@ -74,9 +70,7 @@ const handleTagClick = (tag: string, type: string) => {
   activeTag.value.type = type
   activeTag.value.label = tag
   currentPage.value = 1
-  router.go(
-    `${location.value.origin}${router.route.path}?tag=${tag}&type=${type}`
-  )
+  router.go(`${location.value.origin}${router.route.path}?tag=${tag}&type=${type}`)
 }
 
 watch(

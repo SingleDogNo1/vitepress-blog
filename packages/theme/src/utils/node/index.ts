@@ -112,7 +112,5 @@ export function joinPath(base: string, path: string): string {
 }
 
 export function withBase(base: string, path: string) {
-  return EXTERNAL_URL_RE.test(path) || path.startsWith('.')
-    ? path
-    : joinPath(base, path)
+  return EXTERNAL_URL_RE.test(path) || path.startsWith('.') ? path : joinPath(base, path)
 }

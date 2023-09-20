@@ -27,12 +27,7 @@ export class DigitalPaRain {
 
   private drops: number[]
 
-  constructor(options: {
-    el: HTMLCanvasElement
-    fontSize?: number
-    str?: string
-    color?: string
-  }) {
+  constructor(options: { el: HTMLCanvasElement; fontSize?: number; str?: string; color?: string }) {
     this.canvas = options.el
     this.fontSize = options.fontSize || 20
     this.str = options.str || this.getRandomStr(10, 20)
@@ -63,12 +58,9 @@ export class DigitalPaRain {
   }
 
   randColor() {
-    return `rgba(${Math.floor(Math.random() * 256)},${Math.floor(
+    return `rgba(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(
       Math.random() * 256
-    )},${Math.floor(Math.random() * 256)},${(
-      Math.random() * (0.8 - 0.2) +
-      0.2
-    ).toFixed(2)})`
+    )},${(Math.random() * (0.8 - 0.2) + 0.2).toFixed(2)})`
   }
 
   draw(str: string) {
@@ -81,9 +73,7 @@ export class DigitalPaRain {
       const x = i * this.fontSize
       const y = this.drops[i] * this.fontSize
       this.ctx.fillText(str[index], x, y)
-      y >= this.canvas.height && Math.random() > 0.99
-        ? (this.drops[i] = 0)
-        : (this.drops[i] += 1)
+      y >= this.canvas.height && Math.random() > 0.99 ? (this.drops[i] = 0) : (this.drops[i] += 1)
     }
   }
 

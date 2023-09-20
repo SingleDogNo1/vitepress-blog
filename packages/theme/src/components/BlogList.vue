@@ -67,15 +67,11 @@ const wikiList = computed(() => {
 
 const filterData = computed(() => {
   if (!activeTagLabel.value) return wikiList.value
-  return wikiList.value.filter((v) =>
-    v.meta?.tag?.includes(activeTagLabel.value)
-  )
+  return wikiList.value.filter((v) => v.meta?.tag?.includes(activeTagLabel.value))
 })
 
 const { home } = useBlogConfig()
-const pageSize = computed(
-  () => frontmatter.value.blog?.pageSize || home?.pageSize || 6
-)
+const pageSize = computed(() => frontmatter.value.blog?.pageSize || home?.pageSize || 6)
 const currentPage = useCurrentPageNum()
 const currentWikiData = computed(() => {
   const startIdx = (currentPage.value - 1) * pageSize.value
@@ -94,9 +90,7 @@ const handleUpdatePageNum = (current: number) => {
   const { searchParams } = new URL(window.location.href!)
   searchParams.delete(queryPageNumKey)
   searchParams.append(queryPageNumKey, String(current))
-  router.go(
-    `${location.value.origin}${router.route.path}?${searchParams.toString()}`
-  )
+  router.go(`${location.value.origin}${router.route.path}?${searchParams.toString()}`)
 }
 
 watch(

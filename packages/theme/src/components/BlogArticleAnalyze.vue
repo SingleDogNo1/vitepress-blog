@@ -30,34 +30,26 @@
     </span>
     <span v-if="tags.length" class="tags">
       <el-icon :title="timeTitle"><CollectionTag /></el-icon>
-      <a class="link" :href="`/?tag=${tag}`" v-for="tag in tags" :key="tag"
-        >{{ tag }}
-      </a>
+      <a class="link" :href="`/?tag=${tag}`" v-for="tag in tags" :key="tag">{{ tag }}</a>
     </span>
     <!-- 封面展示 -->
-    <ClientOnly>
-      <BlogDocCover />
-    </ClientOnly>
+    <!-- <ClientOnly> -->
+    <!-- <BlogDocCover /> -->
+    <!-- </ClientOnly> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 // 阅读时间计算方式参考
 // https://zhuanlan.zhihu.com/p/36375802
-import { useData, useRoute } from 'vitepress'
-import { computed, onMounted, ref, watch } from 'vue'
+import { useData } from 'vitepress'
+import { computed, onMounted, ref } from 'vue'
 import { ElIcon } from 'element-plus'
-import {
-  UserFilled,
-  Clock,
-  EditPen,
-  AlarmClock,
-  CollectionTag
-} from '@element-plus/icons-vue'
+import { UserFilled, Clock, EditPen, AlarmClock, CollectionTag } from '@element-plus/icons-vue'
 import { useBlogConfig, useCurrentArticle } from '../composables/config/blog'
 import countWord, { formatShowDate } from '../utils/client'
 import { Theme } from '../composables/config'
-import BlogDocCover from './BlogDocCover.vue'
+// import BlogDocCover from './BlogDocCover.vue'
 
 const { article, authorList } = useBlogConfig()
 const { frontmatter } = useData()
@@ -72,9 +64,7 @@ const tags = computed(() => {
     )
   ]
 })
-const showAnalyze = computed(
-  () => frontmatter.value?.readingTime ?? article?.readingTime ?? true
-)
+const showAnalyze = computed(() => frontmatter.value?.readingTime ?? article?.readingTime ?? true)
 
 const wordCount = ref(0)
 const imageCount = ref(0)
@@ -95,7 +85,6 @@ const readTime = computed(() => {
   return Math.ceil((wordTime.value + imageTime.value) / 60)
 })
 
-const route = useRoute()
 const $des = ref<HTMLDivElement>()
 
 const analyze = () => {
@@ -104,14 +93,10 @@ const analyze = () => {
   }
   document.querySelectorAll('.meta-des').forEach((v) => v.remove())
   const docDomContainer = window.document.querySelector('#VPContent')
-  const imgs = docDomContainer?.querySelectorAll<HTMLImageElement>(
-    '.content-container .main img'
-  )
+  const imgs = docDomContainer?.querySelectorAll<HTMLImageElement>('.content-container .main img')
   imageCount.value = imgs?.length || 0
 
-  const words =
-    docDomContainer?.querySelector('.content-container .main')?.textContent ||
-    ''
+  const words = docDomContainer?.querySelector('.content-container .main')?.textContent || ''
 
   wordCount.value = countWord(words)
   docDomContainer?.querySelector('h1')?.after($des.value!)
@@ -138,21 +123,15 @@ const publishDate = computed(() => {
   return formatShowDate(currentArticle.value?.meta?.date || '')
 })
 
-const timeTitle = computed(() =>
-  frontmatter.value.date ? '发布时间' : '最近修改时间'
-)
+const timeTitle = computed(() => (frontmatter.value.date ? '发布时间' : '最近修改时间'))
 const hiddenTime = computed(() => frontmatter.value.date === false)
 
 const { theme } = useData<Theme.Config>()
 const globalAuthor = computed(() => theme.value.blog?.author || '')
 const author = computed(
-  () =>
-    (frontmatter.value.author || currentArticle.value?.meta.author) ??
-    globalAuthor.value
+  () => (frontmatter.value.author || currentArticle.value?.meta.author) ?? globalAuthor.value
 )
-const currentAuthorInfo = computed(() =>
-  authorList?.find((v) => author.value === v.nickname)
-)
+const currentAuthorInfo = computed(() => authorList?.find((v) => author.value === v.nickname))
 const hiddenAuthor = computed(() => frontmatter.value.author === false)
 </script>
 

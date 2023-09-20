@@ -10,9 +10,7 @@ import { useBlogConfig } from '../composables/config/blog'
 const { frontmatter } = useData()
 const cover = computed(() => frontmatter.value.cover)
 const { article } = useBlogConfig()
-const hiddenCover = computed(
-  () => frontmatter.value?.hiddenCover ?? article?.hiddenCover ?? false
-)
+const hiddenCover = computed(() => frontmatter.value?.hiddenCover ?? article?.hiddenCover ?? false)
 </script>
 
 <style lang="scss" scoped>

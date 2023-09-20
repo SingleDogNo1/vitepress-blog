@@ -54,8 +54,7 @@ export function assignMermaid(config: any) {
 
 export function wrapperCfgWithMermaid(config: UserConfig<Theme.Config>): any {
   // @ts-ignore
-  const extendThemeConfig = (config.extends?.themeConfig?.blog ||
-    {}) as Theme.BlogConfig
+  const extendThemeConfig = (config.extends?.themeConfig?.blog || {}) as Theme.BlogConfig
 
   // 开关支持Mermaid
   const resultConfig =
@@ -63,8 +62,7 @@ export function wrapperCfgWithMermaid(config: UserConfig<Theme.Config>): any {
       ? config
       : {
           ...config,
-          mermaid:
-            extendThemeConfig.mermaid === true ? {} : extendThemeConfig.mermaid
+          mermaid: extendThemeConfig.mermaid === true ? {} : extendThemeConfig.mermaid
         }
   assignMermaid(resultConfig)
   return resultConfig
