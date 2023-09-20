@@ -1,5 +1,10 @@
 {
   "default": true,
   "MD013": false,
+  "MD033": {
+    "allowed_elements": [
+      "HighlightText"
+    ]
+  },
   "MD041": false
 }

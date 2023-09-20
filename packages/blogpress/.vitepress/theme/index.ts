@@ -2,8 +2,8 @@ import { EnhanceAppContext } from 'vitepress'
 import BlogTheme from '@singledog/theme'
 import './theme.css'
 // 全局组件
-import redirectBtn from './src/components/redirectBtn.vue'
 import Solve from './src/components/solve.vue'
+import HighlightText from './src/components/highlightText.vue'
 
 const inBrowser = typeof window !== 'undefined'
 
@@ -11,8 +11,8 @@ export default {
   ...BlogTheme,
   enhanceApp: (ctx: EnhanceAppContext) => {
     const { app } = ctx
-    app.component('redirectBtn', redirectBtn)
     app.component('solve', Solve)
+    app.component('HighlightText', HighlightText)
 
     if (inBrowser) {
       //  添加重定向逻辑，兼容旧版博客的分类和标签逻辑

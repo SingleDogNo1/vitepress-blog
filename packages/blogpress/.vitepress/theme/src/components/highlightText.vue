@@ -1,18 +1,16 @@
 <template>
-  <p class="action">
-    <a :href="href">
-      <el-button type="success" round size="large">戳我 {{ text }}</el-button>
-    </a>
-  </p>
+  <span style="color: var(--vp-badge-tip-text); font-weight: bold">
+    {{ msg }}
+  </span>
 </template>
 
 <script setup lang="ts">
-import { ElButton } from 'element-plus'
-
-const props = defineProps<{
-  href: string
-  text?: string
-}>()
+defineProps({
+  msg: {
+    type: String,
+    default: ''
+  }
+})
 </script>
 
 <style scoped>
