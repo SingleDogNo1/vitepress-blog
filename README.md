@@ -30,6 +30,22 @@ pnpm build:theme-only
 pnpm dev
 ```
 
+## PageMeta
+
+|        a        |      b       |                        c                         |
+| :-------------: | :----------: | :----------------------------------------------: |
+|      tags       |   string[]   |                     文章标签                     |
+|   description   |    string    |                     文章简述                     |
+| descriptionHTML |    string    |               文章简述（HTML格式）               |
+|      cover      |    string    |                   首页文章配图                   |
+|   hiddenCover   |   boolean    |                   是否隐藏配图                   |
+|     hidden      |   boolean    |                是否在文章列表显示                |
+|   categories    |   string[]   |                     文章分类                     |
+|       top       |    number    |          是否置顶显示（数字越大越靠前）          |
+|    recommend    | number/false | 是否作为文章页左侧推荐文章推荐（数字越大越靠前） |
+|     sticky      |    number    |      首页右侧精选文章排序（数字越大越靠前）      |
+|   readingTime   |   boolean    |               是否显示预计阅读时间               |
+
 ## TODO
 
 - [ ] [路由重定向](https://vitepress.dev/guide/routing#route-rewrites)有问题？打包后`post`路径仍然存在

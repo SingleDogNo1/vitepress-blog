@@ -1,5 +1,6 @@
 ---
 description: 面试中常被问起promise，在这里总结一下
+sticky: 4
 tags:
   - javascript
 categories:

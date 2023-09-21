@@ -1,5 +1,6 @@
 ---
 description: reduce 方法详解 && 示例
+sticky: 3
 tags:
   - javascript
 categories:

@@ -50,16 +50,9 @@ export namespace Theme {
     author?: string
     hidden?: boolean
     layout?: string
-    // old
     categories: string[]
     tags: string[]
-    /**
-     * 文章首页置顶
-     */
     top?: number
-    /**
-     * 手动控制相关文章列表的顺序
-     */
     recommend?: number | false
     /**
      * TODO: 待开发
