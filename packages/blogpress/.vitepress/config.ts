@@ -2,6 +2,7 @@ import { getThemeConfig, defineConfig } from '@singledog/theme/node'
 
 const blogTheme = getThemeConfig({
   author: 'singleDogNo_1',
+  mermaid: true,
   comment: {
     repo: 'SingleDogNo1/vitepress-blog',
     repoId: 'R_kgDOKIcADg',

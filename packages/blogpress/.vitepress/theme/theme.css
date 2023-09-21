@@ -11,3 +11,8 @@
   --vp-c-brand-dimm-3: var(--vp-c-green-dimm-3);
   --vp-c-brand-text: var(--vp-c-green);
 }
+
+.mermaid {
+  display: flex;
+  justify-content: center;
+}
