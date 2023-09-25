@@ -8,6 +8,25 @@ categories:
 ---
 # Array.reduce
 
+```vue preview
+<template>
+  <div class="text">当前计数为：{{ count }}</div>
+  <button @click="count++">点我！</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const count = ref(1)
+</script>
+
+<style scoped lang="scss">
+.text {
+  color: red;
+  margin-bottom: 1rem;
+}
+</style>
+```
+
 ## 概念
 
 众所周知，reduce 方法是 js 数组中比较高级的用法之一。使用他可以更方便的对数组进行操作。

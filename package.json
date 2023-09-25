@@ -17,21 +17,17 @@
     "prettier": "^2.8.1",
     "rimraf": "^5.0.1",
     "typescript": "5.1.6",
+    "vite": "^4.4.9",
+    "vue": "^3.3.4",
     "zx": "^5.1.0"
   },
   "scripts": {
-    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm install",
+    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/markdown-preview clean && pnpm install",
     "dev": "pnpm --filter blogpress dev",
     "build": "pnpm --filter blogpress build",
     "serve": "pnpm --filter blogpress serve",
-    "lint": "eslint --ext .js,.ts,.vue --fix packages/**",
     "build:theme": "pnpm --filter @singledog/theme build",
-    "release:only": "changeset publish",
-    "release:beta": "changeset publish --tag beta",
-    "pc": "pnpm changeset",
-    "pc:version": "pnpm changeset version",
-    "pcpe": "changeset pre enter beta",
-    "pcpe:exit": "changeset pre enter exit"
+    "build:MDPreview": "pnpm --filter @singledog/markdown-preview build"
   },
   "keywords": [],
   "author": "singleDogNo.1",

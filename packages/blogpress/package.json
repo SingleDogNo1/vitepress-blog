@@ -11,16 +11,15 @@
   "license": "MIT",
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "@singledog/theme": "workspace:*",
+    "@singledog/theme": "workspace:",
+    "@singledog/markdown-preview": "workspace:",
     "axios": "^0.27.2",
     "element-plus": "^2.3.8",
-    "vitepress": "^1.0.0-rc.10",
-    "vue": "^3.3.4"
+    "vitepress": "^1.0.0-rc.20"
   },
   "type": "module",
   "devDependencies": {
-    "sass": "^1.64.1",
-    "vite": "^4.4.6"
+    "sass": "^1.64.1"
   },
   "pnpm": {
     "peerDependencyRules": {

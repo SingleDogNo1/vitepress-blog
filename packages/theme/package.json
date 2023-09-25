@@ -1,6 +1,6 @@
 {
   "name": "@singledog/theme",
-  "version": "0.1.41",
+  "version": "0.0.0",
   "description": "简约风的 Vitepress 博客主题",
   "main": "src/index.ts",
   "exports": {
