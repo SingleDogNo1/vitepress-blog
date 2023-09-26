@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import MarkdownIt from 'markdown-it'
 import Token from 'markdown-it/lib/token'
 import { resolve, dirname } from 'path'

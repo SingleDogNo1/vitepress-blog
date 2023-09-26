@@ -3,7 +3,6 @@ import MarkdownIt from 'markdown-it'
 // componentPreview check
 export const isCheckPreviewCom1 = /^<preview (.*)><\/preview>$/
 export const isCheckPreviewCom2 = /^<preview (.*) \/>$/
-export const isCheckContainerPreview = /^demo-preview=(.+)$/
 
 const scriptLangTsRE = /<\s*script[^>]*\blang=['"]ts['"][^>]*/
 const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
@@ -14,7 +13,7 @@ const scriptSetupCommonRE =
  * 统一处理组件名称->驼峰命名
  * @param componentName
  */
-export const handleComponentName = (componentName: string) => {
+const handleComponentName = (componentName: string) => {
   let newName = componentName
   newName = newName.replaceAll(/[_|-]+(\w)/g, ($0, $1) => {
     return $1.toUpperCase()

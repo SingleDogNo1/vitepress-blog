@@ -20,28 +20,34 @@ npm i -g pnpm
 pnpm install
 ```
 
-② 构建主题包
+② 运行前构建文档功能
 
 ```sh
-pnpm build:theme
+pnpm setup
 ```
 
-③ 构建vue代码预览功能
+③ 本地运行
 
 ```sh
-pnpm build: build:markdown-preview
+pnpm dev
 ```
 
-④ 运行
+④ 打包
 
 ```sh
 # 运行博客
-pnpm run dev
+pnpm build
+```
+
+⑤ 本地运行打包后文件
+
+```sh
+pnpm serve
 ```
 
 ## 注意
 
-修改 `theme` 或 `markdown-preview`原文件后，需要重新打包才能生效
+修改 `theme` 或 `markdown-preview`原文件后，需要重新执行`npm setup`才能生效
 
 ## PageMeta
 
@@ -62,4 +68,4 @@ pnpm run dev
 ## TODO
 
 - [ ] [路由重定向](https://vitepress.dev/guide/routing#route-rewrites)有问题？打包后`post`路径仍然存在
-- [ ] markdown-preview 插件解析会干扰frontMatter
+- [x] markdown-preview 插件解析会干扰frontMatter

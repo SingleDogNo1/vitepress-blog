@@ -23,14 +23,14 @@
     "zx": "^5.1.0"
   },
   "scripts": {
-    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/markdown-preview-component clean && pnpm --filter @singledog/markdown-preview-plugin clean && pnpm install",
     "dev": "pnpm --filter blogpress dev",
     "serve": "pnpm --filter blogpress serve",
     "build": "pnpm --filter blogpress build",
-    "build:theme": "pnpm --filter @singledog/theme build",
+    "setup": "pnpm build:theme && pnpm build:markdown-preview",
     "build:markdown-preview": "pnpm build:markdown-preview-component && pnpm build:markdown-preview-plugin",
     "build:markdown-preview-component": "pnpm --filter @singledog/markdown-preview-component build",
-    "build:markdown-preview-plugin": "pnpm --filter @singledog/markdown-preview-plugin build"
+    "build:markdown-preview-plugin": "pnpm --filter @singledog/markdown-preview-plugin build",
+    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/markdown-preview-component clean && pnpm --filter @singledog/markdown-preview-plugin clean && pnpm install"
   },
   "keywords": [],
   "author": "singleDogNo.1",

@@ -19,5 +19,6 @@ export default defineConfig({
       }
     }
   },
+  // @ts-ignore
   plugins: [vue(), dts({ insertTypesEntry: true })]
 })

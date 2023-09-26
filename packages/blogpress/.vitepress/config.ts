@@ -1,5 +1,5 @@
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
-import { componentPreview, containerPreview } from '@singledog/markdown-preview-plugin'
+import { componentPreview } from '@singledog/markdown-preview-plugin'
 
 const blogTheme = getThemeConfig({
   author: 'singleDogNo_1',
@@ -66,7 +66,6 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      md.use(containerPreview)
       md.use(componentPreview)
     }
   }
