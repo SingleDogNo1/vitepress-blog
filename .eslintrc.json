@@ -62,6 +62,7 @@
         "consistent-return":"off",
         "no-new": "off",
         "class-methods-use-this": "off",
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "no-console": "off"
     }
 }

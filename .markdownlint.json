@@ -3,7 +3,8 @@
   "MD013": false,
   "MD033": {
     "allowed_elements": [
-      "HighlightText"
+      "HighlightText",
+      "preview"
     ]
   },
   "MD041": false

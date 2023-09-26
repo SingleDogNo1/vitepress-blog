@@ -4,7 +4,9 @@
 
 * [blogpress](./packages/blogpress/)：博客内容本身
 * [theme](./packages/theme/)：博客分离出的通用VitePress主题
-* [markdown-preview](./packages/markdownPreview/)：预览vue代码块功能
+* 预览vue代码块功能，分两小部分
+  * [markdown-preview-component](./packages/markdownPreviewComponent/)：vue组件定义
+  * [markdown-preview-plugin](./packages/markdownPreviewPlugin/)：rollup 解析 vue 组件的插件
 
 ## 运行本项目
 
@@ -27,7 +29,7 @@ pnpm build:theme
 ③ 构建vue代码预览功能
 
 ```sh
-pnpm build: MDPreview
+pnpm build: build:markdown-preview
 ```
 
 ④ 运行

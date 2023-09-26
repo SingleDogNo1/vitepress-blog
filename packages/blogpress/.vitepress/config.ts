@@ -1,5 +1,5 @@
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
-import MarkdownPreview from '@singledog/markdown-preview'
+import { componentPreview, containerPreview } from '@singledog/markdown-preview-plugin'
 
 const blogTheme = getThemeConfig({
   author: 'singleDogNo_1',
@@ -42,8 +42,8 @@ export default defineConfig({
     server: {
       port: 4000,
       host: '0.0.0.0'
-    },
-    plugins: [MarkdownPreview()]
+    }
+    // plugins: [MarkdownPreview()]
   },
   lastUpdated: true,
   themeConfig: {
@@ -63,6 +63,12 @@ export default defineConfig({
       }
     ],
     socialLinks: [{ icon: 'github', link: 'https://github.com/SingleDogNo1/vitepress-blog' }]
+  },
+  markdown: {
+    config(md) {
+      md.use(containerPreview)
+      md.use(componentPreview)
+    }
   }
   // rewrites: {
   //   'posts/:pkg/(.*).md': ':pkg/(.*).md'
