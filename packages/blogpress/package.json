@@ -20,12 +20,5 @@
     "element-plus": "^2.3.8",
     "vitepress": "^1.0.0-rc.20"
   },
-  "type": "module",
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@algolia/client-search"
-      ]
-    }
-  }
+  "type": "module"
 }
