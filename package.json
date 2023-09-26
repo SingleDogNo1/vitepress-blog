@@ -27,6 +27,7 @@
     "serve": "pnpm --filter blogpress serve",
     "build": "pnpm --filter blogpress build",
     "setup": "pnpm build:theme && pnpm build:markdown-preview",
+    "build:theme": "pnpm --filter @singledog/theme build",
     "build:markdown-preview": "pnpm build:markdown-preview-component && pnpm build:markdown-preview-plugin",
     "build:markdown-preview-component": "pnpm --filter @singledog/markdown-preview-component build",
     "build:markdown-preview-plugin": "pnpm --filter @singledog/markdown-preview-plugin build",
