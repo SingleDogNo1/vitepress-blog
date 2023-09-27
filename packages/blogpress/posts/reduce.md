@@ -8,8 +8,6 @@ categories:
 ---
 # Array.reduce
 
-<preview path="./vue-template/demo.vue" title="Avatar" description="description" />
-
 ## 概念
 
 众所周知，reduce 方法是 js 数组中比较高级的用法之一。使用他可以更方便的对数组进行操作。
