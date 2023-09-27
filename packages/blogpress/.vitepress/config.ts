@@ -50,6 +50,9 @@ export default defineConfig({
     search: {
       provider: 'local'
     },
+    outline: {
+      level: 'deep'
+    },
     lastUpdatedText: '上次更新于',
     logo: '/logo.svg',
     editLink: {
