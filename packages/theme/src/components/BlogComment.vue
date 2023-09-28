@@ -3,13 +3,14 @@
     <el-affix
       :class="{ hidden: commentIsVisible }"
       class="comment-btn"
-      target="main"
+      target="#app"
       position="bottom"
       :offset="40"
     >
-      <el-button @click="handleScrollToComment" plain :icon="Comment" type="primary"
-        >评论</el-button
-      >
+      <el-icon class="comment-icon" size="20" @click="handleScrollToComment">
+        <Comment />
+      </el-icon>
+      <BackTop :right="-70" :top="-50" />
     </el-affix>
     <component
       v-if="showComment"
@@ -36,10 +37,11 @@
 import { useDark, useElementVisibility } from '@vueuse/core'
 import { useData, useRoute } from 'vitepress'
 import { computed, ref, watch } from 'vue'
-import { ElAffix, ElButton } from 'element-plus'
+import { ElAffix, ElIcon } from 'element-plus'
 import { Comment } from '@element-plus/icons-vue'
 import { useGiscusConfig } from '../composables/config/blog'
 import { Theme } from '../composables/config/index'
+import BackTop from './BlogBacktop/index.vue'
 
 const { frontmatter } = useData()
 const commentEl = ref(null)
@@ -105,9 +107,24 @@ watch(
 .comment-btn {
   :deep(.el-affix--fixed) {
     text-align: right;
-    .el-button {
-      position: relative;
-      right: -100px;
+    .comment-icon {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      color: var(--vp-c-brand-1);
+      align-items: center;
+      justify-content: center;
+      background-color: var(--vp-c-bg);
+      box-shadow: 0 0 12px var(--vp-c-gutter);
+      cursor: pointer;
+      z-index: 5;
+      right: -70px;
+
+      &:hover {
+        box-shadow: 0 0 4px var(--vp-c-gutter);
+      }
     }
   }
 }

@@ -64,8 +64,7 @@ export default defineConfig({
         text: '关于我',
         link: '/aboutme'
       }
-    ],
-    socialLinks: [{ icon: 'github', link: 'https://github.com/SingleDogNo1/vitepress-blog' }]
+    ]
   },
   markdown: {
     config(md) {
