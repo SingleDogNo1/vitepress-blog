@@ -1,7 +1,7 @@
 <script setup lang="ts" name="BlogApp">
 import { nextTick, watch, ref } from 'vue'
 import Theme from 'vitepress/theme'
-import { useRoute } from 'vitepress'
+import { useRoute, useData } from 'vitepress'
 import BlogHomeInfo from './BlogHomeInfo.vue'
 import BlogHomeBanner from './BlogHomeBanner.vue'
 import BlogList from './BlogList.vue'
@@ -15,14 +15,28 @@ import { DigitalPaRain } from '../plugins/DigitalRain'
 const route = useRoute()
 const digitalRainRef = ref<HTMLCanvasElement>()
 
-const isBlogTheme = useBlogThemeMode()
+const { isDark } = useData()
 
+const isBlogTheme = useBlogThemeMode()
+const { Layout } = Theme
+const DigitalPaRainRef = ref()
 watch(
   () => route,
   (val) => {
     if (val.data.frontmatter.layout === 'home') {
       nextTick(() => {
-        digitalRainRef.value && new DigitalPaRain({ el: digitalRainRef.value })
+        if (!digitalRainRef.value) return
+        if (isDark.value) {
+          DigitalPaRainRef.value = new DigitalPaRain({
+            el: digitalRainRef.value,
+            bgColor: 'rgba(27, 27,31,0.06)'
+          })
+        } else {
+          DigitalPaRainRef.value = new DigitalPaRain({
+            el: digitalRainRef.value,
+            bgColor: 'rgba(238,238,238,0.06)'
+          })
+        }
       })
     }
   },
@@ -31,7 +45,28 @@ watch(
     deep: true
   }
 )
-const { Layout } = Theme
+
+watch(
+  () => isDark.value,
+  (val) => {
+    if (val) {
+      nextTick(() => {
+        if (digitalRainRef.value) {
+          DigitalPaRainRef.value.setBgColor('rgba(27, 27,31,0.06)')
+          DigitalPaRainRef.value.run()
+        }
+      })
+    } else {
+      nextTick(() => {
+        if (digitalRainRef.value) {
+          DigitalPaRainRef.value.setBgColor('rgb(238,238,238,0.06)')
+          DigitalPaRainRef.value.run()
+        }
+      })
+    }
+    console.log('val :>> ', val)
+  }
+)
 </script>
 
 <template>

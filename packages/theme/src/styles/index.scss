@@ -11,7 +11,7 @@ html {
   --blog-theme-color: #409eff;
 }
 
-html[class='dark'] {
+html.dark {
   --bg-gradient: 20, 20, 20;
   --bg-gradient-home: 20, 20, 20;
   --box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.6);
@@ -22,7 +22,6 @@ html[class='dark'] {
 }
 .VPHome {
   min-height: calc(100vh - var(--vp-nav-height));
-  background: rgba(var(--bg-gradient-home), 0.6);
 }
 
 @media screen and (min-width: 960px) {

@@ -15,6 +15,8 @@ export class DigitalPaRain {
 
   private color: string | undefined
 
+  private bgColor: string
+
   private ctx: CanvasRenderingContext2D
 
   private W: number
@@ -27,11 +29,18 @@ export class DigitalPaRain {
 
   private drops: number[]
 
-  constructor(options: { el: HTMLCanvasElement; fontSize?: number; str?: string; color?: string }) {
+  constructor(options: {
+    el: HTMLCanvasElement
+    bgColor: string
+    fontSize?: number
+    str?: string
+    color?: string
+  }) {
     this.canvas = options.el
     this.fontSize = options.fontSize || 20
     this.str = options.str || this.getRandomStr(10, 20)
     this.color = options.color
+    this.bgColor = options.bgColor
 
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
     this.W = window.screen.width
@@ -63,8 +72,8 @@ export class DigitalPaRain {
     )},${(Math.random() * (0.8 - 0.2) + 0.2).toFixed(2)})`
   }
 
-  draw(str: string) {
-    this.ctx.fillStyle = 'rgba(238,238,238,.06)'
+  draw(str: string, bgColor: string) {
+    this.ctx.fillStyle = bgColor
     this.ctx.fillRect(0, 0, this.W, this.H)
     this.ctx.font = `600  ${this.fontSize}px  Georgia`
     this.ctx.fillStyle = this.color ? this.color : this.randColor()
@@ -77,16 +86,21 @@ export class DigitalPaRain {
     }
   }
 
+  setBgColor(color: string) {
+    this.drops = []
+    this.bgColor = color
+  }
+
   run() {
     for (let i = 0; i < this.columns; i += 1) {
       this.drops.push(Math.floor(Math.random() * this.lines))
     }
     setInterval(() => {
-      this.draw(this.str)
+      this.draw(this.str, this.bgColor)
     }, 60)
 
     // TODO: requestAnimationFrame运动过快，视觉效果不好，如何使用requestAnimationFrame优化
-    // this.draw(this.str)
+    // this.draw(this.str, this.bgColor)
     // requestAnimationFrame(this.run.bind(this))
   }
 }
