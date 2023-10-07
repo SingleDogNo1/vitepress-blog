@@ -26,9 +26,10 @@
     "dev": "pnpm --filter blogpress dev",
     "serve": "pnpm --filter blogpress serve",
     "build": "pnpm --filter blogpress build",
-    "setup": "pnpm build:theme && pnpm build:markdown-preview",
+    "setup": "pnpm build:theme && pnpm build:markdown-preview && pnpm build:live2d",
     "build:theme": "pnpm --filter @singledog/theme build",
     "build:markdown-preview": "pnpm build:markdown-preview-component && pnpm build:markdown-preview-plugin",
+    "build:live2d": "pnpm --filter @singledog/live2d-widget build",
     "build:markdown-preview-component": "pnpm --filter @singledog/markdown-preview-component build",
     "build:markdown-preview-plugin": "pnpm --filter @singledog/markdown-preview-plugin build",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/markdown-preview-component clean && pnpm --filter @singledog/markdown-preview-plugin clean && pnpm install"

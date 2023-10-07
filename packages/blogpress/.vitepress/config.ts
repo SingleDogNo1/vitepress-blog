@@ -1,6 +1,9 @@
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
 import { componentPreview } from '@singledog/markdown-preview-plugin'
 
+// 博客部署地址
+const baseUrl = 'https://zcm-blog.vercel.app/'
+
 const blogTheme = getThemeConfig({
   author: 'singleDogNo_1',
   mermaid: true,
@@ -21,7 +24,7 @@ const blogTheme = getThemeConfig({
   authorList: [
     {
       nickname: 'singleDogNo_1',
-      url: 'https://zcm-blog.vercel.app/aboutme.html',
+      url: `${baseUrl}aboutme.html`,
       // eslint-disable-next-line
       des: "singleDogNo_1, can't find object"
     }
@@ -36,7 +39,8 @@ export default defineConfig({
   description: '开发随笔',
   head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
-    ['link', { rel: 'icon', href: '/logo.svg' }]
+    ['link', { rel: 'icon', href: '/logo.svg' }],
+    ['script', { src: '/public/live2d-widget/autoload.js' }]
   ],
   vite: {
     server: {
