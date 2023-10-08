@@ -23,7 +23,7 @@ const generateName = (prefix: string, block?: string, element?: string, modifier
   return defaultName
 }
 
-export const useNameSpace = (block = ''): UseNameSpaceReturn => {
+export function useNameSpace(block = '') {
   const b = () => generateName(defaultPrefix, block)
   const e = (element = '') => generateName(defaultPrefix, block, element)
   const m = (modifier = '') => generateName(defaultPrefix, block, '', modifier)
