@@ -41,7 +41,7 @@ import { ElAffix, ElIcon } from 'element-plus'
 import { Comment } from '@element-plus/icons-vue'
 import { useGiscusConfig } from '../composables/config/blog'
 import { Theme } from '../composables/config/index'
-import BackTop from './BlogBacktop/index.vue'
+import BackTop from './BlogBackTop/index.vue'
 
 const { frontmatter } = useData()
 const commentEl = ref(null)
