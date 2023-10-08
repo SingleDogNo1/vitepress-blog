@@ -38,7 +38,7 @@
     "highlight.js": "^11.7.0",
     "lodash-es": "^4.17.21",
     "mermaid": "^10.2.4",
-    "vitepress-plugin-mermaid": "^2.0.13",
+    "vitepress-plugin-mermaid": "2.0.13",
     "vue-command-palette": "^0.1.4"
   },
   "devDependencies": {
