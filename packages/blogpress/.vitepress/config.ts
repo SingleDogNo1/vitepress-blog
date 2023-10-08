@@ -40,7 +40,7 @@ export default defineConfig({
   head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
     ['link', { rel: 'icon', href: '/logo.svg' }],
-    ['script', { src: '/public/live2d-widget/autoload.js' }]
+    ['script', { src: '/live2d-widget/autoload.js' }]
   ],
   vite: {
     server: {

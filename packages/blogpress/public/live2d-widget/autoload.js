@@ -1,4 +1,4 @@
-const live2d_path = '/public/live2d-widget/'
+const live2d_path = '/live2d-widget/'
 
 // 封装异步加载资源的方法
 function loadExternalResource(url, type) {
