@@ -27,6 +27,7 @@
   "license": "MIT",
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",
+    "typescript": "^5.2.2",
     "vite-plugin-dts": "^1.4.1"
   }
 }
