@@ -91,21 +91,23 @@ div {
 
 ```vue preview
 <script lang="ts" setup>
-import { ref } from 'vue'
-const count = ref(0)
-function add() {
-  count.value++
-}
-function del() {
-  count.value--
-}
+
 </script>
 
 <template>
-  <h1>{{count}}</h1>
-  <button @click="add">add</button>
-  <button @click="del">del</button>
+<div class="container">
+      <div v-for="i in 10" :key="i" class="grid-item">{{ i }}</div>
+</div>
 </template>
+
+<style scoped>
+.container {
+  display: grid;
+  height: 300px;
+    grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 33.33% 33.33% 33.33%;
+}
+</style>
 ```
 
 上面代码指定了一个三行三列的网格，宽高均为`100px`。为了方便理解，这个例子中没有插入子元素，你可以打开控制台查看当前状态。
