@@ -195,6 +195,10 @@ const isHover = useElementHover(vuePreviewContainerRef)
     height: auto;
     border: 1px solid var(--vue-preview-color-border);
     border-radius: var(--vue-preview-radius) var(--vue-preview-radius) 0 0;
+
+    iframe {
+      background-color: var(--vp-c-bg);
+    }
   }
 
   &__btns {
