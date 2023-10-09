@@ -87,7 +87,26 @@ div {
 
 指定了网格布局后，就开始划分行和列。 `grid-template-columns` 用来定义每一列， `grid-template-rows`用来定义每一行。
 
-<preview path="./vue-template/grid/1.vue" />
+<!-- <preview path="./vue-template/grid/1.vue" /> -->
+
+```vue preview
+<script lang="ts" setup>
+import { ref } from 'vue'
+const count = ref(0)
+function add() {
+  count.value++
+}
+function del() {
+  count.value--
+}
+</script>
+
+<template>
+  <h1>{{count}}</h1>
+  <button @click="add">add</button>
+  <button @click="del">del</button>
+</template>
+```
 
 上面代码指定了一个三行三列的网格，宽高均为`100px`。为了方便理解，这个例子中没有插入子元素，你可以打开控制台查看当前状态。
 

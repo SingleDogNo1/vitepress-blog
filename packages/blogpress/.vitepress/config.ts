@@ -1,5 +1,4 @@
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
-import { componentPreview } from '@singledog/markdown-preview-plugin'
 
 // 博客部署地址
 const baseUrl = 'https://zcm-blog.vercel.app/'
@@ -47,7 +46,6 @@ export default defineConfig({
       port: 4000,
       host: '0.0.0.0'
     }
-    // plugins: [MarkdownPreview()]
   },
   lastUpdated: true,
   themeConfig: {
@@ -69,11 +67,6 @@ export default defineConfig({
         link: '/aboutme'
       }
     ]
-  },
-  markdown: {
-    config(md) {
-      md.use(componentPreview)
-    }
   }
   // rewrites: {
   //   'posts/:pkg/(.*).md': ':pkg/(.*).md'

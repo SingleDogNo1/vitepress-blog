@@ -11,8 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "@singledog/markdown-preview-component": "workspace:",
-    "@singledog/markdown-preview-plugin": "workspace:",
+    "@singledog/vue-preview-plugin": "workspace:",
     "@singledog/theme": "workspace:",
     "@vitepress-demo-preview/component": "^2.3.2",
     "@vitepress-demo-preview/plugin": "^1.2.2",

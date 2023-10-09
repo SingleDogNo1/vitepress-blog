@@ -8,6 +8,7 @@
     "@types/node": "^16.18.4",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "@vueuse/core": "^9.6.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.5.0",
@@ -28,13 +29,14 @@
     "build": "pnpm --filter blogpress build",
     "setup": "pnpm build:theme && pnpm build:markdown-preview && pnpm build:live2d",
     "build:theme": "pnpm --filter @singledog/theme build",
-    "build:markdown-preview": "pnpm build:markdown-preview-component && pnpm build:markdown-preview-plugin",
+    "build:markdown-preview": "pnpm --filter @singledog/vue-preview-plugin build",
     "build:live2d": "pnpm --filter @singledog/live2d-widget build",
-    "build:markdown-preview-component": "pnpm --filter @singledog/markdown-preview-component build",
-    "build:markdown-preview-plugin": "pnpm --filter @singledog/markdown-preview-plugin build",
-    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/markdown-preview-component clean && pnpm --filter @singledog/markdown-preview-plugin clean && pnpm install"
+    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/live2d-widget clean && pnpm --filter @singledog/vue-preview-plugin clean && pnpm install"
   },
   "keywords": [],
   "author": "singleDogNo.1",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "vite-plugin-vue-preview": "^1.3.0"
+  }
 }

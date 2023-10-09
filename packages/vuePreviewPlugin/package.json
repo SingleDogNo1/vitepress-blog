@@ -1,0 +1,28 @@
+{
+  "name": "@singledog/vue-preview-plugin",
+  "type": "module",
+  "version": "0.0.0",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "clean": "rimraf node_modules"
+  },
+  "devDependencies": {
+    "@liting-yes/vue-repl": "^0.7.2",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite-plugin-dts": "2.3.0"
+  }
+}
