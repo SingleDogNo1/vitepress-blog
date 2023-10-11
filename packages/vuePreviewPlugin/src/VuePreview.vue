@@ -1,14 +1,9 @@
+<!-- eslint-disable no-useless-escape vue/no-setup-props-destructure vue/no-setup-props-destructure -->
 <script setup lang="ts">
-import '@liting-yes/vue-repl/style.css'
-import type { PreviewUpdateFlag, Store } from '@liting-yes/vue-repl'
-import {
-  CodeMirror,
-  Preview,
-  ReplStore,
-  defaultMainFile,
-  importMapFile
-} from '@liting-yes/vue-repl'
-import { computed, onMounted, provide, ref, nextTick } from 'vue'
+import '@singledog/vue-repl/style.css'
+import type { PreviewUpdateFlag, Store } from '@singledog/vue-repl'
+import { CodeMirror, Preview, ReplStore, defaultMainFile, importMapFile } from '@singledog/vue-repl'
+import { computed, onMounted, provide, ref } from 'vue'
 import { useClipboard, useDebounceFn, useElementHover } from '@vueuse/core'
 import Copy from './icons/Copy.vue'
 import Copied from './icons/Copied.vue'
@@ -40,7 +35,7 @@ export interface Props {
 const props = withDefaults(defineProps<Props>(), {
   store: () => new ReplStore(),
   autoResize: true,
-  clearConsole: true,
+  clearConsole: false,
   ssr: false,
   encode: false,
   collapse: false,
@@ -89,50 +84,6 @@ onMounted(() => {
   if (props.clearConsole)
     // eslint-disable-next-line no-console
     console.clear()
-
-  if (vuePreviewContainerRef.value) {
-    const iframe = vuePreviewContainerRef.value.querySelector('iframe') as HTMLIFrameElement
-
-    if (iframe.contentWindow?.document.readyState === 'complete') {
-      const frameHeight = iframe.contentWindow?.document.body.scrollHeight
-      console.log('complete :>> ')
-      setTimeout(() => {
-        const idoc = iframe.contentWindow?.document as Document
-        console.log('document', idoc) // 获取iframe的document
-        console.log('html', idoc.documentElement) // 获取iframe的html
-        console.log('head', idoc.head) // 获取head
-        console.log('body', idoc.body) // 获取body
-      }, 1000)
-
-      // const frameHead = iframe.contentWindow?.document.head
-
-      // const style = document.createElement('style')
-      // const textNode = document.createTextNode('html {background-color: red}')
-      // style.appendChild(textNode)
-      // console.log('style :>> ', style)
-      // console.log('frameHead :>> ', frameHead)
-      // frameHead.appendChild(style)
-      // const iframeDocument = iframe.contentDocument as Document
-      // console.log('iframeDocument :>> ', iframeDocument)
-      // ;(iframeDocument.querySelector('html') as HTMLHtmlElement).style.overflow = 'auto'
-      // ;(iframeDocument.querySelector('body') as HTMLBodyElement).style.overflow = 'auto'
-
-      // iframe.style.height = `${300}px`
-    } else {
-      iframe.onload = () => {
-        const frameHeight = iframe.contentWindow?.document.body.scrollHeight
-        console.log('onload :>> ')
-        console.log('iframe :>> ', iframe, frameHeight)
-        iframe.style.height = `${300}px`
-      }
-    }
-
-    iframe
-    // $('#i1')
-    //   .contents()
-    //   .find('head')
-    //   .append($('<link rel="stylesheet" type="text/css" href="style.css">'))
-  }
 })
 
 const previewUpdateFlag = ref<PreviewUpdateFlag>('UPDATING')

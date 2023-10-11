@@ -29,7 +29,9 @@
     "build": "pnpm --filter blogpress build",
     "setup": "pnpm build:theme && pnpm build:markdown-preview && pnpm build:live2d",
     "build:theme": "pnpm --filter @singledog/theme build",
-    "build:markdown-preview": "pnpm --filter @singledog/vue-preview-plugin build",
+    "build:markdown-preview": "pnpm build:vue-repl && pnpm build:vue-preview-plugin",
+    "build:vue-repl": "pnpm --filter @singledog/vue-repl prepublishOnly",
+    "build:vue-preview-plugin": "pnpm --filter @singledog/vue-preview-plugin build",
     "build:live2d": "pnpm --filter @singledog/live2d-widget build",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/live2d-widget clean && pnpm --filter @singledog/vue-preview-plugin clean && pnpm install"
   },

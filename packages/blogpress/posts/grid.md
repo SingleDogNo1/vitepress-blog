@@ -87,16 +87,9 @@ div {
 
 指定了网格布局后，就开始划分行和列。 `grid-template-columns` 用来定义每一列， `grid-template-rows`用来定义每一行。
 
-<!-- <preview path="./vue-template/grid/1.vue" /> -->
-
 ```vue preview
-<script lang="ts" setup>
-
-</script>
-
 <template>
 <div class="container">
-      <div v-for="i in 10" :key="i" class="grid-item">{{ i }}</div>
 </div>
 </template>
 
@@ -104,17 +97,33 @@ div {
 .container {
   display: grid;
   height: 300px;
-    grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 33.33% 33.33% 33.33%;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
 }
 </style>
 ```
 
 上面代码指定了一个三行三列的网格，宽高均为`100px`。为了方便理解，这个例子中没有插入子元素，你可以打开控制台查看当前状态。
 
-也可以使用百分比
+另外也可以使用百分比定义宽高
 
-<preview path="./vue-template/grid/2.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 10" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  width: 100%;
+  height: 100px;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 33.33% 33.33% 33.33%;
+}
+</style>
+```
 
 上面代码指定了一个三行四列的容器，每个项目宽为25%、高为33.33%。因为例子中只填充了10个项目，因此最后留出了两个项目的位置，你可以打开控制台查看当前状态
 
