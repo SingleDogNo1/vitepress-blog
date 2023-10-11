@@ -4,9 +4,9 @@
 
 * [blogpress](./packages/blogpress/)：博客内容本身
 * [theme](./packages/theme/)：博客分离出的通用VitePress主题
-* 预览vue代码块功能，分两小部分
-  * [markdown-preview-component](./packages/markdownPreviewComponent/)：vue组件定义
-  * [markdown-preview-plugin](./packages/markdownPreviewPlugin/)：rollup 解析 vue 组件的插件
+* `markdown-preview`：预览vue代码块功能，分两小部分
+  * [vue-preview-plugin](./packages/vuePreviewPlugin/)：rollup 解析 vue 组件的插件，并提供实时编辑功能
+  * [vue-repl](./packages/vue-repl/)：[vue-repl](https://github.com/vuejs/repl) 官方解析器源码，部分地方进行了定制化修改以保证`vue-preview-plugin`插件实时编辑后重新渲染
 * [live2d-widget](./packages/live2dWidght/)：看板娘插件
 
 ## 运行本项目
@@ -17,30 +17,33 @@
 
 ```sh
 npm i -g pnpm
-# 安装依赖
-pnpm install
 ```
 
-② 运行前构建文档功能
+② 安装依赖
+
+```sh
+pnpm bootstrap
+```
+
+③ 运行前构建文档功能
 
 ```sh
 pnpm setup
 ```
 
-③ 本地运行
+④ 本地运行
 
 ```sh
 pnpm dev
 ```
 
-④ 打包
+⑤ 打包
 
 ```sh
-# 运行博客
 pnpm build
 ```
 
-⑤ 本地运行打包后文件
+⑥ 本地运行打包后文件
 
 ```sh
 pnpm serve

@@ -249,7 +249,6 @@ async function updatePreview() {
     await proxy.eval(codeToEval)
 
     const frameHeight = sandbox.contentWindow?.document.body.scrollHeight
-    console.log('frameHeight :>> ', frameHeight)
     sandbox.style.height = `${frameHeight}px`
     emits('update-preview', 'SUCCESS')
   } catch (e: any) {

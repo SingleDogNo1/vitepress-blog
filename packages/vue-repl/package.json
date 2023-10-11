@@ -21,7 +21,7 @@
     "build": "vite build",
     "build-types": "vue-tsc -p tsconfig.build.json && api-extractor run -c api-extractor.json && rimraf dist/src",
     "prepublishOnly": "npm run build && npm run build-types",
-    "clean": "rimraf node_modules"
+    "clean": "rimraf node_modules && rimraf dist"
   },
   "devDependencies": {
     "@babel/types": "^7.15.6",

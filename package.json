@@ -33,7 +33,14 @@
     "build:vue-repl": "pnpm --filter @singledog/vue-repl prepublishOnly",
     "build:vue-preview-plugin": "pnpm --filter @singledog/vue-preview-plugin build",
     "build:live2d": "pnpm --filter @singledog/live2d-widget build",
-    "reinstall": "rimraf pnpm-lock.yaml && rimraf node_modules && pnpm --filter blogpress clean && pnpm --filter @singledog/theme clean && pnpm --filter @singledog/live2d-widget clean && pnpm --filter @singledog/vue-preview-plugin clean && pnpm install"
+    "bootstrap": "pnpm clean:cache && pnpm clean:blogpress && pnpm clean:theme && pnpm clean:markdown-preview && pnpm clean:live2d && pnpm install",
+    "clean:cache": "rimraf pnpm-lock.yaml && rimraf node_modules",
+    "clean:blogpress": "pnpm --filter blogpress clean",
+    "clean:theme": "pnpm --filter @singledog/theme clean",
+    "clean:markdown-preview": "pnpm clean:vue-repl && pnpm clean:vue-preview-plugin",
+    "clean:vue-repl": "pnpm --filter @singledog/vue-repl clean",
+    "clean:vue-preview-plugin": "pnpm --filter @singledog/vue-preview-plugin clean",
+    "clean:live2d": "pnpm --filter @singledog/live2d-widget clean"
   },
   "keywords": [],
   "author": "singleDogNo.1",
