@@ -131,11 +131,41 @@ div {
 
 相信我们都发现了，当网格系统足够复杂时，需要我们写很多重复的值。这时可以使用`repeat()`函数简化重复的值，简化代码如下
 
-<preview path="./vue-template/grid/3.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  width: 300px;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  grid-template-rows: repeat(3, 33.33%);
+}
+</style>
+```
 
 `repeat()`接受两个参数，第一个是重复的次数，第二个是需要重复的值。<HighlightText msg="而且这里的值不必非得是固定的值，我们可以给定一组值，同样可以重复执行。" />
 
-<preview path="./vue-template/grid/4.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 18" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 100px 80px 60px);
+  grid-template-rows: repeat(3, 100px);
+}
+</style>
+```
 
 上面代码表示每列按照`100px 80px 60px`的规则，重复两次。因此共得到了 6 列，表现为第一列和第四列的宽度为100px，第二列和第五列为80px，第三列和第六列为60px。又定义了 3 行，每行高度固定为`100px`
 
@@ -143,7 +173,21 @@ div {
 
 有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用`auto-fill`关键字表示自动填充。
 
-<preview path="./vue-template/grid/5.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 18" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 100px);
+  grid-template-rows: repeat(3, 100px);
+}
+</style>
+```
 
 上面代码会按照每列宽度`100px`自动填充，直到当前行无法容纳才会折行。尝试改变浏览器宽度查看现象。
 
@@ -151,13 +195,41 @@ div {
 
 网格布局提供了`fr`关键字（fraction 的缩写，意为"片段"）。如果两列的宽度分别为1fr和2fr，就表示后者是前者的两倍。类似于 flex 中的项目的`flex-grow`属性。
 
-<preview path="./vue-template/grid/6.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 3" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 100px);
+}
+</style>
+```
 
 上面代码创建三个相同宽度的列。
 
 `fr`在与绝对长度的单位结合使用，会产生非常神奇的效果。
 
-<preview path="./vue-template/grid/7.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 3" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 150px 1fr 2fr;
+  grid-template-rows: repeat(1, 100px);
+}
+</style>
+```
 
 上面代码表示，第一列的宽度为150像素，第二列的宽度是第三列的一半。
 
@@ -165,7 +237,21 @@ div {
 
 `minmax()`函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值。
 
-<preview path="./vue-template/grid/8.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 3" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr minmax(100px, 1fr);
+  grid-template-rows: repeat(1, 100px);
+}
+</style>
+```
 
 上面代码中，minmax(100px, 1fr)表示自动计算列宽，保证值不小于100px，且不大于1fr。
 
@@ -179,7 +265,21 @@ div {
 
 `auto`关键字表示由浏览器自己决定长度。
 
-<preview path="./vue-template/grid/9.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 3" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px auto 100px;
+  grid-template-rows: repeat(1, 100px);
+}
+</style>
+```
 
 上面代码中，第二列的宽度，基本上等于该列单元格的最大宽度，除非单元格内容设置了`min-width`，且这个值大于最大宽度。
 
@@ -187,7 +287,22 @@ div {
 
 `grid-template-columns`属性和`grid-template-rows`属性里面，还可以使用方括号，指定每一根网格线的名字，方便以后的引用。
 
-<preview path="./vue-template/grid/10.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  height: 300px;
+  grid-template-columns: [c1] 100px [c2] 100px [c3] auto [c4];
+  grid-template-rows: [r1] 100px [r2] 100px [r3] auto [r4];
+}
+</style>
+```
 
 上面代码指定网格布局为`3行 x 3列`，因此有`4`根垂直网格线和`4`根水平网格线。方括号里面依次是这八根线的名字。
 
@@ -195,7 +310,24 @@ div {
 
 grid-row-gap属性设置行与行的间隔（行间距），grid-column-gap属性设置列与列的间隔（列间距）。
 
-<preview path="./vue-template/grid/11.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  height: 300px;
+  grid-template-columns: 100px 100px auto;
+  grid-template-rows: 3, 100px 100px auto;
+  row-gap: 20px;
+  column-gap: 20px;
+}
+</style>
+```
 
 上面代码中，行间距和列间距均为`20px`。
 
@@ -284,17 +416,72 @@ grid-row-gap属性设置行与行的间隔（行间距），grid-column-gap属�
 
 从上面的例子中不难察觉，设置为`grid`布局后，容器的子元素会默认"先行后列"排序，即先填满第一行，再开始放入第二行，依次执行。我们可以通过`grid-auto-flow`属性可以改变网格的排序，默认为`row`,及“先行后列”，可以设置为`column`，变为“先列后行”。
 
-<preview path="./vue-template/grid/12.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-flow: column;
+}
+</style>
+```
 
 除了`row`和`column`，还可以设置为`row dense`和`column dense`。这两个值主要用于，某些项目指定位置以后，剩下的项目怎么自动放置。
 
 下面的例子提前使用了项目的属性[grid-column-start](#grid-column-start)，目的是让1号项目和2号项目各占据两个单元格，然后在默认的`grid-auto-flow: row`情况下，会产生下面这样的布局。
 
-<preview path="./vue-template/grid/13.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-flow: row;
+}
+
+.grid-demo-wrapper .item1,
+.grid-demo-wrapper .item2 {
+  grid-column-start: span 2;
+}
+</style>
+```
 
 因为 3 号项目默认跟在 2 号项目之后，而第一行又无法容纳 2 号项目，所以第一行只能出现了空白。如果修改`grid-auto-flow: row dense`，就会在“先行后列”的基础上，尽可能紧密填满，不出现空格。
 
-<preview path="./vue-template/grid/14.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-flow: row dense;
+}
+
+.grid-demo-wrapper .item1,
+.grid-demo-wrapper .item2 {
+  grid-column-start: span 2;
+}
+</style>
+```
 
 `column dense`，也是同样的意思，不过会遵循"先列后行"，并且尽量填满空格。
 
@@ -302,7 +489,28 @@ grid-row-gap属性设置行与行的间隔（行间距），grid-column-gap属�
 
 参照上面的例子，我们定义了3×3的网格系统，但是因为某些原因导致实际渲染时出现了第四行。这时，虽然浏览器会自动生成多余的网格，以便放置项目。但是自动填充的网格宽高是根据内容自动生成的，想要设置多余网格的样式，可以使用`grid-auto-columns`属性和`grid-auto-rows`属性。它们的写法与`grid-template-columns`和`grid-template-rows`完全相同。参照一下示例。
 
-<preview path="./vue-template/grid/15.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-flow: row dense;
+  grid-auto-rows: 50px;
+}
+
+.grid-demo-wrapper .item1,
+.grid-demo-wrapper .item2 {
+  grid-column-start: span 2;
+}
+</style>
+```
 
 上面的例子里面，指定新增的行高统一为50px（原始的行高为100px）。
 
@@ -376,11 +584,61 @@ grid-row-gap属性设置行与行的间隔（行间距），grid-column-gap属�
 + `grid-row-start`表示上边框贴紧的水平网格线
 + `grid-row-end`表示下边框贴紧的水平网格线
 
-<preview path="./vue-template/grid/16.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-rows: 50px;
+}
+
+.grid-demo-wrapper .item1 {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.grid-demo-wrapper .item2 {
+  grid-column-start: span 2;
+}
+</style>
+```
 
 上面代码指定，1号项目的左边框是第二根垂直网格线，右边框是第四根垂直网格线。但并没有指定上下边框，所以会采用默认位置。而除了1号项目以外，其他项目都没有指定位置，将由浏览器自动布局，这时它们的位置由容器的`grid-auto-flow`属性决定，参考上面的教程，不再赘述。
 
-<preview path="./vue-template/grid/17.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-rows: 50px;
+}
+
+.grid-demo-wrapper .item1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+
+.grid-demo-wrapper .item2 {
+  grid-column-start: span 2;
+}
+</style>
+```
 
 下面的例子是指定四个边框位置的效果。
 
@@ -466,7 +724,29 @@ grid-row-gap属性设置行与行的间隔（行间距），grid-column-gap属�
 
 `grid-area`属性指定项目放在哪一个区域。
 
-<preview path="./vue-template/grid/18.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 9" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-template-areas:
+    'a b c'
+    'd e f'
+    'g h i';
+}
+
+.grid-demo-wrapper .item1 {
+  grid-area: e;
+}
+</style>
+```
 
 上面代码中，1号项目位于e区域。其他项目没有指定，因此默认按顺序自动排列
 
@@ -480,7 +760,25 @@ grid-area属性还可用作grid-row-start、grid-column-start、grid-row-end、g
 
 下面是一个例子，表示`item1`从第一个行第一列开始，到第三行第三列为止，因此是 2 * 2 个单元格。
 
-<preview path="./vue-template/grid/19.vue" />
+```vue preview
+<template>
+  <div class="grid-demo-wrapper">
+    <div v-for="i in 6" :key="i" class="grid-item" :class="'item' + i">{{ i }}</div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.grid-demo-wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+}
+
+.grid-demo-wrapper .item1 {
+  grid-area: 1 / 1 / 3 / 3;
+}
+</style>
+```
 
 #### justify-self / align-self / place-self
 
