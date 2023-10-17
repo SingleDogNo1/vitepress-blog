@@ -194,17 +194,6 @@ const isHover = useElementHover(vuePreviewContainerRef)
     iframe {
       background-color: var(--vp-c-bg);
       overflow: auto;
-      &:before {
-        content: '';
-        display: block;
-        padding-top: 56.25%;
-        padding-bottom: 0;
-      }
-
-      html,
-      body {
-        overflow: auto !important;
-      }
     }
   }
 

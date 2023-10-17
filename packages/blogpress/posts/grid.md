@@ -767,7 +767,7 @@ grid-area属性还可用作grid-row-start、grid-column-start、grid-row-end、g
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .grid-demo-wrapper {
   display: grid;
   grid-template-columns: 100px 100px 100px;

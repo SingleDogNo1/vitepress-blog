@@ -1,6 +1,9 @@
 {
   "default": true,
   "MD013": false,
+  "MD025": {
+    "front_matter_title": "^\\s*title1\\s*[:=]"
+  },
   "MD033": {
     "allowed_elements": [
       "HighlightText",
