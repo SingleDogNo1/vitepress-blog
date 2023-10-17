@@ -6,7 +6,6 @@ import type {
   SFCScriptCompileOptions,
   SFCTemplateCompileOptions
 } from 'vue/compiler-sfc'
-import consola from 'consola'
 import { compileFile } from './transform'
 import { atou, utoa } from './utils'
 import type { OutputModes } from './output/types'
@@ -332,7 +331,6 @@ export class ReplStore implements Store {
     imports['vue/server-renderer'] = ssrUrl
     this.setImportMap(importMap)
     this.forceSandboxReset()
-    consola.info(`[@vue/repl] Now using Vue version: ${version}`)
   }
 
   resetVueVersion() {
@@ -346,6 +344,5 @@ export class ReplStore implements Store {
     imports['vue/server-renderer'] = this.defaultVueServerRendererURL
     this.setImportMap(importMap)
     this.forceSandboxReset()
-    consola.info('[@vue/repl] Now using default Vue version')
   }
 }
