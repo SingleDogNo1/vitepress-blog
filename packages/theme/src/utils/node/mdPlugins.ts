@@ -2,6 +2,7 @@
 import type { UserConfig } from 'vitepress'
 import { aliasObjectToArray } from './index'
 import type { Theme } from '../../composables/config/index'
+import { MermaidMarkdown } from 'vitepress-plugin-mermaid'
 
 export function getMarkdownPlugins(cfg?: Partial<Theme.BlogConfig>) {
   const markdownPlugin: any[] = []
@@ -10,7 +11,6 @@ export function getMarkdownPlugins(cfg?: Partial<Theme.BlogConfig>) {
   if (cfg) {
     cfg.mermaid = cfg?.mermaid ?? true
     if (cfg?.mermaid !== false) {
-      const { MermaidMarkdown } = require('vitepress-plugin-mermaid')
       markdownPlugin.push(MermaidMarkdown)
     }
   }

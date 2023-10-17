@@ -28,26 +28,25 @@
     "clean": "rimraf node_modules && rimraf node.js && rimraf node.d.ts"
   },
   "dependencies": {
-    "@mdit-vue/shared": "^0.12.0",
+    "@mdit-vue/shared": "^1.0.0",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
-    "@vue/shared": "^3.2.45",
-    "fast-glob": "^3.2.12",
+    "@vue/shared": "^3.3.4",
+    "fast-glob": "^3.3.1",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
-    "highlight.js": "^11.7.0",
+    "highlight.js": "^11.9.0",
     "lodash-es": "^4.17.21",
-    "mermaid": "^10.2.4",
-    "vitepress-plugin-mermaid": "2.0.13",
-    "vue-command-palette": "^0.1.4"
+    "mermaid": "^10.5.0",
+    "vitepress-plugin-mermaid": "2.0.13"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "@types/lodash-es": "^4.17.9",
-    "element-plus": "^2.3.4",
-    "sass": "^1.56.1",
-    "tsup": " ^6.5.0",
-    "typescript": "^4.8.2",
-    "vitepress": "^1.0.0-rc.10",
+    "element-plus": "^2.4.0",
+    "sass": "^1.69.3",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2",
+    "vitepress": "^1.0.0-rc.22",
     "vue": "^3.3.4"
   }
 }
