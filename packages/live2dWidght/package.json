@@ -9,10 +9,10 @@
     "clean": "rimraf node_modules"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^6.2.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "@rollup/pluginutils": "^5.0.1",
-    "rollup": "^3.2.3",
-    "terser": "^5.15.1"
+    "@fortawesome/fontawesome-free": "^6.4.2",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/pluginutils": "^5.0.5",
+    "rollup": "^4.1.4",
+    "terser": "^5.22.0"
   }
 }

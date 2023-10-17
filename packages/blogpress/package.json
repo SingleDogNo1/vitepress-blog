@@ -15,9 +15,9 @@
     "@singledog/theme": "workspace:",
     "@vitepress-demo-preview/component": "^2.3.2",
     "@vitepress-demo-preview/plugin": "^1.2.2",
-    "axios": "^0.27.2",
-    "element-plus": "^2.3.8",
-    "vitepress": "^1.0.0-rc.20"
+    "axios": "^1.5.1",
+    "element-plus": "^2.4.0",
+    "vitepress": "^1.0.0-rc.22"
   },
   "type": "module"
 }
