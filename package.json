@@ -42,5 +42,8 @@
   },
   "keywords": [],
   "author": "singleDogNo.1",
-  "license": "MIT"
+  "license": "MIT",
+  "volta": {
+    "node": "18.16.1"
+  }
 }

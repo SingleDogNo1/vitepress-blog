@@ -25,6 +25,7 @@
     "autoresize",
     "btn",
     "btns",
-    "minmax"
+    "minmax",
+    "pinia"
   ]
 }

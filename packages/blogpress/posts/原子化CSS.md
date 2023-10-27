@@ -79,5 +79,18 @@ Atomic CSS is the approach to CSS architecture that favors small, single-purpose
     * 通过`eslint / stylelint / prettier`来规范文件换行情况，合理控制可读性
     * 如上优势中提到的，通过`@apply`可以组合部分样式并定义为新的样式类名，减少代码长度。
     * [`Attributify Mode`](https://unocss.dev/presets/attributify#attributify-mode)从一定程度上减少代码量。
+    * `unocss`只提供了规范，但并没有约束我们必须完全按照它的规则来。完全可以混用。你可以只在你觉得方便的地方使用它。
+
+      ```html
+        <div class="card-wrapper">
+          <img class="round border w-10 h-10" />
+          <h3 class="card-title text-red-50"></h3>
+        </div>
+
+        <style>
+          .card-wrapper {/* ... */}
+          .card-title {/* ... */}
+        </style>
+      ```
 
 最后还是要补充一句，本文只阐述我自己使用`unocss`以来的一些心得，只算是抛砖引玉。如果你有不同意见，也欢迎讨论。既然看到了最后，相信你对`unocss`还是有兴趣的，再次附上[作者原文：重新构想原子化CSS](https://antfu.me/posts/reimagine-atomic-css-zh#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8E%9F%E5%AD%90%E5%8C%96-css)。
