@@ -2,6 +2,7 @@
   "name": "@singledog/vue-preview-plugin",
   "type": "module",
   "version": "0.0.0",
+  "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -22,7 +23,8 @@
   },
   "devDependencies": {
     "@singledog/vue-repl": "workspace:",
+    "@tsconfig/node-lts-strictest": "^18.12.1",
     "@vitejs/plugin-vue": "^4.4.0",
-    "vite-plugin-dts": "^3.6.0"
+    "vite-plugin-dts": "^3.6.3"
   }
 }
