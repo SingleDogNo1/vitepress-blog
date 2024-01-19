@@ -18,10 +18,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
-    "build-types": "vue-tsc -p tsconfig.build.json && api-extractor run -c api-extractor.json && rimraf dist/src",
-    "prepublishOnly": "npm run build && npm run build-types",
-    "clean": "rimraf node_modules && rimraf dist"
+    "build": "vite build && npm run build-types",
+    "build-types": "vue-tsc -p tsconfig.build.json && api-extractor run -c api-extractor.json && rm -rf dist/src",
+    "clean": "rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
     "@babel/types": "^7.23.0",

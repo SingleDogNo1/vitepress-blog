@@ -25,7 +25,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npx tsup src/node.ts --dts --out-dir=./ --external vitepress",
-    "clean": "rimraf node_modules && rimraf node.js && rimraf node.d.ts"
+    "clean": "rm -rf node_modules && rm -rf node.js && rm -rf node.d.ts"
   },
   "dependencies": {
     "@mdit-vue/shared": "^1.0.0",

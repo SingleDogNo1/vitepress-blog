@@ -1,12 +1,12 @@
 {
-  "name": "blogpress",
+  "name": "@singledog/blog",
   "version": "2.0.6",
   "private": true,
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
     "serve": "vitepress serve",
-    "clean": "rimraf node_modules && rimraf .vitepress/dist"
+    "clean": "rm -rf node_modules && rm -rf .vitepress/dist && rm -rf .vitepress/cache"
   },
   "license": "MIT",
   "dependencies": {
