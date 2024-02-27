@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "afc2474a93bc96ac",
+        "id": "c85c9604f13fa373",
         "type": "tabs",
         "children": [
           {
-            "id": "ad3f939e45d06e91",
+            "id": "7ca79f70a743682d",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "packages/blogpress/posts/css伪元素.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -60,8 +64,17 @@
               "type": "bookmarks",
               "state": {}
             }
+          },
+          {
+            "id": "b4a15b285d70fdec",
+            "type": "leaf",
+            "state": {
+              "type": "file-tree-view",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -81,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "packages/blogpress/posts/css伪元素.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "packages/blogpress/posts/css伪元素.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +133,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "packages/blogpress/posts/css伪元素.md"
+              }
             }
           }
         ]
@@ -135,11 +152,20 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "command-palette:打开命令面板": false,
+      "file-tree-alternative:File Tree Alternative Plugin": false
     }
   },
-  "active": "6149535f31cdae2c",
+  "active": "7ca79f70a743682d",
   "lastOpenFiles": [
+    "packages/blogpress/posts/ES6.md",
+    "packages/blogpress/posts/grid.md",
+    "packages/blogpress/posts/css伪元素.md",
+    "packages/blogpress/posts/vite-vue-template/3.md",
+    "packages/blogpress/posts/vite-vue-template/5.md",
+    "packages/blogpress/posts/vite-vue-template/4.md",
+    "packages/blogpress/posts/vite-vue-template/2.md",
+    "packages/blogpress/posts/vite-vue-template/1.md",
     "packages/blogpress/index.md",
     "packages/blogpress/aboutme.md",
     "README.md",
@@ -150,7 +176,6 @@
     "2024-02-27.md",
     "packages/blogpress/posts/JSDoc取代typescript.md",
     "packages/blogpress/posts/使用Sass.md",
-    "packages/blogpress/posts/原子化CSS.md",
-    "packages/blogpress/posts/ES6.md"
+    "packages/blogpress/posts/原子化CSS.md"
   ]
 }
