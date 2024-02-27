@@ -1,0 +1,162 @@
+{
+  "main": {
+    "id": "39184e7879375d9a",
+    "type": "split",
+    "children": [
+      {
+        "id": "33a3dc188039cc32",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fb4db483cc503a05",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c3631ed81228d505",
+    "type": "split",
+    "children": [
+      {
+        "id": "2b742bafbfd184c1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6149535f31cdae2c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "c344f97a56e51907",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7834138850daa316",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f2734e372b82ed8d",
+    "type": "split",
+    "children": [
+      {
+        "id": "f26bcddd81ecb2b1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "828454b1d9f4a55b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "8b995622834f37c4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "374c0c5289d4472b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "c96ba0cf89423c02",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "fb4db483cc503a05",
+  "lastOpenFiles": [
+    "packages/blogpress/posts/未命名.md",
+    "README.md",
+    "未命名.md",
+    "未命名",
+    "packages/blogpress/posts/博客升级.md",
+    "2024-02-27.md",
+    "packages/blogpress/posts/JSDoc取代typescript.md",
+    "packages/blogpress/posts/使用Sass.md",
+    "packages/blogpress/posts/原子化CSS.md",
+    "packages/blogpress/posts/ES6.md"
+  ]
+}

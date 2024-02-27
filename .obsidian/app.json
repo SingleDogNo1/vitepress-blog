@@ -1,0 +1,8 @@
+{
+  "promptDelete": false,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "packages/blogpress/posts",
+  "userIgnoreFilters": [
+    "node_modules/"
+  ]
+}
