@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "33a3dc188039cc32",
+        "id": "afc2474a93bc96ac",
         "type": "tabs",
         "children": [
           {
-            "id": "fb4db483cc503a05",
+            "id": "ad3f939e45d06e91",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "README.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,10 +138,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "fb4db483cc503a05",
+  "active": "6149535f31cdae2c",
   "lastOpenFiles": [
-    "packages/blogpress/posts/未命名.md",
+    "packages/blogpress/index.md",
+    "packages/blogpress/aboutme.md",
     "README.md",
+    "packages/blogpress/posts/未命名.md",
     "未命名.md",
     "未命名",
     "packages/blogpress/posts/博客升级.md",
