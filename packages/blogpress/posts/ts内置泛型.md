@@ -8,6 +8,7 @@ categories:
   - javascript
   - typescript
 ---
+# typescript 内置泛型
 
 日常使用泛型就那么几个，其他没用过的就不熟悉了，汇总一下查漏补缺
 
