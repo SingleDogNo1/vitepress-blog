@@ -46,7 +46,7 @@
     "sass": "^1.69.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",
-    "vitepress": "^1.0.0-rc.22",
+    "vitepress": "^1.1.0",
     "vue": "^3.3.4"
   }
 }

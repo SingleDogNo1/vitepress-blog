@@ -53,7 +53,8 @@ export default defineConfig({
       provider: 'local'
     },
     outline: {
-      level: 'deep'
+      level: 'deep',
+      label: '页面导航'
     },
     lastUpdatedText: '上次更新于',
     logo: '/logo.svg',
