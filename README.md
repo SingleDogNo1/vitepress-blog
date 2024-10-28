@@ -65,5 +65,5 @@ pnpm serve
 
 ## TODO
 
-* [ ] [路由重定向](https://vitepress.dev/guide/routing#route-rewrites)有问题？打包后`post`路径仍然存在
+* [ ] [路由重定向问题](https://github.com/vuejs/vitepress/issues/3062)有问题，待官方修复
 * [x] markdown-preview 插件解析会干扰frontMatter

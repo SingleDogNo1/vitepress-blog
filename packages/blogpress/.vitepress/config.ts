@@ -68,8 +68,10 @@ export default defineConfig({
         link: '/aboutme'
       }
     ]
+  },
+  rewrites: {
+    // #BUG: rewrites本地使用正常，但打包后无法使用。待官方解决。issue: https://github.com/vuejs/vitepress/issues/3062
+    // 'posts/:pkg.md': ':pkg/index.md',
+    // 'posts/:pkg/(.*)': ':pkg/(.*)'
   }
-  // rewrites: {
-  //   'posts/:pkg/(.*).md': ':pkg/(.*).md'
-  // }
 })

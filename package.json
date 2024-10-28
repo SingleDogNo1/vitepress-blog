@@ -23,10 +23,10 @@
     "vue": "^3.3.4"
   },
   "scripts": {
+    "dev": "turbo run dev",
     "bootstrap": "pnpm install",
     "clean:cache": "rm -rf pnpm-lock.yaml && rm -rf node_modules",
     "clean": "turbo run clean && pnpm clean:cache",
-    "dev": "turbo run dev",
     "serve": "pnpm --filter @singledog/blog serve",
     "build": "turbo run build"
   },

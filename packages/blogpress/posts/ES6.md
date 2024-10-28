@@ -23,11 +23,11 @@ ES6语法记录（不定时更新，遇到就添加）
 
 ## 常用语法
 
-## Promise
+### Promise
 
 这里不做解释，详见 [promise 详解](./promise.md)
 
-## Async & Await
+### Async & Await
 
 TODO: 待补充
 
