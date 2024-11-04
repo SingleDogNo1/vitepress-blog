@@ -26,5 +26,8 @@
     "@tsconfig/node-lts-strictest": "^18.12.1",
     "@vitejs/plugin-vue": "^4.4.0",
     "vite-plugin-dts": "^3.6.3"
+  },
+  "volta": {
+    "node": "18.16.1"
   }
 }

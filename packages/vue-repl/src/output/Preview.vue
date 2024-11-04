@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useStorage } from '@vueuse/core'
 import { ref, onMounted, onUnmounted, watchEffect, watch, WatchStopHandle, inject, Ref } from 'vue'
 import Message from '../Message.vue'
 import srcdoc from './srcdoc.html?raw'
@@ -7,12 +8,16 @@ import { compileModulesForPreview } from './moduleCompiler'
 import { Store, importMapFile } from '../store'
 import type { Props as ReplProps } from '../Repl.vue'
 
+defineOptions({ name: 'VuePreviewComponent' })
+
 export interface Props {
   show?: boolean
   ssr?: boolean
   bodyStyle?: Partial<CSSStyleDeclaration>
   appStyle?: Partial<CSSStyleDeclaration>
 }
+
+type AppearanceType = '' | 'dark' | 'auto'
 
 const props = withDefaults(defineProps<Props>(), {
   show: true,
@@ -31,12 +36,25 @@ const container = ref()
 const runtimeError = ref()
 const runtimeWarning = ref()
 
+const state = useStorage<AppearanceType>('vitepress-theme-appearance', 'auto', localStorage, {
+  mergeDefaults: true
+})
+
+watch(
+  () => state.value,
+  (v) => {
+    v === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+  }
+)
+
 let sandbox: HTMLIFrameElement
 let proxy: PreviewProxy
 let stopUpdateWatcher: WatchStopHandle | undefined
 
 // create sandbox on mount
-onMounted(createSandbox)
+onMounted(() => {
+  createSandbox()
+})
 
 // reset sandbox when import map changes
 watch(

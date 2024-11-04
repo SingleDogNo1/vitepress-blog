@@ -198,7 +198,7 @@ console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6]
 
 ```js
 const obj = {
-  name: 'singleDogNo.1'
+  name: 'singleDogNo.1',
   age: 18,
   sex: 'man'
 }

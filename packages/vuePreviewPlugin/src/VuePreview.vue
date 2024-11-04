@@ -1,4 +1,4 @@
-<!-- eslint-disable no-useless-escape vue/no-setup-props-destructure vue/no-setup-props-destructure -->
+<!-- eslint-disable no-useless-escape -->
 <script setup lang="ts">
 import '@singledog/vue-repl/style.css'
 import type { PreviewUpdateFlag, Store } from '@singledog/vue-repl'
@@ -10,6 +10,7 @@ import Copied from './icons/Copied.vue'
 import UnfoldLess from './icons/UnfoldLess.vue'
 import UnfoldMore from './icons/UnfoldMore.vue'
 import Loading from './icons/Loading.vue'
+import extraStyle from './style'
 
 export interface Props {
   store?: Store
@@ -40,7 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
   encode: false,
   collapse: false,
   previewOptions: () => ({
-    headHTML: '',
+    headHTML: extraStyle,
     bodyHTML: '',
     customCode: {
       importCode: '',
@@ -132,11 +133,8 @@ const isHover = useElementHover(vuePreviewContainerRef)
         :app-style="previewAppStyle"
         @update-preview="onPreviewUpdatePreview"
       />
-      <Transition
-        v-show="previewUpdateFlag !== 'UPDATING' && isHover"
-        name="vue-preview-slide-down"
-      >
-        <div class="vue-preview__btns">
+      <Transition name="vue-preview-slide-down">
+        <div class="vue-preview__btns" v-show="previewUpdateFlag !== 'UPDATING' && isHover">
           <button v-show="!copied" title="copy code" @click="copy(store.state.activeFile.code)">
             <Copy />
           </button>
@@ -151,8 +149,8 @@ const isHover = useElementHover(vuePreviewContainerRef)
           </button>
         </div>
       </Transition>
-      <Transition v-if="previewUpdateFlag === 'UPDATING'" name="fade">
-        <div class="vue-preview__loading-model">
+      <Transition>
+        <div v-if="previewUpdateFlag === 'UPDATING'" name="fade" class="vue-preview__loading-model">
           <Loading class="vue-preview__loading-icon" />
         </div>
       </Transition>

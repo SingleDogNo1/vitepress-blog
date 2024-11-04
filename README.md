@@ -25,16 +25,16 @@ npm i -g pnpm
 pnpm bootstrap
 ```
 
-④ 本地运行
-
-```sh
-pnpm dev
-```
-
-⑤ 打包
+④ 打包
 
 ```sh
 pnpm build
+```
+
+⑤ 本地运行
+
+```sh
+pnpm dev
 ```
 
 ⑥ 本地运行打包后文件
@@ -45,7 +45,7 @@ pnpm serve
 
 ## 注意
 
-`blog`模块以其他模块为依赖，因此修改 `theme`/`markdown-preview`或`live2d-widget`原文件后，需要重新构建才能生效。得益于`turbo`，更新不需要额外的操作，但仍需要重新执行`npm run dev`才能生效
+`blog`模块以其他模块为依赖，因此本地运行前需要先打包其他模块。并且在修改`除blog模块外任意模块原文件`后，都需要重新构建才能生效。
 
 ## PageMeta
 

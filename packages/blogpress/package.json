@@ -10,14 +10,17 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@element-plus/icons-vue": "^2.1.0",
+    "@element-plus/icons-vue": "^2.3.1",
     "@singledog/vue-preview-plugin": "workspace:",
     "@singledog/theme": "workspace:",
     "@vitepress-demo-preview/component": "^2.3.2",
-    "@vitepress-demo-preview/plugin": "^1.2.2",
-    "axios": "^1.5.1",
-    "element-plus": "^2.4.0",
-    "vitepress": "^1.1.0"
+    "@vitepress-demo-preview/plugin": "^1.2.3",
+    "axios": "^1.7.7",
+    "element-plus": "^2.8.7",
+    "vitepress": "^1.4.5"
   },
-  "type": "module"
+  "type": "module",
+  "volta": {
+    "node": "18.16.1"
+  }
 }
