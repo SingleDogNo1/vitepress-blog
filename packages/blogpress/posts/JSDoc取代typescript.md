@@ -1,9 +1,6 @@
 ---
 description: 关于 Svelte 声称弃用 Typescript 转为 JSDoc 我的一些看法
-tags:
-  - typescript
-categories:
-  - typescript
+tags: ['typescript']
 ---
 # typescript 被放弃了？
 

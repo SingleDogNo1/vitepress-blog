@@ -1,10 +1,7 @@
 ---
 description: 我理解的原子化CSS
 title: unocss使用心得
-tags:
-  - css
-categories:
-  - css
+tags: ['css']
 ---
 # 原子化CSS
 

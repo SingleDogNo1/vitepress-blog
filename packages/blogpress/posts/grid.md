@@ -1,9 +1,6 @@
 ---
 description: CSS Grid 语法总结
-tags:
-  - css
-categories:
-  - css
+tags: ["css", 'grid']
 ---
 # CSS Grid布局
 

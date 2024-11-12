@@ -1,8 +1,6 @@
 packages:
-  # 所有在 packages/ 目录下的 package
   - 'packages/**'
   - '!packages/blogpress/.vitepress/cache'
-  # 不包括在 test/demos 文件夹下的 package
   - '!**/__test__/**'
   - '!**/demos/**'
   - '!**/template/**'

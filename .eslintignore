@@ -10,3 +10,4 @@ packages/theme/node.js
 packages/blogpress/public/service-worker.js
 *.json
 *.md
+*.yaml

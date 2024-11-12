@@ -1,12 +1,7 @@
 ---
 description: typescript 内置泛型汇总
 sticky: 3
-tags:
-  - javascript
-  - typescript
-categories:
-  - javascript
-  - typescript
+tags: ['typescript']
 ---
 # typescript 内置泛型
 

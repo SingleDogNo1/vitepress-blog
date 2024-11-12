@@ -2,12 +2,9 @@
 description: 使用 vite 搭建自己的开发脚手架
 sticky: 5
 recommend: false
-tags:
-  - vite
-  - vue
-categories:
-  - vite
+tags: ['vite', 'vue']
 ---
+
 # vite 脚手架搭建
 
 最细致的教程，教你一步步搭建自己的开发脚手架

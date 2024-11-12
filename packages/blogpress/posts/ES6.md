@@ -1,9 +1,6 @@
 ---
 description: ES6语法总结
-tags:
-  - javascript
-categories:
-  - javascript
+tags: ['javascript']
 ---
 # ES6语法汇总
 

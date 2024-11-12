@@ -1,9 +1,6 @@
 ---
 description: 偏门但有奇效的css伪元素用法
-tags:
-  - css
-categories:
-  - css
+tags: ['css']
 ---
 # css 伪元素
 

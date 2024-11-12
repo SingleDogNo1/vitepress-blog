@@ -1,9 +1,6 @@
 ---
 description: CSS Flex 语法总结
-tags:
-  - css
-categories:
-  - css
+tags: ['css', 'flex']
 ---
 
 # CSS Flex布局

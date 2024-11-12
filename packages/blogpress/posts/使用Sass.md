@@ -2,11 +2,9 @@
 description: Sass教程
 sticky: 2
 cover: https://sass-lang.com/assets/img/styleguide/seal-color.png
-tags:
-  - sass
-categories:
-  - nodeJs
+tags: ['sass']
 ---
+
 # 使用Sass
 
 ::: warning 警告
