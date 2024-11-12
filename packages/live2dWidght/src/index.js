@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable prefer-const */
 import Model from './model.js'
 import showMessage from './message.js'
 import randomSelection from './utils.js'

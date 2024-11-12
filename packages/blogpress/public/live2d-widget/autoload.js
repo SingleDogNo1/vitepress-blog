@@ -29,8 +29,8 @@ if (window.screen.width >= 768) {
   ]).then(() => {
     initWidget({
       waifuPath: `${live2d_path}waifu-tips.json`,
-      cdnPath: 'https://cdn.jsdelivr.net/gh/SingleDogNo1/live2d_api@1.0/',
-      tools: ['asteroids', 'switch-model', 'switch-texture', 'photo', 'info']
+      cdnPath: 'https://cdn.jsdelivr.net/gh/SingleDogNo1/live2d_api@1.4/',
+      tools: ['switch-model', 'switch-texture', 'photo', 'quit']
     })
   })
 }

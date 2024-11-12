@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import showMessage from './message.js'
 import randomSelection from './utils.js'
 
@@ -49,6 +48,7 @@ class Model {
     let modelId = localStorage.getItem('modelId')
     if (this.useCDN) {
       if (!this.modelList) await this.loadModelList()
+      // eslint-disable-next-line no-plusplus
       const index = ++modelId >= this.modelList.models.length ? 0 : modelId
       this.loadModel(index, this.modelList.messages[index])
     } else {
