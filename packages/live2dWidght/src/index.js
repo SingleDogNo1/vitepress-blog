@@ -101,6 +101,7 @@ function loadWidget(config) {
     showMessage(welcomeMessage(result.time), 7000, 11)
 
     window.addEventListener('mouseover', (event) => {
+      // eslint-disable-next-line prefer-const
       for (let { selector, text } of result.mouseover) {
         if (!event.target.closest(selector)) continue
         if (lastHoverElement === selector) return
@@ -113,6 +114,7 @@ function loadWidget(config) {
     })
 
     window.addEventListener('click', (event) => {
+      // eslint-disable-next-line prefer-const
       for (let { selector, text } of result.click) {
         if (!event.target.closest(selector)) continue
         text = randomSelection(text)
