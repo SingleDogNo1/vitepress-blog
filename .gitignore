@@ -5,6 +5,7 @@ cache
 .temp
 .idea
 .turbo
+.obsidian
 blog.tar.gz
 .DS_Store
 packages/theme/node.d.ts
