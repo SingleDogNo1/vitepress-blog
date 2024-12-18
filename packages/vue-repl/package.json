@@ -8,8 +8,8 @@
       "require": "./dist/ssr-stub.js",
       "import": "./dist/vue-repl.js"
     },
-    "./style.css": "./dist/style.css",
-    "./dist/style.css": "./dist/style.css"
+    "./vue-repl.css": "./dist/vue-repl.css",
+    "./dist/vue-repl.css": "./dist/vue-repl.css"
   },
   "main": "dist/ssr-stub.js",
   "module": "dist/vue-repl.js",
@@ -39,7 +39,6 @@
     "fflate": "^0.8.1",
     "hash-sum": "^2.0.0",
     "sucrase": "^3.34.0",
-    "vite-plugin-dts": "^4.2.3",
     "vue-tsc": "^1.8.22"
   },
   "volta": {

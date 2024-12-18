@@ -9,7 +9,7 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
-    "./style.css": "./dist/style.css"
+    "./vue-preview-plugin.css": "./dist/vue-preview-plugin.css"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -24,8 +24,7 @@
   "devDependencies": {
     "@singledog/vue-repl": "workspace:",
     "@tsconfig/node-lts-strictest": "^18.12.1",
-    "@vitejs/plugin-vue": "^4.4.0",
-    "vite-plugin-dts": "^3.6.3"
+    "@vitejs/plugin-vue": "^5.2.1"
   },
   "volta": {
     "node": "18.16.1"

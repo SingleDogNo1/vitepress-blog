@@ -1,8 +1,7 @@
-/* eslint-disable global-require */
 import type { UserConfig } from 'vitepress'
 import { aliasObjectToArray } from './index'
 import type { Theme } from '../../composables/config/index'
-import { MermaidMarkdown } from 'vitepress-plugin-mermaid'
+import { MermaidMarkdown, MermaidPlugin } from 'vitepress-plugin-mermaid'
 
 export function getMarkdownPlugins(cfg?: Partial<Theme.BlogConfig>) {
   const markdownPlugin: any[] = []
@@ -37,7 +36,7 @@ export function assignMermaid(config: any) {
 
   if (!config.vite) config.vite = {}
   if (!config.vite.plugins) config.vite.plugins = []
-  const { MermaidPlugin } = require('vitepress-plugin-mermaid')
+  // const { MermaidPlugin } = require('vitepress-plugin-mermaid')
   config.vite.plugins.push(MermaidPlugin(config.mermaid))
   if (!config.vite.resolve) config.vite.resolve = {}
   if (!config.vite.resolve.alias) config.vite.resolve.alias = {}

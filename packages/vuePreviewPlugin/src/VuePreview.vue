@@ -1,6 +1,6 @@
 <!-- eslint-disable no-useless-escape -->
 <script setup lang="ts">
-import '@singledog/vue-repl/style.css'
+import '@singledog/vue-repl/vue-repl.css'
 import type { PreviewUpdateFlag, Store } from '@singledog/vue-repl'
 import { CodeMirror, Preview, ReplStore, defaultMainFile, importMapFile } from '@singledog/vue-repl'
 import { computed, onMounted, provide, ref } from 'vue'

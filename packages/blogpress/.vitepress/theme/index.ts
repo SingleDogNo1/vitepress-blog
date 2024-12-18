@@ -3,7 +3,7 @@ import './theme.scss'
 // 全局组件
 import { VuePreview } from '@singledog/vue-preview-plugin'
 import HighlightText from './src/components/highlightText.vue'
-import '@singledog/vue-preview-plugin/style.css'
+import '@singledog/vue-preview-plugin/vue-preview-plugin.css'
 
 export default {
   ...BlogTheme,
