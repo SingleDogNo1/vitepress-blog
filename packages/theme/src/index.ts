@@ -19,7 +19,6 @@ export const BlogTheme: Theme = {
   Layout: withConfigProvider(BlogApp),
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp(ctx)
-    // @ts-ignore
     ctx.app.component('TimelinePage', TimelinePage)
     ctx.app.component('UserWorksPage', UserWorksPage)
   }

@@ -18,7 +18,7 @@
   <ClientOnly>
     <el-pagination
       v-if="wikiList.length >= pageSize"
-      small
+      size="small"
       background
       :default-current-page="1"
       :current-page="currentPage"

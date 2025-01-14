@@ -49,7 +49,7 @@ const isDark = useDark({
 
 const colorMode = computed(() => (isDark.value ? 'light' : 'dark'))
 
-const tagType: any = ['', 'info', 'success', 'warning', 'danger']
+const tagType: any = ['primary', 'info', 'success', 'warning', 'danger']
 const currentPage = useCurrentPageNum()
 
 const handleCloseTag = () => {
