@@ -40,12 +40,6 @@ const state = useStorage<AppearanceType>('vitepress-theme-appearance', 'auto', l
   mergeDefaults: true
 })
 
-watch(
-  () => state.value,
-  (v) => {
-    v === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
-  }
-)
 
 let sandbox: HTMLIFrameElement
 let proxy: PreviewProxy
@@ -55,6 +49,13 @@ let stopUpdateWatcher: WatchStopHandle | undefined
 onMounted(() => {
   createSandbox()
 })
+
+watch(
+  () => state.value,
+  (v) => {
+    v === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark')
+  }
+)
 
 // reset sandbox when import map changes
 watch(

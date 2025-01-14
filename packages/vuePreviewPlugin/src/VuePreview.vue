@@ -126,13 +126,15 @@ const isHover = useElementHover(vuePreviewContainerRef)
 <template>
   <div class="vue-preview">
     <div ref="vuePreviewContainerRef" class="vue-preview__container">
-      <Preview
-        show
-        :ssr="props.ssr"
-        :body-style="previewBodyStyle"
-        :app-style="previewAppStyle"
-        @update-preview="onPreviewUpdatePreview"
-      />
+      <ClientOnly>
+        <Preview
+          show
+          :ssr="props.ssr"
+          :body-style="previewBodyStyle"
+          :app-style="previewAppStyle"
+          @update-preview="onPreviewUpdatePreview"
+        />
+      </ClientOnly>
       <Transition name="vue-preview-slide-down">
         <div class="vue-preview__btns" v-show="previewUpdateFlag !== 'UPDATING' && isHover">
           <button v-show="!copied" title="copy code" @click="copy(store.state.activeFile.code)">
