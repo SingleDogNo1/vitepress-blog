@@ -15,4 +15,4 @@ hidden: true
 ## :phone:联系我
 
 - **手机号**：13623673118
-- **微信** <img src="/QRCode.jpg" style="width:200px;">
+- **微信** ![二维码](/QRCode.jpg)
