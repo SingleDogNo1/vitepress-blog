@@ -1,10 +1,10 @@
 ---
-description: 面试中常被问起promise，在这里总结一下
+description: 面试中常被问起promise和宏任务/微任务，在这里总结一下
 sticky: 4
 tags: ['javascript']
 ---
 
-# promise 详解
+# promise 详解 & 宏任务 / 微任务
 
 最近想重新换工作，几乎所有面试都会问到 promise，有简单理解的，也有问到一些比较复杂的实现，有些我是知道的但也有些是不清楚的，所以查阅资料，把关于 promise 的知识补充提升一下。
 

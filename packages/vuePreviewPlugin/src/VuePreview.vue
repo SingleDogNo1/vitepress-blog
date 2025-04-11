@@ -106,7 +106,6 @@ provide('preview-options', props.previewOptions)
 const { copy, copied } = useClipboard({ source: store.state.activeFile.code, legacy: true })
 
 const isCollapse = ref(props.collapse)
-const maxHeightForCode = computed(() => (isCollapse.value ? '0' : '1000px'))
 
 const previewBodyStyle = computed<Partial<CSSStyleDeclaration>>(() =>
   typeof props.previewBodyStyle === 'string'
@@ -254,7 +253,7 @@ const isHover = useElementHover(vuePreviewContainerRef)
     overflow: hidden;
     height: auto;
     border-radius: 0 0 var(--vue-preview-radius) var(--vue-preview-radius);
-    max-height: v-bind('maxHeightForCode');
+
     transition: max-height 0.3s;
   }
 }
