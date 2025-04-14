@@ -14,6 +14,53 @@ tags: ['css']
 
 详细可以看[官方文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_nesting/Using_CSS_nesting)。实际使用起来和`sass/less`语法的嵌套规则区别不大<HighlightText msg="（除了不支持字符串拼接功能）" color="danger" />，但原生css支持还是令人激动。
 
+## 垂直对齐
+
+以往要想让元素垂直居中，使用`flex`布局是最方便的。但现在有了`align-content`可以直接实现垂直方向对齐。
+
+```vue preview
+<template>
+  <div class="box" :style="style">
+    <div class="a"></div>
+  </div>
+  <div>
+    <button
+      v-for="v in ['start', 'center', 'end']"
+      :key="v"
+      @click="alignContent = v"
+    > {{ v }} </button>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue'
+
+const alignContent = ref('center')
+
+const style = computed(()=> {
+  return {
+    alignContent: alignContent.value
+  }
+})
+</script>
+
+<style scoped>
+.box {
+  width: 150px;
+  height: 150px;
+  background-color: #adc;
+
+  .a {
+    width: 100px;
+    height: 100px;
+    background-color: #ace;
+  }
+}
+</style>
+```
+
+现已支持[主流浏览器](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-content#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。但是如果需要更高级的控制，需要结合`flex / grid`布局使用，详细参考官方文档。
+
 ## 高清晰度的颜色
 
 使用[`oklch`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value/oklch)和[`oklab`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value/oklab)创建更高清晰度的颜色。`oklch`和`oklab`都基于人类感知，尽力模仿人眼感知颜色的方式。其中`oklab`最适合丰富的渐变，`oklch`最适合设计系统中的调色板。令人兴奋的是，二者在各主流浏览器都得到完全支持。详见[官方文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value/oklch#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。
