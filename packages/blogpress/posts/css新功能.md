@@ -18,7 +18,9 @@ tags: ['css']
 
 以往要想让元素垂直居中，使用`flex`布局是最方便的。但现在有了`align-content`可以直接实现垂直方向对齐。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="box" :style="style">
     <div class="a"></div>
@@ -59,13 +61,17 @@ const style = computed(()=> {
 </style>
 ```
 
+:::
+
 现已支持[主流浏览器](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-content#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。但是如果需要更高级的控制，需要结合`flex / grid`布局使用，详细参考官方文档。
 
 ## 高清晰度的颜色
 
 使用[`oklch`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value/oklch)和[`oklab`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value/oklab)创建更高清晰度的颜色。`oklch`和`oklab`都基于人类感知，尽力模仿人眼感知颜色的方式。其中`oklab`最适合丰富的渐变，`oklch`最适合设计系统中的调色板。令人兴奋的是，二者在各主流浏览器都得到完全支持。详见[官方文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value/oklch#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="box-wrapper">
     <div class="a"></div>
@@ -94,13 +100,17 @@ const style = computed(()=> {
 </style>
 ```
 
+:::
+
 上面示例使用`oklab`填充纯红色背景，作为对比，背景色为`red`的色块显得黯然失色。并且聪明的你应该注意到，示例代码中使用了原生的css嵌套。
 
 ## 计算相对颜色(Releative color)
 
 css现在支持通过对色值计算从而得到新的颜色，无需自己手动计算。[详见文档](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors)。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="wrap">
     <div class="item"></div>
@@ -136,6 +146,8 @@ css现在支持通过对色值计算从而得到新的颜色，无需自己手�
 </style>
 ```
 
+:::
+
 ## has 选择器
 
 `has`选择器填补了css选择器无法选中父元素和其他兄弟元素的空白。同样的，[现代浏览器均支持该语法](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:has#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。用法如下：
@@ -157,7 +169,9 @@ div:has(+ p)
 div:has(~ p)
 ```
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="demo">
     <h1>1级标题</h1>
@@ -181,6 +195,8 @@ div:has(~ p)
 </style>
 ```
 
+:::
+
 分步拆解上面的示例：
 
 + `h1 + :has(~ h1)`
@@ -194,7 +210,9 @@ div:has(~ p)
 
 下面是一个实现Mac电脑的dock效果的示例
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="box">
     <div v-for="v in 8" :key="v" class="son">{{ v }}</div>
@@ -249,6 +267,21 @@ div:has(~ p)
 </style>
 ```
 
+```json
+{
+  "editorConfig": {
+    "layout": "vertical",
+    "layoutReverse": true,
+    "showImportMap": false,
+    "previewTheme": true,
+    "showTsConfig": false,
+    "showCompileOutput": false
+  }
+}
+```
+
+:::
+
 ## @layer
 
 `layer`的出现为css样式优先级的控制提供了更好的思路，并且有效解决了`!important`滥用的情况。同样的，各主流浏览器均已[支持该语法](https://developer.mozilla.org/zh-CN/docs/Web/CSS/@layer#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。
@@ -257,7 +290,9 @@ div:has(~ p)
 
 `@layer`的用法很简单，只需要用`@layer`包裹平时书写的css样式即可。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="box"></div>
 </template>
@@ -272,9 +307,13 @@ div:has(~ p)
 </style>
 ```
 
+:::
+
 你会发现和正常的css样式没有区别，生成了一个`100*100`的红色方块。那这样写的意义在哪里呢？答案是这样一来，写在`@layer`中的样式优先级会永远低于普通的css样式。此时再按照正常的css样式书写，就可以覆盖`@layer`中的样式了,即使`@layer`写在普通样式之后。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="box"></div>
 </template>
@@ -294,6 +333,8 @@ div:has(~ p)
 }
 </style>
 ```
+
+:::
 
 除了上面的用法，`@layer`还可以指定名称，命名后可以通过名称对其进行更细致的使用，包括
 

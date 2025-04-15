@@ -1,111 +1,105 @@
+<template>
+  <div
+    ref="container"
+    class="editor"
+    @keydown.ctrl.s.prevent="emitChangeEvent"
+    @keydown.meta.s.prevent="emitChangeEvent"
+  />
+</template>
+
 <script setup lang="ts">
-import { inject, onMounted, ref, watchEffect } from 'vue'
-import { EditorView, basicSetup } from 'codemirror'
-import { Compartment, EditorState } from '@codemirror/state'
-import { vue } from '@codemirror/lang-vue'
-import { javascript } from '@codemirror/lang-javascript'
-import { css } from '@codemirror/lang-css'
-import type { ViewUpdate } from '@codemirror/view'
-import { keymap } from '@codemirror/view'
-import { oneDark } from '@codemirror/theme-one-dark'
-import { indentLess, insertTab } from '@codemirror/commands'
-import { html } from '@codemirror/lang-html'
+import type { ModeSpec, ModeSpecOptions } from 'codemirror'
+import {
+  inject,
+  onMounted,
+  onWatcherCleanup,
+  useTemplateRef,
+  watch,
+  watchEffect,
+} from 'vue'
 import { debounce } from '../utils'
+import CodeMirror from './codemirror'
+import { injectKeyProps } from '../../src/types'
 
 export interface Props {
-  mode?: string
+  mode?: string | ModeSpec<ModeSpecOptions>
   value?: string
   readonly?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  mode: 'vue',
+  mode: 'htmlmixed',
   value: '',
-  readonly: false
+  readonly: false,
 })
 
 const emit = defineEmits<(e: 'change', value: string) => void>()
 
-const el = ref()
-const needAutoResize = inject('autoresize')
+const el = useTemplateRef('container')
+const { autoResize, autoSave } = inject(injectKeyProps)!
+let editor: CodeMirror.Editor
+
+const emitChangeEvent = () => {
+  emit('change', editor.getValue())
+}
 
 onMounted(() => {
-  const language = new Compartment()
-  const readOnly = new Compartment()
+  const addonOptions = props.readonly
+    ? {}
+    : {
+        autoCloseBrackets: true,
+        autoCloseTags: true,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+        keyMap: 'sublime',
+      }
 
-  const state = EditorState.create({
-    extensions: [
-      basicSetup,
-      language.of(
-        vue({
-          base: html({
-            matchClosingTags: true,
-            autoCloseTags: true
-          })
-        })
-      ),
-      EditorState.tabSize.of(2),
-      EditorView.updateListener.of((update: ViewUpdate) => {
-        if (update.docChanged) emit('change', update.state.doc.toString())
-      }),
-      oneDark,
-      readOnly.of(EditorState.readOnly.of(!!props.readonly)),
-      keymap.of([{ key: 'Tab', run: insertTab, shift: indentLess }])
-    ]
-  })
-
-  const editor = new EditorView({
-    state,
-    parent: el.value
+  editor = CodeMirror(el.value!, {
+    value: '',
+    mode: props.mode,
+    readOnly: props.readonly,
+    tabSize: 2,
+    lineWrapping: true,
+    lineNumbers: true,
+    ...addonOptions,
   })
 
   watchEffect(() => {
-    const cur = editor.state.doc.toString()
-    if (props.value !== cur)
-      editor.dispatch({ changes: { from: 0, to: editor.state.doc.length, insert: props.value } })
-  })
-
-  watchEffect(() => {
-    if (props.mode === 'javascript') {
-      editor.dispatch({ effects: language.reconfigure(javascript()) })
-    } else if (props.mode === 'css') {
-      editor.dispatch({ effects: language.reconfigure(css()) })
-    } else {
-      editor.dispatch({
-        effects: language.reconfigure(
-          vue({
-            base: html({
-              matchClosingTags: true,
-              autoCloseTags: true
-            })
-          })
-        )
-      })
+    const cur = editor.getValue()
+    if (props.value !== cur) {
+      editor.setValue(props.value)
     }
   })
 
   watchEffect(() => {
-    editor.dispatch({ effects: readOnly.reconfigure(EditorState.readOnly.of(!!props.readonly)) })
+    editor.setOption('mode', props.mode)
   })
 
   setTimeout(() => {
-    editor.requestMeasure()
+    editor.refresh()
   }, 50)
 
-  if (needAutoResize) {
+  if (autoResize.value) {
     window.addEventListener(
       'resize',
       debounce(() => {
-        editor.requestMeasure()
-      })
+        editor.refresh()
+      }),
     )
   }
+
+  watch(
+    autoSave,
+    (autoSave) => {
+      if (autoSave) {
+        editor.on('change', emitChangeEvent)
+        onWatcherCleanup(() => editor.off('change', emitChangeEvent))
+      }
+    },
+    { immediate: true },
+  )
 })
 </script>
-
-<template>
-  <div ref="el" class="editor" />
-</template>
 
 <style>
 .editor {
@@ -113,6 +107,11 @@ onMounted(() => {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: #282c34;
+}
+
+.CodeMirror {
+  font-family: var(--font-code);
+  line-height: 1.5;
+  height: 100%;
 }
 </style>

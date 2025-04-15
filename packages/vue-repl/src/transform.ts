@@ -1,68 +1,110 @@
-import type { BindingMetadata, CompilerOptions, SFCDescriptor } from 'vue/compiler-sfc'
-import { transform } from 'sucrase'
-
-// @ts-expect-error no .d.ts
-import hashId from 'hash-sum'
 import type { File, Store } from './store'
+import type {
+  BindingMetadata,
+  CompilerOptions,
+  SFCDescriptor,
+} from 'vue/compiler-sfc'
+import { type Transform, transform } from 'sucrase'
+import hashId from 'hash-sum'
 
-export const COMP_IDENTIFIER = '__sfc__'
+export const COMP_IDENTIFIER = `__sfc__`
 
-async function transformTS(src: string) {
+const REGEX_JS = /\.[jt]sx?$/
+function testTs(filename: string | undefined | null) {
+  return !!(filename && /(\.|\b)tsx?$/.test(filename))
+}
+function testJsx(filename: string | undefined | null) {
+  return !!(filename && /(\.|\b)[jt]sx$/.test(filename))
+}
+
+function transformTS(src: string, isJSX?: boolean) {
   return transform(src, {
-    transforms: ['typescript']
+    transforms: ['typescript', ...(isJSX ? (['jsx'] as Transform[]) : [])],
+    jsxRuntime: 'preserve',
   }).code
 }
 
-export async function compileFile(store: Store, { filename, code, compiled }: File) {
+export async function compileFile(
+  store: Store,
+  { filename, code, compiled }: File,
+): Promise<(string | Error)[]> {
   if (!code.trim()) {
-    store.state.errors = []
-    return
+    return []
   }
 
   if (filename.endsWith('.css')) {
     compiled.css = code
-    store.state.errors = []
-    return
+    return []
   }
 
-  if (filename.endsWith('.js') || filename.endsWith('.ts')) {
-    if (filename.endsWith('.ts')) code = await transformTS(code)
-
-    // eslint-disable-next-line no-multi-assign
+  if (REGEX_JS.test(filename)) {
+    const isJSX = testJsx(filename)
+    if (testTs(filename)) {
+      code = transformTS(code, isJSX)
+    }
+    if (isJSX) {
+      code = await import('./jsx').then(({ transformJSX }) =>
+        transformJSX(code),
+      )
+    }
     compiled.js = compiled.ssr = code
-    store.state.errors = []
-    return
+    return []
+  }
+
+  if (filename.endsWith('.json')) {
+    let parsed
+    try {
+      parsed = JSON.parse(code)
+    } catch (err: any) {
+      console.error(`Error parsing ${filename}`, err.message)
+      return [err.message]
+    }
+    compiled.js = compiled.ssr = `export default ${JSON.stringify(parsed)}`
+    return []
   }
 
   if (!filename.endsWith('.vue')) {
-    store.state.errors = []
-    return
+    return []
   }
 
   const id = hashId(filename)
   const { errors, descriptor } = store.compiler.parse(code, {
     filename,
-    sourceMap: true
+    sourceMap: true,
+    templateParseOptions: store.sfcOptions?.template?.compilerOptions,
   })
   if (errors.length) {
-    store.state.errors = errors
-    return
+    return errors
   }
 
-  if (descriptor.styles.some((s) => s.lang) || (descriptor.template && descriptor.template.lang)) {
-    store.state.errors = [
-      'lang="x" pre-processors for <template> or <style> are currently not supported.'
+  const styleLangs = descriptor.styles.map((s) => s.lang).filter(Boolean)
+  const templateLang = descriptor.template?.lang
+  if (styleLangs.length && templateLang) {
+    return [
+      `lang="${styleLangs.join(
+        ',',
+      )}" pre-processors for <style> and lang="${templateLang}" ` +
+        `for <template> are currently not supported.`,
     ]
-    return
+  } else if (styleLangs.length) {
+    return [
+      `lang="${styleLangs.join(
+        ',',
+      )}" pre-processors for <style> are currently not supported.`,
+    ]
+  } else if (templateLang) {
+    return [
+      `lang="${templateLang}" pre-processors for ` +
+        `<template> are currently not supported.`,
+    ]
   }
 
-  const scriptLang =
-    (descriptor.script && descriptor.script.lang) ||
-    (descriptor.scriptSetup && descriptor.scriptSetup.lang)
-  const isTS = scriptLang === 'ts'
-  if (scriptLang && !isTS) {
-    store.state.errors = ['Only lang="ts" is supported for <script> blocks.']
-    return
+  const scriptLang = descriptor.script?.lang || descriptor.scriptSetup?.lang
+  const isTS = testTs(scriptLang)
+  const isJSX = testJsx(scriptLang)
+
+  if (scriptLang && scriptLang !== 'js' && !isTS && !isJSX) {
+    return [`Unsupported lang "${scriptLang}" in <script> blocks.`]
   }
 
   const hasScoped = descriptor.styles.some((s) => s.scoped)
@@ -74,19 +116,40 @@ export async function compileFile(store: Store, { filename, code, compiled }: Fi
     ssrCode += code
   }
 
-  const clientScriptResult = await doCompileScript(store, descriptor, id, false, isTS)
-  if (!clientScriptResult) return
+  let clientScript: string
+  let bindings: BindingMetadata | undefined
+  try {
+    ;[clientScript, bindings] = await doCompileScript(
+      store,
+      descriptor,
+      id,
+      false,
+      isTS,
+      isJSX,
+    )
+  } catch (e: any) {
+    return [e.stack.split('\n').slice(0, 12).join('\n')]
+  }
 
-  const [clientScript, bindings] = clientScriptResult
   clientCode += clientScript
 
   // script ssr needs to be performed if :
   // 1.using <script setup> where the render fn is inlined.
   // 2.using cssVars, as it do not need to be injected during SSR.
   if (descriptor.scriptSetup || descriptor.cssVars.length > 0) {
-    const ssrScriptResult = await doCompileScript(store, descriptor, id, true, isTS)
-    if (ssrScriptResult) ssrCode += ssrScriptResult[0]
-    else ssrCode = `/* SSR compile error: ${store.state.errors[0]} */`
+    try {
+      const ssrScriptResult = await doCompileScript(
+        store,
+        descriptor,
+        id,
+        true,
+        isTS,
+        isJSX,
+      )
+      ssrCode += ssrScriptResult[0]
+    } catch (e) {
+      ssrCode = `/* SSR compile error: ${e} */`
+    }
   } else {
     // the script result will be identical.
     ssrCode += clientScript
@@ -96,7 +159,8 @@ export async function compileFile(store: Store, { filename, code, compiled }: Fi
   // only need dedicated compilation if not using <script setup>
   if (
     descriptor.template &&
-    (!descriptor.scriptSetup || store.options?.script?.inlineTemplate === false)
+    (!descriptor.scriptSetup ||
+      store.sfcOptions?.script?.inlineTemplate === false)
   ) {
     const clientTemplateResult = await doCompileTemplate(
       store,
@@ -104,66 +168,105 @@ export async function compileFile(store: Store, { filename, code, compiled }: Fi
       id,
       bindings,
       false,
-      isTS
+      isTS,
+      isJSX,
     )
-    if (!clientTemplateResult) return
-
+    if (Array.isArray(clientTemplateResult)) {
+      return clientTemplateResult
+    }
     clientCode += `;${clientTemplateResult}`
 
-    const ssrTemplateResult = await doCompileTemplate(store, descriptor, id, bindings, true, isTS)
-    if (ssrTemplateResult) {
+    const ssrTemplateResult = await doCompileTemplate(
+      store,
+      descriptor,
+      id,
+      bindings,
+      true,
+      isTS,
+      isJSX,
+    )
+    if (typeof ssrTemplateResult === 'string') {
       // ssr compile failure is fine
       ssrCode += `;${ssrTemplateResult}`
     } else {
-      ssrCode = `/* SSR compile error: ${store.state.errors[0]} */`
+      ssrCode = `/* SSR compile error: ${ssrTemplateResult[0]} */`
     }
   }
 
+  if (isJSX) {
+    const { transformJSX } = await import('./jsx')
+    clientCode &&= transformJSX(clientCode)
+    ssrCode &&= transformJSX(ssrCode)
+  }
+
   if (hasScoped) {
-    appendSharedCode(`\n${COMP_IDENTIFIER}.__scopeId = ${JSON.stringify(`data-v-${id}`)}`)
+    appendSharedCode(
+      `\n${COMP_IDENTIFIER}.__scopeId = ${JSON.stringify(`data-v-${id}`)}`,
+    )
+  }
+
+  // styles
+  const ceFilter = store.sfcOptions.script?.customElement || /\.ce\.vue$/
+  function isCustomElement(filters: typeof ceFilter): boolean {
+    if (typeof filters === 'boolean') {
+      return filters
+    }
+    if (typeof filters === 'function') {
+      return filters(filename)
+    }
+    return filters.test(filename)
+  }
+  let isCE = isCustomElement(ceFilter)
+
+  let css = ''
+  let styles: string[] = []
+  for (const style of descriptor.styles) {
+    if (style.module) {
+      return [`<style module> is not supported in the playground.`]
+    }
+
+    const styleResult = await store.compiler.compileStyleAsync({
+      ...store.sfcOptions?.style,
+      source: style.content,
+      filename,
+      id,
+      scoped: style.scoped,
+      modules: !!style.module,
+    })
+    if (styleResult.errors.length) {
+      // postcss uses pathToFileURL which isn't polyfilled in the browser
+      // ignore these errors for now
+      if (!styleResult.errors[0].message.includes('pathToFileURL')) {
+        store.errors = styleResult.errors
+      }
+      // proceed even if css compile errors
+    } else {
+      isCE ? styles.push(styleResult.code) : (css += styleResult.code + '\n')
+    }
+  }
+  if (css) {
+    compiled.css = css.trim()
+  } else {
+    compiled.css = isCE
+      ? (compiled.css =
+          '/* The component style of the custom element will be compiled into the component object */')
+      : '/* No <style> tags present */'
   }
 
   if (clientCode || ssrCode) {
+    const ceStyles = isCE
+      ? `\n${COMP_IDENTIFIER}.styles = ${JSON.stringify(styles)}`
+      : ''
     appendSharedCode(
-      `\n${COMP_IDENTIFIER}.__file = ${JSON.stringify(filename)}\nexport default ${COMP_IDENTIFIER}`
+      `\n${COMP_IDENTIFIER}.__file = ${JSON.stringify(filename)}` +
+        ceStyles +
+        `\nexport default ${COMP_IDENTIFIER}`,
     )
     compiled.js = clientCode.trimStart()
     compiled.ssr = ssrCode.trimStart()
   }
 
-  // styles
-  let css = ''
-  for (const style of descriptor.styles) {
-    if (style.module) {
-      store.state.errors = ['<style module> is not supported in the playground.']
-      return
-    }
-
-    // eslint-disable-next-line no-await-in-loop
-    const styleResult = await store.compiler.compileStyleAsync({
-      ...store.options?.style,
-      source: style.content,
-      filename,
-      id,
-      scoped: style.scoped,
-      modules: !!style.module
-    })
-    if (styleResult.errors.length) {
-      // postcss uses pathToFileURL which isn't polyfilled in the browser
-      // ignore these errors for now
-      if (!styleResult.errors[0].message.includes('pathToFileURL'))
-        store.state.errors = styleResult.errors
-
-      // proceed even if css compile errors
-    } else {
-      css += `${styleResult.code}\n`
-    }
-  }
-  if (css) compiled.css = css.trim()
-  else compiled.css = '/* No <style> tags present */'
-
-  // clear errors
-  store.state.errors = []
+  return []
 }
 
 async function doCompileScript(
@@ -171,46 +274,51 @@ async function doCompileScript(
   descriptor: SFCDescriptor,
   id: string,
   ssr: boolean,
-  isTS: boolean
-): Promise<[string, BindingMetadata | undefined] | undefined> {
+  isTS: boolean,
+  isJSX: boolean,
+): Promise<[code: string, bindings: BindingMetadata | undefined]> {
   if (descriptor.script || descriptor.scriptSetup) {
-    try {
-      const expressionPlugins: CompilerOptions['expressionPlugins'] = isTS
-        ? ['typescript']
-        : undefined
-      const compiledScript = store.compiler.compileScript(descriptor, {
-        inlineTemplate: true,
-        ...store.options?.script,
-        id,
-        templateOptions: {
-          ...store.options?.template,
-          ssr,
-          ssrCssVars: descriptor.cssVars,
-          compilerOptions: {
-            ...store.options?.template?.compilerOptions,
-            expressionPlugins
-          }
-        }
-      })
-      let code = ''
-      if (compiledScript.bindings) {
-        code += `\n/* Analyzed bindings: ${JSON.stringify(compiledScript.bindings, null, 2)} */`
-      }
-      code += `\n${store.compiler.rewriteDefault(
-        compiledScript.content,
-        COMP_IDENTIFIER,
-        expressionPlugins
-      )}`
-
-      if ((descriptor.script || descriptor.scriptSetup)!.lang === 'ts')
-        code = await transformTS(code)
-
-      return [code, compiledScript.bindings]
-    } catch (e: any) {
-      store.state.errors = [e.stack.split('\n').slice(0, 12).join('\n')]
+    const expressionPlugins: CompilerOptions['expressionPlugins'] = []
+    if (isTS) {
+      expressionPlugins.push('typescript')
     }
+    if (isJSX) {
+      expressionPlugins.push('jsx')
+    }
+
+    const compiledScript = store.compiler.compileScript(descriptor, {
+      inlineTemplate: true,
+      ...store.sfcOptions?.script,
+      id,
+      genDefaultAs: COMP_IDENTIFIER,
+      templateOptions: {
+        ...store.sfcOptions?.template,
+        ssr,
+        ssrCssVars: descriptor.cssVars,
+        compilerOptions: {
+          ...store.sfcOptions?.template?.compilerOptions,
+          expressionPlugins,
+        },
+      },
+    })
+    let code = compiledScript.content
+    if (isTS) {
+      code = await transformTS(code, isJSX)
+    }
+    if (compiledScript.bindings) {
+      code =
+        `/* Analyzed bindings: ${JSON.stringify(
+          compiledScript.bindings,
+          null,
+          2,
+        )} */\n` + code
+    }
+
+    return [code, compiledScript.bindings]
   } else {
-    return [`\nconst ${COMP_IDENTIFIER} = {}`, undefined]
+    // @ts-expect-error TODO remove when 3.6 is out
+    const vaporFlag = descriptor.vapor ? '__vapor: true' :''
+    return [`\nconst ${COMP_IDENTIFIER} = { ${vaporFlag} }`, undefined]
   }
 }
 
@@ -220,10 +328,23 @@ async function doCompileTemplate(
   id: string,
   bindingMetadata: BindingMetadata | undefined,
   ssr: boolean,
-  isTS: boolean
+  isTS: boolean,
+  isJSX: boolean,
 ) {
-  const templateResult = store.compiler.compileTemplate({
-    ...store.options?.template,
+  const expressionPlugins: CompilerOptions['expressionPlugins'] = []
+  if (isTS) {
+    expressionPlugins.push('typescript')
+  }
+  if (isJSX) {
+    expressionPlugins.push('jsx')
+  }
+
+  let { code, errors } = store.compiler.compileTemplate({
+    isProd: false,
+    ...store.sfcOptions?.template,
+    // @ts-expect-error TODO remove expect-error after 3.6
+    vapor: descriptor.vapor,
+    ast: descriptor.template!.ast,
     source: descriptor.template!.content,
     filename: descriptor.filename,
     id,
@@ -231,26 +352,26 @@ async function doCompileTemplate(
     slotted: descriptor.slotted,
     ssr,
     ssrCssVars: descriptor.cssVars,
-    isProd: false,
     compilerOptions: {
-      ...store.options?.template?.compilerOptions,
+      ...store.sfcOptions?.template?.compilerOptions,
       bindingMetadata,
-      expressionPlugins: isTS ? ['typescript'] : undefined
-    }
+      expressionPlugins,
+    },
   })
-  if (templateResult.errors.length) {
-    store.state.errors = templateResult.errors
-    return
+  if (errors.length) {
+    return errors
   }
 
-  const fnName = ssr ? 'ssrRender' : 'render'
+  const fnName = ssr ? `ssrRender` : `render`
 
-  let code = `\n${templateResult.code.replace(
-    /\nexport (function|const) (render|ssrRender)/,
-    `$1 ${fnName}`
-  )}\n${COMP_IDENTIFIER}.${fnName} = ${fnName}`
+  code =
+    `\n${code.replace(
+      /\nexport (function|const) (render|ssrRender)/,
+      `$1 ${fnName}`,
+    )}` + `\n${COMP_IDENTIFIER}.${fnName} = ${fnName}`
 
-  if ((descriptor.script || descriptor.scriptSetup)?.lang === 'ts') code = await transformTS(code)
-
+  if (isTS) {
+    code = await transformTS(code, isJSX)
+  }
   return code
 }

@@ -1,27 +1,29 @@
+import type { File, Store } from '../store'
 import {
-  babelParse,
   MagicString,
-  walk,
-  walkIdentifiers,
+  babelParse,
   extractIdentifiers,
   isInDestructureAssignment,
-  isStaticProperty
+  isStaticProperty,
+  walk,
+  walkIdentifiers,
 } from 'vue/compiler-sfc'
-import { ExportSpecifier, Identifier, Node } from '@babel/types'
-import { File, Store } from '../store'
+import type { ExportSpecifier, Identifier, Node } from '@babel/types'
 
 export function compileModulesForPreview(store: Store, isSSR = false) {
   const seen = new Set<File>()
   const processed: string[] = []
-  processFile(store, store.state.files[store.state.mainFile], processed, seen, isSSR)
+  processFile(store, store.files[store.mainFile], processed, seen, isSSR)
 
   if (!isSSR) {
     // also add css files that are not imported
-    for (const filename in store.state.files) {
+    for (const filename in store.files) {
       if (filename.endsWith('.css')) {
-        const file = store.state.files[filename]
+        const file = store.files[filename]
         if (!seen.has(file)) {
-          processed.push(`\nwindow.__css__ += ${JSON.stringify(file.compiled.css)}`)
+          processed.push(
+            `\nwindow.__css__.push(${JSON.stringify(file.compiled.css)})`,
+          )
         }
       }
     }
@@ -30,10 +32,10 @@ export function compileModulesForPreview(store: Store, isSSR = false) {
   return processed
 }
 
-const modulesKey = '__modules__'
-const exportKey = '__export__'
-const dynamicImportKey = '__dynamic_import__'
-const moduleKey = '__module__'
+const modulesKey = `__modules__`
+const exportKey = `__export__`
+const dynamicImportKey = `__dynamic_import__`
+const moduleKey = `__module__`
 
 // similar logic with Vite's SSR transform, except this is targeting the browser
 function processFile(
@@ -41,7 +43,7 @@ function processFile(
   file: File,
   processed: string[],
   seen: Set<File>,
-  isSSR: boolean
+  isSSR: boolean,
 ) {
   if (seen.has(file)) {
     return []
@@ -54,15 +56,24 @@ function processFile(
 
   let {
     code: js,
-    // eslint-disable-next-line prefer-const
     importedFiles,
-    // eslint-disable-next-line prefer-const
-    hasDynamicImport
-  } = processModule(store, isSSR ? file.compiled.ssr : file.compiled.js, file.filename)
-  processChildFiles(store, importedFiles, hasDynamicImport, processed, seen, isSSR)
+    hasDynamicImport,
+  } = processModule(
+    store,
+    isSSR ? file.compiled.ssr : file.compiled.js,
+    file.filename,
+  )
+  processChildFiles(
+    store,
+    importedFiles,
+    hasDynamicImport,
+    processed,
+    seen,
+    isSSR,
+  )
   // append css
-  if (file.compiled.css) {
-    js += `\nwindow.__css__ += ${JSON.stringify(file.compiled.css)}`
+  if (file.compiled.css && !isSSR) {
+    js += `\nwindow.__css__.push(${JSON.stringify(file.compiled.css)})`
   }
 
   // push self
@@ -75,18 +86,18 @@ function processChildFiles(
   hasDynamicImport: boolean,
   processed: string[],
   seen: Set<File>,
-  isSSR: boolean
+  isSSR: boolean,
 ) {
   if (hasDynamicImport) {
     // process all files
-    for (const file of Object.values(store.state.files)) {
+    for (const file of Object.values(store.files)) {
       if (seen.has(file)) continue
       processFile(store, file, processed, seen, isSSR)
     }
   } else if (importedFiles.size > 0) {
     // crawl child imports
     for (const imported of importedFiles) {
-      processFile(store, store.state.files[imported], processed, seen, isSSR)
+      processFile(store, store.files[imported], processed, seen, isSSR)
     }
   }
 }
@@ -96,7 +107,7 @@ function processModule(store: Store, src: string, filename: string) {
 
   const ast = babelParse(src, {
     sourceFilename: filename,
-    sourceType: 'module'
+    sourceType: 'module',
   }).program.body
 
   const idToImportMap = new Map<string, string>()
@@ -104,10 +115,20 @@ function processModule(store: Store, src: string, filename: string) {
   const importedFiles = new Set<string>()
   const importToIdMap = new Map<string, string>()
 
+  function resolveImport(raw: string): string | undefined {
+    const files = store.files
+    let resolved = raw
+    const file =
+      files[resolved] ||
+      files[(resolved = raw + '.ts')] ||
+      files[(resolved = raw + '.js')]
+    return file ? resolved : undefined
+  }
+
   function defineImport(node: Node, source: string) {
-    const filename = source.replace(/^\.\/+/, '')
-    if (!(filename in store.state.files)) {
-      throw new Error(`File "${filename}" does not exist.`)
+    const filename = resolveImport(source.replace(/^\.\/+/, 'src/'))
+    if (!filename) {
+      throw new Error(`File "${source}" does not exist.`)
     }
     if (importedFiles.has(filename)) {
       return importToIdMap.get(filename)!
@@ -115,7 +136,10 @@ function processModule(store: Store, src: string, filename: string) {
     importedFiles.add(filename)
     const id = `__import_${importedFiles.size}__`
     importToIdMap.set(filename, id)
-    s.appendLeft(node.start!, `const ${id} = ${modulesKey}[${JSON.stringify(filename)}]\n`)
+    s.appendLeft(
+      node.start!,
+      `const ${id} = ${modulesKey}[${JSON.stringify(filename)}]\n`,
+    )
     return id
   }
 
@@ -126,8 +150,8 @@ function processModule(store: Store, src: string, filename: string) {
   // 0. instantiate module
   s.prepend(
     `const ${moduleKey} = ${modulesKey}[${JSON.stringify(
-      filename
-    )}] = { [Symbol.toStringTag]: "Module" }\n\n`
+      filename,
+    )}] = { [Symbol.toStringTag]: "Module" }\n\n`,
   )
 
   // 1. check all import statements and record id -> importName map
@@ -138,10 +162,13 @@ function processModule(store: Store, src: string, filename: string) {
     if (node.type === 'ImportDeclaration') {
       const source = node.source.value
       if (source.startsWith('./')) {
-        const importId = defineImport(node as Node, node.source.value)
+        const importId = defineImport(node, node.source.value)
         for (const spec of node.specifiers) {
           if (spec.type === 'ImportSpecifier') {
-            idToImportMap.set(spec.local.name, `${importId}.${(spec.imported as Identifier).name}`)
+            idToImportMap.set(
+              spec.local.name,
+              `${importId}.${(spec.imported as Identifier).name}`,
+            )
           } else if (spec.type === 'ImportDefaultSpecifier') {
             idToImportMap.set(spec.local.name, `${importId}.default`)
           } else {
@@ -168,7 +195,7 @@ function processModule(store: Store, src: string, filename: string) {
         } else if (node.declaration.type === 'VariableDeclaration') {
           // export const foo = 1, bar = 2
           for (const decl of node.declaration.declarations) {
-            for (const id of extractIdentifiers(decl.id as Node)) {
+            for (const id of extractIdentifiers(decl.id)) {
               defineExport(id.name)
             }
           }
@@ -176,11 +203,11 @@ function processModule(store: Store, src: string, filename: string) {
         s.remove(node.start!, node.declaration.start!)
       } else if (node.source) {
         // export { foo, bar } from './foo'
-        const importId = defineImport(node as Node, node.source.value)
+        const importId = defineImport(node, node.source.value)
         for (const spec of node.specifiers) {
           defineExport(
             (spec.exported as Identifier).name,
-            `${importId}.${(spec as ExportSpecifier).local.name}`
+            `${importId}.${(spec as ExportSpecifier).local.name}`,
           )
         }
         s.remove(node.start!, node.end!)
@@ -212,7 +239,7 @@ function processModule(store: Store, src: string, filename: string) {
 
     // export * from './foo'
     if (node.type === 'ExportAllDeclaration') {
-      const importId = defineImport(node as Node, node.source.value)
+      const importId = defineImport(node, node.source.value)
       s.remove(node.start!, node.end!)
       s.append(`\nfor (const key in ${importId}) {
         if (key !== 'default') {
@@ -225,19 +252,26 @@ function processModule(store: Store, src: string, filename: string) {
   // 3. convert references to import bindings
   for (const node of ast) {
     if (node.type === 'ImportDeclaration') continue
-    walkIdentifiers(node as Node, (id, parent, parentStack) => {
+    walkIdentifiers(node, (id, parent, parentStack) => {
       const binding = idToImportMap.get(id.name)
       if (!binding) {
         return
       }
-      if (isStaticProperty(parent!) && parent.shorthand) {
+      if (parent && isStaticProperty(parent) && parent.shorthand) {
         // let binding used in a property shorthand
         // { foo } -> { foo: __import_x__.foo }
         // skip for destructure patterns
-        if (!(parent as any).inPattern || isInDestructureAssignment(parent, parentStack)) {
+        if (
+          !(parent as any).inPattern ||
+          isInDestructureAssignment(parent, parentStack)
+        ) {
           s.appendLeft(id.end!, `: ${binding}`)
         }
-      } else if (parent?.type === 'ClassDeclaration' && id === parent.superClass) {
+      } else if (
+        parent &&
+        parent.type === 'ClassDeclaration' &&
+        id === parent.superClass
+      ) {
         if (!declaredConst.has(id.name)) {
           declaredConst.add(id.name)
           // locate the top-most node containing the class declaration
@@ -259,41 +293,55 @@ function processModule(store: Store, src: string, filename: string) {
         if (arg.type === 'StringLiteral' && arg.value.startsWith('./')) {
           hasDynamicImport = true
           s.overwrite(node.start!, node.start! + 6, dynamicImportKey)
-          s.overwrite(arg.start!, arg.end!, JSON.stringify(arg.value.replace(/^\.\/+/, '')))
+          s.overwrite(
+            arg.start!,
+            arg.end!,
+            JSON.stringify(arg.value.replace(/^\.\/+/, 'src/')),
+          )
         }
       }
-    }
+    },
   })
 
   return {
     code: s.toString(),
     importedFiles,
-    hasDynamicImport
+    hasDynamicImport,
   }
 }
 
 const scriptRE = /<script\b(?:\s[^>]*>|>)([^]*?)<\/script>/gi
-const scriptModuleRE = /<script\b[^>]*type\s*=\s*(?:"module"|'module')[^>]*>([^]*?)<\/script>/gi
+const scriptModuleRE =
+  /<script\b[^>]*type\s*=\s*(?:"module"|'module')[^>]*>([^]*?)<\/script>/gi
 
 function processHtmlFile(
   store: Store,
   src: string,
   filename: string,
   processed: string[],
-  seen: Set<File>
+  seen: Set<File>,
 ) {
   const deps: string[] = []
   let jsCode = ''
   const html = src
     .replace(scriptModuleRE, (_, content) => {
-      const { code, importedFiles, hasDynamicImport } = processModule(store, content, filename)
-      processChildFiles(store, importedFiles, hasDynamicImport, deps, seen, false)
-      // eslint-disable-next-line prefer-template
+      const { code, importedFiles, hasDynamicImport } = processModule(
+        store,
+        content,
+        filename,
+      )
+      processChildFiles(
+        store,
+        importedFiles,
+        hasDynamicImport,
+        deps,
+        seen,
+        false,
+      )
       jsCode += '\n' + code
       return ''
     })
     .replace(scriptRE, (_, content) => {
-      // eslint-disable-next-line prefer-template
       jsCode += '\n' + content
       return ''
     })

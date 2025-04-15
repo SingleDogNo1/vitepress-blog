@@ -1,14 +1,11 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": false,
     "target": "esnext",
     "useDefineForClassFields": false,
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "preserve",
     "allowJs": false,
     "strict": true,
     "noUnusedLocals": true,
@@ -17,7 +14,10 @@
     "esModuleInterop": true,
     "removeComments": false,
     "lib": ["esnext", "dom"],
-    "rootDir": "."
+    "jsx": "preserve",
+    "rootDir": ".",
+    "skipLibCheck": true
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src", "test", "vite.config.ts"],
+  "exclude": ["src/template"]
 }

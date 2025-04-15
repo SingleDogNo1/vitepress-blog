@@ -5,11 +5,11 @@ let uid = 1
 
 export class PreviewProxy {
   iframe: HTMLIFrameElement
-
   handlers: Record<string, Function>
-
-  pending_cmds: Map<number, { resolve: (value: unknown) => void; reject: (reason?: any) => void }>
-
+  pending_cmds: Map<
+    number,
+    { resolve: (value: unknown) => void; reject: (reason?: any) => void }
+  >
   handle_event: (e: any) => void
 
   constructor(iframe: HTMLIFrameElement, handlers: Record<string, Function>) {
@@ -28,7 +28,6 @@ export class PreviewProxy {
 
   iframe_command(action: string, args: any) {
     return new Promise((resolve, reject) => {
-      // eslint-disable-next-line no-plusplus
       const cmd_id = uid++
 
       this.pending_cmds.set(cmd_id, { resolve, reject })
@@ -38,15 +37,15 @@ export class PreviewProxy {
   }
 
   handle_command_message(cmd_data: any) {
-    const { action } = cmd_data
-    const id = cmd_data.cmd_id
-    const handler = this.pending_cmds.get(id)
+    let action = cmd_data.action
+    let id = cmd_data.cmd_id
+    let handler = this.pending_cmds.get(id)
 
     if (handler) {
       this.pending_cmds.delete(id)
       if (action === 'cmd_error') {
-        const { message, stack } = cmd_data
-        const e = new Error(message)
+        let { message, stack } = cmd_data
+        let e = new Error(message)
         e.stack = stack
         handler.reject(e)
       }
@@ -55,7 +54,9 @@ export class PreviewProxy {
         handler.resolve(cmd_data.args)
       }
     } else if (action !== 'cmd_error' && action !== 'cmd_ok') {
-      console.error('command not found', id, cmd_data, [...this.pending_cmds.keys()])
+      console.error('command not found', id, cmd_data, [
+        ...this.pending_cmds.keys(),
+      ])
     }
   }
 
@@ -64,7 +65,6 @@ export class PreviewProxy {
 
     const { action, args } = event.data
 
-    // eslint-disable-next-line default-case
     switch (action) {
       case 'cmd_error':
       case 'cmd_ok':

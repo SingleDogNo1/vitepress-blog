@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import { VuePreviewPlugin } from '@singledog/vue-preview-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,5 +18,4 @@ export default defineConfig({
       }
     }
   },
-  plugins: [VuePreviewPlugin()]
 })

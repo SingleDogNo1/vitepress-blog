@@ -1,30 +1,27 @@
 {
   "name": "@singledog/vue-preview-plugin",
-  "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    },
-    "./vue-preview-plugin.css": "./dist/vue-preview-plugin.css"
-  },
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist",
   "files": [
+    "components",
     "dist"
   ],
   "scripts": {
-    "build": "vite build",
+    "build": "tsc",
     "clean": "rm -rf node_modules && rm -rf dist"
   },
-  "devDependencies": {
+  "dependencies": {
     "@singledog/vue-repl": "workspace:",
-    "@tsconfig/node-lts-strictest": "^18.12.1",
-    "@vitejs/plugin-vue": "^5.2.1"
+    "fflate": "^0.8.0",
+    "markdown-it": "^13.0.1",
+    "markdown-it-container": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^13.0.1",
+    "@types/markdown-it-container": "^2.0.6"
   },
   "volta": {
     "node": "18.16.1"

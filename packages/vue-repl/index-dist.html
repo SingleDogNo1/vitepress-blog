@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,16 +9,19 @@
       body {
         margin: 0;
       }
-      .vue-repl {
+      #app {
         height: 100vh;
+        height: 100dvh;
       }
     </style>
 
     <script type="module">
       import { createApp } from 'vue'
       import { Repl } from './dist/vue-repl'
-      import './dist/style.css'
-      createApp(Repl).mount('#app')
+      import Monaco from './dist/monaco-editor'
+      createApp(Repl, {
+        editor: Monaco,
+      }).mount('#app')
     </script>
   </head>
   <body>

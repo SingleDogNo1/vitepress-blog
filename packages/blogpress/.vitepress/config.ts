@@ -1,3 +1,4 @@
+import { VueReplMdPlugin } from '@singledog/vue-preview-plugin'
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
 
 // 博客部署地址
@@ -45,6 +46,11 @@ export default defineConfig({
     server: {
       port: 4000,
       host: '0.0.0.0'
+    }
+  },
+  markdown: {
+    config: (md) => {
+      md.use(VueReplMdPlugin)
     }
   },
   lastUpdated: true,

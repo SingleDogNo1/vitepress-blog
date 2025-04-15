@@ -7,13 +7,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@vue/compiler-dom': '@vue/compiler-dom/dist/compiler-dom.cjs.js',
-      '@vue/compiler-core': '@vue/compiler-core/dist/compiler-core.cjs.js'
-    }
+      '@vue/compiler-core': '@vue/compiler-core/dist/compiler-core.cjs.js',
+    },
   },
   build: {
     commonjsOptions: {
-      ignore: ['typescript']
-    }
+      ignore: ['typescript'],
+    },
   },
   worker: {
     format: 'es',
@@ -21,9 +21,9 @@ export default defineConfig({
       replace({
         preventAssignment: true,
         values: {
-          'process.env.NODE_ENV': JSON.stringify('production')
-        }
-      })
-    ]
-  }
+          'process.env.NODE_ENV': JSON.stringify('production'),
+        },
+      }),
+    ],
+  },
 })

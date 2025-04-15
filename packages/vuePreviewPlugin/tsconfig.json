@@ -1,24 +1,17 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "./dist"
-  ],
   "compilerOptions": {
     "declaration": true,
-    "removeComments": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "outDir": "./dist",
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
-    "ignoreDeprecations": "5.0"
-  }
+    "skipLibCheck": true,
+  },
+  "include": [
+    "node/**/*.ts",
+    "node/**/*.vue"
+  ]
 }

@@ -1,30 +1,26 @@
 <script setup lang="ts">
-import { computed, inject, reactive, ref } from 'vue'
-import type { Store } from './store'
+import { computed, inject, reactive, useTemplateRef } from 'vue'
+import { injectKeyPreviewRef, injectKeyProps } from './types'
 
-const props = defineProps<{ layout?: string }>()
+const props = defineProps<{ layout?: 'horizontal' | 'vertical' }>()
 const isVertical = computed(() => props.layout === 'vertical')
 
-const container = ref()
+const containerRef = useTemplateRef('container')
+const previewRef = inject(injectKeyPreviewRef)!
 
 // mobile only
-const store = inject('store') as Store
-const showOutput = ref(store.initialShowOutput)
+const { store, layoutReverse, splitPaneOptions } = inject(injectKeyProps)!
 
 const state = reactive({
   dragging: false,
-  split: 50
+  split: 50,
+  viewHeight: 0,
+  viewWidth: 0,
 })
 
 const boundSplit = computed(() => {
   const { split } = state
-  if (split < 20) {
-    return 20
-  }
-  if (split > 80) {
-    return 80
-  }
-  return split
+  return split < 20 ? 20 : split > 80 ? 80 : split
 })
 
 let startPosition = 0
@@ -34,19 +30,32 @@ function dragStart(e: MouseEvent) {
   state.dragging = true
   startPosition = isVertical.value ? e.pageY : e.pageX
   startSplit = boundSplit.value
+
+  changeViewSize()
 }
 
 function dragMove(e: MouseEvent) {
-  if (state.dragging) {
+  if (containerRef.value && state.dragging) {
     const position = isVertical.value ? e.pageY : e.pageX
-    const totalSize = isVertical.value ? container.value.offsetHeight : container.value.offsetWidth
+    const totalSize = isVertical.value
+      ? containerRef.value.offsetHeight
+      : containerRef.value.offsetWidth
     const dp = position - startPosition
-    state.split = startSplit + ~~((dp / totalSize) * 100)
+    state.split = startSplit + +((dp / totalSize) * 100).toFixed(2)
+
+    changeViewSize()
   }
 }
 
 function dragEnd() {
   state.dragging = false
+}
+
+function changeViewSize() {
+  const el = previewRef.value
+  if (!el) return
+  state.viewHeight = el.offsetHeight
+  state.viewWidth = el.offsetWidth
 }
 </script>
 
@@ -56,23 +65,37 @@ function dragEnd() {
     class="split-pane"
     :class="{
       dragging: state.dragging,
-      'show-output': showOutput,
-      vertical: isVertical
+      'show-output': store.showOutput,
+      reverse: layoutReverse,
+      vertical: isVertical,
     }"
     @mousemove="dragMove"
     @mouseup="dragEnd"
     @mouseleave="dragEnd"
   >
-    <div class="left" :style="{ [isVertical ? 'height' : 'width']: `${boundSplit}%` }">
+    <div
+      class="left"
+      :style="{ [isVertical ? 'height' : 'width']: boundSplit + '%' }"
+    >
       <slot name="left" />
       <div class="dragger" @mousedown.prevent="dragStart" />
     </div>
-    <div class="right" :style="{ [isVertical ? 'height' : 'width']: `${100 - boundSplit}%` }">
+    <div
+      class="right"
+      :style="{ [isVertical ? 'height' : 'width']: 100 - boundSplit + '%' }"
+    >
+      <div v-show="state.dragging" class="view-size">
+        {{ `${state.viewWidth}px x ${state.viewHeight}px` }}
+      </div>
       <slot name="right" />
     </div>
 
-    <button class="toggler" @click="showOutput = !showOutput">
-      {{ showOutput ? '< Code' : 'Output >' }}
+    <button class="toggler" @click="store.showOutput = !store.showOutput">
+      {{
+        store.showOutput
+          ? splitPaneOptions?.codeTogglerText || '< Code'
+          : splitPaneOptions?.outputTogglerText || 'Output >'
+      }}
     </button>
   </div>
 </template>
@@ -94,6 +117,14 @@ function dragEnd() {
 .right {
   position: relative;
   height: 100%;
+}
+.view-size {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  font-size: 12px;
+  color: var(--text-light);
+  z-index: 100;
 }
 .left {
   border-right: 1px solid var(--border);
@@ -160,8 +191,10 @@ function dragEnd() {
 @media (max-width: 720px) {
   .left,
   .right {
-    width: 100% !important;
-    height: 100% !important;
+    position: absolute;
+    inset: 0;
+    width: auto !important;
+    height: auto !important;
   }
   .dragger {
     display: none;
@@ -169,14 +202,19 @@ function dragEnd() {
   .split-pane .toggler {
     display: block;
   }
-  .split-pane .right {
-    display: none;
+  .split-pane .right,
+  .split-pane.show-output.reverse .right,
+  .split-pane.show-output .left,
+  .split-pane.reverse .left {
+    z-index: -1;
+    pointer-events: none;
   }
-  .split-pane.show-output .right {
-    display: block;
-  }
-  .split-pane.show-output .left {
-    display: none;
+  .split-pane .left,
+  .split-pane.show-output.reverse .left,
+  .split-pane.show-output .right,
+  .split-pane.reverse .right {
+    z-index: 0;
+    pointer-events: all;
   }
 }
 </style>
