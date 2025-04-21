@@ -68,7 +68,9 @@ Flex 是 `Flexible Box` 的缩写，意为"弹性布局"，用来为盒状模型
 |     column     |     主轴为垂直方向，起点在上沿     |
 | column-reverse |     主轴为垂直方向，起点在下沿     |
 
-```vue preview
+::: playground
+
+```vue
 <template>
 <div class="flex-demo-wrapper row">
   <div class="flex-demo-item">1</div>
@@ -93,6 +95,22 @@ Flex 是 `Flexible Box` 的缩写，意为"弹性布局"，用来为盒状模型
 </template>
 
 <style scoped>
+.flex-demo-wrapper  {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.flex-demo-item {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: #007aff;
+  color: #fff;
+  margin: 5px;
+  align-content: center;
+  text-align: center;
+}
+
 .row {
   flex-direction: row;
 }
@@ -111,6 +129,8 @@ Flex 是 `Flexible Box` 的缩写，意为"弹性布局"，用来为盒状模型
 </style>
 ```
 
+:::
+
 ### flex-wrap
 
 flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况下，即使项目超出了容器的尺寸也会强制排在一条轴线上。可选有三个值。
@@ -121,7 +141,9 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 |     wrap     | 换行，第一行在上方 |
 | wrap-reverse | 换行，第一行在下方 |
 
-```vue preview
+::: playground
+
+```vue
 <template>
 <div class="flex-demo-wrapper nowrap">
   <div v-for="i in 5" :key="i" class="flex-demo-item">{{ i }}</div>
@@ -139,7 +161,19 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 <style scoped>
 .flex-demo-wrapper {
   width: 200px;
+  margin-bottom: 20px;
+  display: flex;
+}
 
+.flex-demo-item {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: #007aff;
+  color: #fff;
+  margin: 5px;
+  align-content: center;
+  text-align: center;
 }
 
 .nowrap {
@@ -156,6 +190,8 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 
 </style>
 ```
+
+:::
 
 ### flex-flow
 
@@ -179,7 +215,9 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 | space-between |                         项目两端对齐                         |
 | space-around  | 每个项目两侧间隔相等，项目之间的间隔比项目与边框的间隔大一倍 |
 
-```vue preview
+::: playground
+
+```vue
 <template>
 <div class="flex-demo-wrapper start">
   <div class="flex-demo-item a">1</div>
@@ -213,16 +251,30 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 </template>
 
 <style scoped>
+  .flex-demo-wrapper {
+    display: flex;
+  }
+
+  .flex-demo-item {
+    height: 50px;
+    border-radius: 4px;
+    background-color: #007aff;
+    color: #fff;
+    margin: 5px;
+    align-content: center;
+    text-align: center;
+  }
+
   .a {
-    width: 100px;
+    width: 80px;
   }
 
   .b {
-    width: 50px;
+    width: 60px;
   }
 
   .c {
-    width: 150px;
+    width: 40px;
   }
 
   .start {
@@ -247,6 +299,8 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 </style>
 ```
 
+:::
+
 ### align-items {#align-items}
 
 `align-items`属性定义项目在交叉轴上如何对齐。可选有五个值。
@@ -259,7 +313,9 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 |    baseline     |             项目的第一行文字的基线对齐             |
 | stretch（默认） | 如果项目未设置高度或设为auto，将占满整个容器的高度 |
 
-```vue preview
+::: playground
+
+```vue
 <template>
 <div class="flex-demo-wrapper start">
   <div class="flex-demo-item a">1</div>
@@ -293,6 +349,21 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 </template>
 
 <style scoped>
+  .flex-demo-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .flex-demo-item {
+    width: 50px;
+    border-radius: 4px;
+    background-color: #007aff;
+    color: #fff;
+    margin: 5px;
+    align-content: center;
+    text-align: center;
+  }
+
 .a {
   height: 50px;
   line-height: 50px;
@@ -330,6 +401,8 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 </style>
 ```
 
+:::
+
 ### align-content
 
 `align-content`属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。可选有六个值。
@@ -343,8 +416,11 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 | space-around  | 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 |
 |    stretch    |                        轴线占满整个交叉轴(默认值)                        |
 
-```vue preview
+::: playground
+
+```vue
 <template>
+<h3>打开控制台查看样式更加直观</h3>
 <div class="flex-demo-wrapper start">
   <div v-for="i in 10" :key="i" class="flex-demo-item">{{ i }}</div>
 </div>
@@ -372,13 +448,30 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 
 <style scoped>
 .flex-demo-wrapper {
-  width: 400px;
   height: 300px;
+    display: flex;
   flex-wrap: wrap;
+      margin-bottom: 20px;
 }
 
+
+  .flex-demo-item {
+    height: 50px;
+    border-radius: 4px;
+    background-color: #007aff;
+    color: #fff;
+    margin: 5px;
+    align-content: center;
+    text-align: center;
+  }
+
+
+
 .flex-demo-item:nth-child(even) {
-  width: 100px;
+  width: 80px;
+}
+.flex-demo-item:nth-child(odd) {
+  width: 40px;
 }
 
 .start {
@@ -411,6 +504,8 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 </style>
 ```
 
+:::
+
 ## 项目的属性
 
 以下6个为项目的属性。
@@ -426,13 +521,33 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 
 `order`属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="flex-demo-wrapper">
     <div v-for="i in 4" :key="i" class="flex-demo-item" :style="{order: 4-i}">{{ i }}</div>
   </div>
 </template>
+<style scoped>
+.flex-demo-wrapper {
+  display: flex;
+}
+
+.flex-demo-item {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: #007aff;
+  color: #fff;
+  margin: 5px;
+  align-content: center;
+  text-align: center;
+}
+</style>
 ```
+
+:::
 
 ### flex-grow
 
@@ -440,7 +555,9 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 
 如果所有项目的flex-grow属性都相同，则它们将等分剩余空间。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div class="flex-demo-wrapper">
     <div v-for="i in 4" :key="i" :class="['flex-demo-item']">{{ i }}</div>
@@ -452,9 +569,20 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
 </template>
 
 <style scoped>
-  .flex-demo-wrapper {
-    width: 400px;
-  }
+.flex-demo-wrapper {
+  display: flex;
+  width: 300px;
+}
+
+.flex-demo-item {
+  height: 50px;
+  border-radius: 8px;
+  background-color: #007aff;
+  color: #fff;
+  margin: 5px;
+  align-content: center;
+  text-align: center;
+}
 
   .flex-demo-item {
     flex-grow: 1;
@@ -464,6 +592,8 @@ flex-wrap属性定义如果一条轴线排不下，如何换行。默认情况�
   }
 </style>
 ```
+
+:::
 
 ### flex-shrink
 

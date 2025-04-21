@@ -32,9 +32,16 @@ const CodeMirror = defineClientComponent(() => {
 });
 const config = ref({});
 
+const baseConfig = {
+  showImportMap: false,
+  previewTheme: true,
+  showTsConfig: false,
+  showCompileOutput: false,
+}
+
 const parentWindow = window.parent
 
-const theme = ref(parentWindow.localStorage.getItem('vitepress-theme-appearance') === 'dark'? 'dark' : 'light')
+const theme = ref(parentWindow.localStorage.getItem('vitepress-theme-appearance') === 'dark' ? 'dark' : 'light')
 
 parentWindow.addEventListener('storage', (ev) => {
   const parentTheme = ev.target.localStorage.getItem('vitepress-theme-appearance')
@@ -43,25 +50,20 @@ parentWindow.addEventListener('storage', (ev) => {
 
 
 const editorConfig = computed(() => {
-  return config.value.editorConfig ?? {
-    showImportMap: false,
-    previewTheme: true,
-    showTsConfig: false,
-    showCompileOutput: false,
-  }
+  return config.value.editorConfig ?? baseConfig
 })
 
 onMounted(() => {
   const children = slots.default();
   const code = children?.[0]?.children;
-  const file = {
-    'src/App.vue': decodeURIComponent(code)
-  };
-  store.value = useStore({}, utoa(JSON.stringify(file)));
+  store.value = useStore({}, utoa(decodeURIComponent(code)));
 
   if (props.config && props.config !== 'undefined') {
     try {
-      config.value = {...JSON.parse(decodeURIComponent(props.config))}
+      const decodeConfig = JSON.parse(decodeURIComponent(props.config))
+      decodeConfig.editorConfig = { ...baseConfig, ...decodeConfig.editorConfig }
+
+      config.value = decodeConfig
     } catch (e) {
       console.error('playgound 配置解析错误', e);
     }

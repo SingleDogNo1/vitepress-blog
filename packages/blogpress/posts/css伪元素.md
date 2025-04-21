@@ -10,7 +10,9 @@ tags: ['css']
 
 设想一个简单的组件，如果没有数据，则显示暂无数据的字样。这很简单就可以实现
 
-```vue preview
+::: playground
+
+```vue
 <template>
 <div class="container">
 </div>
@@ -38,6 +40,8 @@ tags: ['css']
 </style>
 ```
 
+:::
+
 但随之而来的就产生了问题：如果`content`中的内容不是固定的该怎么解决？包括但不限于：
 
 * 上面例子中，暂无数据字样改为国际化
@@ -49,7 +53,9 @@ tags: ['css']
 
 可以使用`attr`方法直接获取元素的属性，包括自有属性和自定义属性。本文中出现的问题也是通过这个方法解决的。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <div text="hello, world"></div>
 </template>
@@ -64,7 +70,7 @@ tags: ['css']
 
     &:after {
       word-break: break-all;
-      background: #fff;
+      color: #fff;
       content: attr(text);
       position: absolute;
       text-align: center;
@@ -78,13 +84,17 @@ tags: ['css']
 </style>
 ```
 
+:::
+
 上面示例中，使用了`div`的自定义属性`text`，因此显示了`hello，world`，优点在于可以随意修改`text`的值，无论`vue`、`react`绑定的值，还是后端返回结果，只要读取到，属性也会随时变化。<HighlightText msg="修改代码可以实时查看效果。" />
 
 ## 插入符号
 
 可以使用`quotes`在字符串两端添加自定义的字符。
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <h1>一段文字</h1>
   <h2>另一段文字</h2>
@@ -128,11 +138,15 @@ tags: ['css']
 </style>
 ```
 
+:::
+
 ## 插入图片
 
 很多人大概也不知道，`content`是可以插入图片的。
 
-```vue preview
+::: playground
+
+```vue
 <template>
 <div class="container">
 </div>
@@ -151,13 +165,17 @@ https://vitepress.dev/vitepress-logo-mini.svg);
 </style>
 ```
 
+:::
+
 ## 插入编号
 
 可以使用`counter`属性产生自增的编号，并且可以自定义和生成更复杂的编号。
 
 ### 基本用法
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <h1>这是一个标题</h1>
   <h1>这是一个标题</h1>
@@ -176,9 +194,13 @@ h1 {
 </style>
 ```
 
+:::
+
 ### 自定义编号
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <h1>这是一个标题</h1>
   <h1>这是一个标题</h1>
@@ -198,13 +220,17 @@ h1 {
 </style>
 ```
 
+:::
+
 ### 修改编号种类
 
 :::tip
 编号种类参考[ul标签的`list-style-type`属性值](https://developer.mozilla.org/zh-CN/docs/Web/CSS/list-style-type)
 :::
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <h1>这是一个标题</h1>
   <h1>这是一个标题</h1>
@@ -224,11 +250,15 @@ h1 {
 </style>
 ```
 
+:::
+
 ### 多层嵌套示例
 
 > 大标题 + 中标题 + 小标题
 
-```vue preview
+::: playground
+
+```vue
 <template>
   <h1>大标题</h1>
   <h2>中标题</h2>
@@ -272,6 +302,8 @@ h1 {
   }
 </style>
 ```
+
+:::
 
 ## 结语
 

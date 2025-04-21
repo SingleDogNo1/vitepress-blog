@@ -70,9 +70,9 @@ Atomic CSS is the approach to CSS architecture that favors small, single-purpose
   * 原子化CSS定义了语义化的单一功能类名，使css的编写也可以类似组件的方式去搭建（通过`@apply`的方式）。
   * 支持自定义，包括但不限于自定义各种主题颜色（可用于便捷换肤）、自定义浏览器`@media`宽度（方便响应式）、自定义自己的类名规则等。
   * `unocss`可配置各种[预设](https://unocss.dev/presets/)和插件，更方便的使用`postcss`、`rem`、`css var`等。
-*劣势
+* 劣势
   * 尽管已经足够语义化，但初入手时还是会有较大的记忆负担，如果项目有自己定义的类名规则，还会额外增加记忆负担。
-  * 很容易写成一长串难以阅读的样式类名，尤其在现代化的`vue/react`开发环境中，`html`和`js`混写已经导致文件文件越来越长，长串的类名会更加剧“面条代码”的情况。但是需要注意的是：<HighLightText msg="长串的类名并不是增加文件的体积。html文件体积增加但随之变化的是css文件大小的锐减。严格意义上，受影响的只有html文件的阅读性。" />我们可以通过以下方式来优化“面条代码”的可阅读性：
+  * 很容易写成一长串难以阅读的样式类名，尤其在现代化的`vue/react`开发环境中，`html`和`js`混写已经导致文件文件越来越长，长串的类名会更加剧“面条代码”的情况。但是需要注意的是：<HighlightText msg="长串的类名并不是增加文件的体积。html文件体积增加但随之变化的是css文件大小的锐减。严格意义上，受影响的只有html文件的阅读性。" />我们可以通过以下方式来优化“面条代码”的可阅读性：
     * 通过`eslint / stylelint / prettier`来规范文件换行情况，合理控制可读性
     * 如上优势中提到的，通过`@apply`可以组合部分样式并定义为新的样式类名，减少代码长度。
     * [`Attributify Mode`](https://unocss.dev/presets/attributify#attributify-mode)从一定程度上减少代码量。

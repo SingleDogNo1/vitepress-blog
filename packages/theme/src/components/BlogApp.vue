@@ -64,7 +64,6 @@ watch(
         }
       })
     }
-    console.log('val :>> ', val)
   }
 )
 </script>

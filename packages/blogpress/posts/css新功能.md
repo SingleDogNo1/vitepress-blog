@@ -61,6 +61,15 @@ const style = computed(()=> {
 </style>
 ```
 
+```json
+{
+  "editorConfig": {
+    "layout": "horizontal",
+    "layoutReverse": false
+  }
+}
+```
+
 :::
 
 现已支持[主流浏览器](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-content#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E6%80%A7)。但是如果需要更高级的控制，需要结合`flex / grid`布局使用，详细参考官方文档。
@@ -98,6 +107,15 @@ const style = computed(()=> {
   }
 }
 </style>
+```
+
+```json
+{
+  "editorConfig": {
+    "layout": "horizontal",
+    "layoutReverse": false
+  }
+}
 ```
 
 :::
@@ -144,6 +162,15 @@ css现在支持通过对色值计算从而得到新的颜色，无需自己手�
   }
 }
 </style>
+```
+
+```json
+{
+  "editorConfig": {
+    "layout": "horizontal",
+    "layoutReverse": false
+  }
+}
 ```
 
 :::
@@ -195,6 +222,15 @@ div:has(~ p)
 </style>
 ```
 
+```json
+{
+  "editorConfig": {
+    "layout": "horizontal",
+    "layoutReverse": false
+  }
+}
+```
+
 :::
 
 分步拆解上面的示例：
@@ -220,7 +256,7 @@ div:has(~ p)
 </template>
 <style scoped>
 .box{
-  height: 150px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -271,11 +307,7 @@ div:has(~ p)
 {
   "editorConfig": {
     "layout": "vertical",
-    "layoutReverse": true,
-    "showImportMap": false,
-    "previewTheme": true,
-    "showTsConfig": false,
-    "showCompileOutput": false
+    "layoutReverse": true
   }
 }
 ```
@@ -307,6 +339,15 @@ div:has(~ p)
 </style>
 ```
 
+```json
+{
+  "editorConfig": {
+    "layout": "horizontal",
+    "layoutReverse": false
+  }
+}
+```
+
 :::
 
 你会发现和正常的css样式没有区别，生成了一个`100*100`的红色方块。那这样写的意义在哪里呢？答案是这样一来，写在`@layer`中的样式优先级会永远低于普通的css样式。此时再按照正常的css样式书写，就可以覆盖`@layer`中的样式了,即使`@layer`写在普通样式之后。
@@ -332,6 +373,15 @@ div:has(~ p)
   }
 }
 </style>
+```
+
+```json
+{
+  "editorConfig": {
+    "layout": "horizontal",
+    "layoutReverse": false
+  }
+}
 ```
 
 :::
