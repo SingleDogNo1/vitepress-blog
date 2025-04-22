@@ -12,25 +12,21 @@
       </el-icon>
       <BackTop :right="-70" :top="-50" />
     </el-affix>
-    <component
+    <Giscus
       v-if="showComment"
-      :is="'script'"
-      src="https://giscus.app/client.js"
-      :data-repo="commentConfig.repo"
-      :data-repo-id="commentConfig.repoId"
-      :data-category="commentConfig.category"
-      :data-category-id="commentConfig.categoryId"
-      :data-mapping="commentConfig.mapping || 'pathname'"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      :data-input-position="commentConfig.inputPosition || 'top'"
-      :data-theme="isDark ? 'dark' : 'light'"
-      :data-lang="commentConfig.lang || 'zh-CN'"
-      crossorigin="anonymous"
-      :data-loading="commentConfig.loading || 'eager'"
-      async
-    >
-    </component>
+      id="comments"
+      :repo="commentConfig.repo"
+      :repoId="commentConfig.repoId"
+      :category="commentConfig.category"
+      :categoryId="commentConfig.categoryId"
+      :mapping="commentConfig.mapping || 'pathname'"
+      :reactionsEnabled="'1'"
+      :emitMetadata="'0'"
+      :inputPosition="commentConfig.inputPosition || 'top'"
+      :theme="isDark ? 'dark' : 'light'"
+      :lang="commentConfig.lang || 'zh-CN'"
+      :loading="commentConfig.loading || 'lazy'"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -40,8 +36,9 @@ import { computed, ref, watch } from 'vue'
 import { ElAffix, ElIcon } from 'element-plus'
 import { Comment } from '@element-plus/icons-vue'
 import { useGiscusConfig } from '../composables/config/blog'
-import { Theme } from '../composables/config/index'
 import BackTop from './BlogBackTop/index.vue'
+import Giscus from '@giscus/vue';
+import { type GiscusProps } from '@giscus/vue'
 
 const { frontmatter } = useData()
 const commentEl = ref(null)
@@ -53,12 +50,9 @@ const handleScrollToComment = () => {
     block: 'start'
   })
 }
-const giscusConfig = useGiscusConfig()
+const giscusConfig = useGiscusConfig() as GiscusProps
 
-const commentConfig = computed<Partial<Theme.GiscusConfig>>(() => {
-  if (!giscusConfig) {
-    return {}
-  }
+const commentConfig = computed<GiscusProps>(() => {
   return giscusConfig
 })
 
@@ -104,9 +98,11 @@ watch(
   opacity: 0;
   pointer-events: none;
 }
+
 .comment-btn {
   :deep(.el-affix--fixed) {
     text-align: right;
+
     .comment-icon {
       position: absolute;
       width: 40px;
@@ -133,6 +129,7 @@ watch(
   .comment-btn {
     :deep(.el-affix--fixed) {
       opacity: 0.7;
+
       .el-button {
         position: static;
       }

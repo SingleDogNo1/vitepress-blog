@@ -1,5 +1,6 @@
 import type { ElButton } from 'element-plus'
 import type { DefaultTheme } from 'vitepress'
+import type { GiscusProps } from '@giscus/vue'
 
 export namespace BlogPopover {
   export interface Title {
@@ -76,17 +77,6 @@ export namespace Theme {
     type: string
   }
 
-  export interface GiscusConfig {
-    repo: string
-    repoId: string
-    category: string
-    categoryId: string
-    mapping?: string
-    inputPosition?: 'top' | 'bottom'
-    lang?: string
-    loading?: 'lazy' | 'auto' | 'eager'
-  }
-
   export interface HotArticle {
     title?: string
     pageSize?: number
@@ -135,32 +125,32 @@ export namespace Theme {
     title: string
     description: string
     time:
-      | string
-      | {
-          start: string
-          end?: string
-          lastupdate?: string
-        }
+    | string
+    | {
+      start: string
+      end?: string
+      lastupdate?: string
+    }
     status?: {
       text: string
       type?: 'tip' | 'warning' | 'danger'
     }
     url?: string
     github?:
-      | string
-      | {
-          owner: string
-          repo: string
-          branch?: string
-          path?: string
-        }
+    | string
+    | {
+      owner: string
+      repo: string
+      branch?: string
+      path?: string
+    }
     cover?:
-      | string
-      | string[]
-      | {
-          urls: string[]
-          layout?: 'swiper' | 'list'
-        }
+    | string
+    | string[]
+    | {
+      urls: string[]
+      layout?: 'swiper' | 'list'
+    }
     links?: {
       title: string
       url: string
@@ -187,7 +177,7 @@ export namespace Theme {
      * 配置评论
      * power by https://giscus.app/zh-CN
      */
-    comment?: GiscusConfig | false
+    comment?: GiscusProps | false
     /**
      * 阅读文章左侧的推荐文章（替代默认的sidebar）
      */

@@ -28,6 +28,7 @@
     "clean": "rm -rf node_modules && rm -rf node.js && rm -rf node.d.ts"
   },
   "dependencies": {
+    "@giscus/vue": "^3.1.1",
     "@mdit-vue/shared": "^1.0.0",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
     "@vue/shared": "^3.5.13",
