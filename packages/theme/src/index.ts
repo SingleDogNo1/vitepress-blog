@@ -26,4 +26,5 @@ export const BlogTheme: Theme = {
 
 export * from './composables/config/index'
 
+export { TimelinePage }
 export default BlogTheme

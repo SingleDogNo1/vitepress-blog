@@ -1,5 +1,6 @@
 ---
 description: 盘点一下css中没怎么使用过但确实实用的新功能
+sticky: 5
 tags: ['css']
 ---
 # css新功能

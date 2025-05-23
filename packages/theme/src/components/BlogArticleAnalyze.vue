@@ -1,23 +1,24 @@
 <template>
   <div class="doc-analyze" v-if="showAnalyze" data-pagefind-ignore="all">
     <span>
-      <el-icon><EditPen /></el-icon>
+      <el-icon>
+        <EditPen />
+      </el-icon>
       字数：{{ wordCount }} 个字
     </span>
     <span>
-      <el-icon><AlarmClock /></el-icon>
+      <el-icon>
+        <AlarmClock />
+      </el-icon>
       预计：{{ readTime }} 分钟
     </span>
   </div>
   <div class="meta-des" ref="$des" id="hack-article-des">
     <span v-if="author && !hiddenAuthor" class="author">
-      <el-icon title="本文作者"><UserFilled /></el-icon>
-      <a
-        class="link"
-        :href="currentAuthorInfo.url"
-        :title="currentAuthorInfo.des"
-        v-if="currentAuthorInfo"
-      >
+      <el-icon title="本文作者">
+        <UserFilled />
+      </el-icon>
+      <a class="link" :href="currentAuthorInfo.url" :title="currentAuthorInfo.des" v-if="currentAuthorInfo">
         {{ currentAuthorInfo.nickname }}
       </a>
       <template v-else>
@@ -25,11 +26,15 @@
       </template>
     </span>
     <span v-if="publishDate && !hiddenTime" class="publishDate">
-      <el-icon :title="timeTitle"><Clock /></el-icon>
+      <el-icon :title="timeTitle">
+        <Clock />
+      </el-icon>
       {{ publishDate }}
     </span>
     <span v-if="tags.length" class="tags">
-      <el-icon :title="timeTitle"><CollectionTag /></el-icon>
+      <el-icon :title="timeTitle">
+        <CollectionTag />
+      </el-icon>
       <a class="link" :href="`/?tag=${tag}`" v-for="tag in tags" :key="tag">{{ tag }}</a>
     </span>
     <!-- 封面展示 -->
@@ -64,7 +69,11 @@ const tags = computed(() => {
     )
   ]
 })
-const showAnalyze = computed(() => frontmatter.value?.readingTime ?? article?.readingTime ?? true)
+const showAnalyze = computed(() => {
+  const haveReadingTime = frontmatter.value?.readingTime ?? article?.readingTime ?? true
+  const isSpecialPage = ['timeline'].includes(frontmatter.value?.page)
+  return haveReadingTime && !isSpecialPage
+})
 
 const wordCount = ref(0)
 const imageCount = ref(0)
@@ -142,15 +151,18 @@ const hiddenAuthor = computed(() => frontmatter.value.author === false)
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
+
   span {
     margin-right: 16px;
     display: flex;
     align-items: center;
+
     .el-icon {
       margin-right: 4px;
     }
   }
 }
+
 .meta-des {
   text-align: left;
   color: var(--vp-c-text-2);
@@ -158,10 +170,12 @@ const hiddenAuthor = computed(() => frontmatter.value.author === false)
   margin-top: 6px;
   display: flex;
   flex-wrap: wrap;
+
   span {
     margin-right: 16px;
     display: flex;
     align-items: center;
+
     .el-icon {
       margin-right: 4px;
     }
@@ -169,12 +183,14 @@ const hiddenAuthor = computed(() => frontmatter.value.author === false)
 
   .link {
     color: var(--vp-c-text-2);
+
     &:hover {
       color: var(--vp-c-brand);
       cursor: pointer;
     }
   }
 }
+
 .tags {
   a.link:not(:last-child) {
     &::after {

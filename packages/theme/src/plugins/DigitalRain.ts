@@ -29,6 +29,8 @@ export class DigitalPaRain {
 
   private drops: number[]
 
+  private animation: NodeJS.Timeout | undefined
+
   constructor(options: {
     el: HTMLCanvasElement
     bgColor: string
@@ -54,6 +56,7 @@ export class DigitalPaRain {
     this.columns = Math.floor(this.W / this.fontSize)
     this.lines = Math.floor(this.H / this.fontSize)
     this.drops = []
+    this.animation = undefined
     this.run()
   }
 
@@ -95,12 +98,22 @@ export class DigitalPaRain {
     for (let i = 0; i < this.columns; i += 1) {
       this.drops.push(Math.floor(Math.random() * this.lines))
     }
-    setInterval(() => {
+    this.animation = setInterval(() => {
       this.draw(this.str, this.bgColor)
     }, 60)
 
     // TODO: requestAnimationFrame运动过快，视觉效果不好，如何使用requestAnimationFrame优化
     // this.draw(this.str, this.bgColor)
     // requestAnimationFrame(this.run.bind(this))
+  }
+
+  destroy() {
+    if (this.canvas) {
+      if (this.animation) {
+        clearInterval(this.animation)
+        this.animation = undefined
+        this.ctx.clearRect(0, 0, this.W, this.H)
+      }
+    }
   }
 }

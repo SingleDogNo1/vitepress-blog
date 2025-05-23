@@ -70,6 +70,10 @@ export default defineConfig({
     },
     nav: [
       {
+        text: '归档',
+        link: '/timeline'
+      },
+      {
         text: '关于我',
         link: '/aboutme'
       }

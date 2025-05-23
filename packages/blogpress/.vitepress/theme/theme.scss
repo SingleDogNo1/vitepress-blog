@@ -2,3 +2,20 @@
   display: flex;
   justify-content: center;
 }
+
+@media (min-width: 1440px) {
+  .timeline-page .VPDoc:not(.has-sidebar) .container[data-v-55e09e32] {
+      max-width: 1440px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .timeline-page .VPDoc:not(.has-sidebar) .content {
+    max-width: 1440px;
+  }
+}
+
+body {
+  --timeline-color: rgba(30, 30, 30);
+  --timeline-bgColor: rgba(245, 245, 245);
+}
