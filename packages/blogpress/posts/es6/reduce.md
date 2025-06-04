@@ -1,9 +1,8 @@
 ---
 description: reduce 方法详解 && 示例
-sticky: 3
-tags: ['javascript']
+hidden: true
+tags: ['ES6', 'javascript']
 ---
-# Array.reduce
 
 ## 概念
 
