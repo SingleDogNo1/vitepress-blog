@@ -3,13 +3,12 @@
 import type { UserConfig } from 'vitepress'
 import type { Theme } from './composables/config/index'
 import {
-  getMarkdownPlugins,
-  registerMdPlugins,
   wrapperCfgWithMermaid,
   supportRunExtendsPlugin
 } from './utils/node/mdPlugins'
 import { getArticles, patchVPThemeConfig } from './utils/node/theme'
 import { getVitePlugins, registerVitePlugins } from './utils/node/vitePlugins'
+import { withMermaid } from '@singledog/vitepress-plugin-mermaid'
 
 /**
  * 获取主题的配置
@@ -24,11 +23,6 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
   const vitePlugins = getVitePlugins()
   // 注册Vite插件
   registerVitePlugins(extraVPConfig, vitePlugins)
-
-  // 获取要加载的markdown插件
-  const markdownPlugin = getMarkdownPlugins(cfg)
-  // 注册markdown插件
-  registerMdPlugins(extraVPConfig, markdownPlugin)
 
   return {
     themeConfig: {
@@ -49,5 +43,5 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
 export function defineConfig(config: UserConfig<Theme.Config>): any {
   const resultConfig = wrapperCfgWithMermaid(config)
   supportRunExtendsPlugin(resultConfig)
-  return resultConfig
+  return withMermaid(resultConfig)
 }

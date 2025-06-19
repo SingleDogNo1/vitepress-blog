@@ -31,6 +31,7 @@
     "@giscus/vue": "^3.1.1",
     "@mdit-vue/shared": "^1.0.0",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "@singledog/vitepress-plugin-mermaid": "workspace:",
     "@vue/shared": "^3.5.13",
     "dayjs": "^1.11.13",
     "fast-glob": "^3.3.2",
@@ -39,8 +40,7 @@
     "highlight.js": "^11.10.0",
     "lodash-es": "^4.17.21",
     "mermaid": "^10.5.0",
-    "typed.js": "^2.1.0",
-    "vitepress-plugin-mermaid": "2.0.13"
+    "typed.js": "^2.1.0"
   },
   "devDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
