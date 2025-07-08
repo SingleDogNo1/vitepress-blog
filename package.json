@@ -37,6 +37,6 @@
   "author": "singleDogNo.1",
   "license": "MIT",
   "volta": {
-    "node": "18.16.1"
+    "node": "20.19.3"
   }
 }

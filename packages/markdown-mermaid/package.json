@@ -43,5 +43,8 @@
     "vite-plugin-dts": "^3.0.3",
     "vite-plugin-static-copy": "^0.13.1",
     "vitepress": "^1.6.3"
+  },
+  "volta": {
+    "node": "20.19.3"
   }
 }

@@ -18,4 +18,9 @@ export default defineConfig({
       }
     }
   },
+  build: {
+    rollupOptions: {
+      external: ['@singledog/vitepress-plugin-mermaid']
+    }
+  }
 })
