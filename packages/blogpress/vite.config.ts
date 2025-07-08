@@ -20,7 +20,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['@singledog/vitepress-plugin-mermaid']
+      external: ['@singledog/vitepress-plugin-mermaid/Mermaid.vue']
     }
   }
 })
