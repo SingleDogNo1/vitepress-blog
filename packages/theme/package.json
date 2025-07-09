@@ -31,7 +31,6 @@
     "@giscus/vue": "^3.1.1",
     "@mdit-vue/shared": "^1.0.0",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
-    "@singledog/vitepress-plugin-mermaid": "workspace:",
     "@vue/shared": "^3.5.13",
     "dayjs": "^1.11.13",
     "fast-glob": "^3.3.2",

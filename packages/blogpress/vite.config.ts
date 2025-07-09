@@ -17,10 +17,5 @@ export default defineConfig({
         api: 'modern-compiler'
       }
     }
-  },
-  build: {
-    rollupOptions: {
-      external: ['@singledog/vitepress-plugin-mermaid/Mermaid.vue']
-    }
   }
 })

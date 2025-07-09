@@ -8,7 +8,6 @@ import {
 } from './utils/node/mdPlugins'
 import { getArticles, patchVPThemeConfig } from './utils/node/theme'
 import { getVitePlugins, registerVitePlugins } from './utils/node/vitePlugins'
-import { withMermaid } from '@singledog/vitepress-plugin-mermaid'
 
 /**
  * 获取主题的配置
@@ -43,5 +42,5 @@ export function getThemeConfig(cfg?: Partial<Theme.BlogConfig>) {
 export function defineConfig(config: UserConfig<Theme.Config>): any {
   const resultConfig = wrapperCfgWithMermaid(config)
   supportRunExtendsPlugin(resultConfig)
-  return withMermaid(resultConfig)
+  return (resultConfig)
 }

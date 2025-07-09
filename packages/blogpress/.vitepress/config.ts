@@ -1,5 +1,6 @@
 import { VueReplMdPlugin } from '@singledog/vue-preview-plugin'
 import { getThemeConfig, defineConfig } from '@singledog/theme/node'
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // 博客部署地址
 const baseUrl = 'https://zcm-blog.vercel.app/'
@@ -31,7 +32,7 @@ const blogTheme = getThemeConfig({
   ]
 })
 
-export default defineConfig({
+const config = defineConfig({
   extends: blogTheme,
   ignoreDeadLinks: true,
   lang: 'zh-cn',
@@ -87,4 +88,10 @@ export default defineConfig({
     // 'posts/:pkg.md': ':pkg/index.md',
     // 'posts/:pkg/(.*)': ':pkg/(.*)'
   }
+})
+
+
+export default withMermaid({
+  ...config,
+  mermaid: {},
 })
